@@ -1,0 +1,40 @@
+﻿@model MyArticles.Models.Article
+
+<h4>Keywords</h4>
+<hr />
+<div class="container">
+    @Html.ActionLink(" ", "KeywordCreate", new { id = Model.ArticleId }, new { @class = "left btn btn-default glyphicon glyphicon-pencil" })
+    <table class="table table-bordered text-center">
+        <tr>
+            <th class="col-xs-10 active">
+                @Html.DisplayName("Content")
+            </th>
+            <th class="col-xs-2"></th>
+        </tr>
+        @foreach (var item in Model.Keywords)
+        {
+            using (Html.BeginForm("KeywordEdit", "Admin", FormMethod.Post))
+            {
+                int KeywordId = item.KeywordId;
+                int ArticleId = item.ArticleId;
+                string Content = item.Content;
+                @Html.HiddenFor(model => KeywordId)
+                @Html.HiddenFor(model => ArticleId)
+                <tr>
+                    <td>
+                        @Html.EditorFor(model => Content, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.AntiForgeryToken()
+                        <button type="submit" name="submit" value="Save" class="btn btn-default" >
+                            <i class="glyphicon glyphicon-save"></i>
+                        </button>
+                        <button type="submit" name="submit" value="Delete" class="btn btn-default" >
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

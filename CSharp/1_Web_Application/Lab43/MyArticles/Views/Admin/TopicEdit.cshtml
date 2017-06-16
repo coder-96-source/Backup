@@ -1,0 +1,77 @@
+﻿@model MyArticles.Models.Topic
+
+@{
+    ViewBag.Title = "TopicEdit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="popover-title">
+    <h2>Edit Topic</h2>
+    @Html.ActionLink("Back to List", "TopicIndex")
+</div>
+@using (Html.BeginForm("TopicEdit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary()
+        @Html.HiddenFor(model => model.TopicId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div style="position:relative;">
+                    <a class='btn' href='javascript' ;'>
+                        Choose File...
+                        <input type="file" name="Image" size="40"
+                               style="position:absolute;z-index:2;top:0;
+                                left:0;filter: alpha(opacity=0); opacity:0;
+                                background-color:transparent;color:transparent;"
+                               onchange='$("#upload-file-info").html($(this).val());'>
+                    </a>
+                    <span class='label label-info' id="upload-file-info"></span>
+                </div>
+                @if (Model.Picture == null)
+                {
+                    <div class="form-control-static">No Image</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="150" height="150"
+                         src="@Url.Action("GetImage", new { id = Model.TopicId })" />
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" name="submit" value="Save" class="btn btn-default">
+                    <i class="glyphicon glyphicon-save"></i>
+                </button>
+                <button type="submit" name="submit" value="Delete" class="btn btn-default">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+                @if (ViewBag.Message != null) //HasArticle
+                {
+                    <script type="text/javascript">
+                        window.onload = function ()
+                        {
+                            alert("@ViewBag.Message");
+                        };
+                    </script>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

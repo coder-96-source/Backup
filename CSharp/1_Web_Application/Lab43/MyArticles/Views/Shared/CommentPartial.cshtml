@@ -1,0 +1,100 @@
+﻿@model MyArticles.Models.Article
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<h4>Comments</h4>
+<hr />
+<div class="container">
+    @if (!this.Context.Request.IsAuthenticated)
+    {
+        @*Admin mode // able to post comment*@
+        @Html.ActionLink(" ", "CommentCreate", new { id = Model.ArticleId }, new { @class = "left btn btn-default glyphicon glyphicon-pencil" })
+    }
+    <table class="table table-bordered text-center">
+        <tr>
+            <th class="col-xs-7 active text-center">
+                @Html.DisplayName("Content")
+            </th>
+            <th class="col-xs-3 active text-center">
+                @Html.DisplayName("PostTime")
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Comments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PostTime)
+                </td>
+                <td>
+                    @*- launchmodal 클래스 추가: 아래 $(document).on("click"...) 에서 사용
+                    - data-id 추가 : modal dialog로 파라미터 전달하기 위해. see $(document).on("click"...) *@
+
+                    @if (this.Context.Request.IsAuthenticated)
+                    {
+                        @*Admin mode // Password not required*@
+                        @Html.ActionLink(" ", "CommentDelete", new { id = item.CommentId }, new { @class = "btn btn-default glyphicon glyphicon-trash" })
+                    }
+                    else
+                    {
+                        @*User mode // Password required*@
+                        <button type="button" class="btn btn-default glyphicon glyphicon-trash launchmodal" data-id="@item.CommentId" data-toggle="modal" data-target="#myModal"></button>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Comment</h4>
+            </div>
+            <div class="modal-body">
+                <p>Please enter password.</p>
+                @*hidden 추가*@
+                <input type="hidden" id="cid" value="" />
+                <input type="password" id="pwd" value="" />
+            </div>
+            <div class="modal-footer">
+                <button id="deleteButton" type="submit" name="submit" class="btn btn-default" onclick="afterClick()">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+                <button type="button" class="btn btn-default glyphicon glyphicon-remove-sign" data-dismiss="modal"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //dialog hidden에 data-id 전달
+    $(document).on("click", ".launchmodal", function () {
+        var commentId = $(this).data('id');
+        $(".modal-body #cid").val(commentId);
+    });
+
+    function afterClick() {
+        // cid, pwd 를 합쳐 data 로 전달
+        var cid = $('#cid').val();
+        var pwd = $('#pwd').val();
+        $.ajax({
+            url: '@Url.Action("CommentDelete")',
+            dataType: "json",
+            type: "POST",
+            data: { "commentId": cid, "password": pwd },
+            success: function (message) {
+                alert(message);
+                window.location.reload();
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        })
+    }
+</script>
