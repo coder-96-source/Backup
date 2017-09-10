@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PG3_BubbleSort.Company
+namespace PG3_InsertionSort.Company
 {
     public class Employee : IComparable<Employee>
-    {   
+    {
         public Employee(int id, int age, decimal salary)
         {
             this.Id = id;
@@ -22,22 +22,6 @@ namespace PG3_BubbleSort.Company
         public int CompareTo(Employee other)
         {
             return Id.CompareTo(other.Id);
-        }
-    }
-
-    public class SalaryAscendComparer : IComparer<Employee>
-    {
-        public int Compare(Employee x, Employee y)
-        {
-            return x.Salary.CompareTo(y.Salary);
-        }
-    }
-
-    public static class EmployeeComparison
-    {
-        public static int AgeAscendComparison(Employee x, Employee y)
-        {
-            return x.Age.CompareTo(y.Age);
         }
     }
 }
