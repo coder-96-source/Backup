@@ -25,4 +25,20 @@ namespace PG3_BubbleSort.Company
             return Id.CompareTo(other.Id);
         }
     }
+
+    public class SalaryAscendComparer : IComparer<Employee>
+    {
+        public int Compare(Employee x, Employee y)
+        {
+            return x.Salary.CompareTo(y.Salary);
+        }
+    }
+
+    public static class EmployeeComparison
+    {
+        public static int AgeAscendComparison(Employee x, Employee y)
+        {
+            return x.Age.CompareTo(y.Age);
+        }
+    }
 }

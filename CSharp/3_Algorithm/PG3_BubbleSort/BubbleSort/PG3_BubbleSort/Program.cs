@@ -17,12 +17,34 @@ namespace PG3_BubbleSort
 
         private static void Run()
         {
-            var employeeList = GenerateEmployees();
-            //var employeeList = GernerateEmployeesReverse();
+            //RunIComparable();
+            //RunIComparer();
+            RunComparison();
+        }
 
+        private static void RunIComparable()
+        {
+            var employeeList = GenerateEmployees();
             ShowEmployees(employeeList); // before sort
 
             BubbleSorter.BubbleSort(employeeList);
+            ShowEmployees(employeeList); // after sort
+        }
+        private static void RunIComparer()
+        {
+            var employeeList = GenerateEmployees();
+            ShowEmployees(employeeList); // before sort
+
+            var sac = new SalaryAscendComparer();
+            BubbleSorter.BubbleSort(employeeList, sac);
+            ShowEmployees(employeeList); // after sort
+        }
+        private static void RunComparison()
+        {
+            var employeeList = GenerateEmployees();
+            ShowEmployees(employeeList); // before sort
+
+            BubbleSorter.BubbleSort(employeeList, EmployeeComparison.AgeAscendComparison);
             ShowEmployees(employeeList); // after sort
         }
 
@@ -37,20 +59,6 @@ namespace PG3_BubbleSort
                 int age = Math.Abs(-i + 5);
                 int salary = (10 * i * i * i * i * i + 100) % 13;
 
-                employeeList.Add(new Employee(id, age, salary));
-            }
-            return employeeList;
-        }
-        private static List<Employee> GernerateEmployeesReverse()
-        {
-            int employeeNumber = 10;
-            var employeeList = new List<Employee>();
-
-            for (int i = employeeNumber; i > 0; i--)
-            {
-                int id = i;
-                int age = Math.Abs(-i + 5);
-                int salary = (10 * i * i * i * i * i + 100) % 13;
                 employeeList.Add(new Employee(id, age, salary));
             }
             return employeeList;
