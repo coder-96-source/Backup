@@ -1,0 +1,32 @@
+﻿@model MyArticles.Models.Article
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h2><strong>@Model.Title</strong></h2>
+    </div>
+    <div class="row content">
+        <div class="table-bordered hidden-xs col-md-3">
+            <div class="list-group">
+                <h4 class="list-group-item-heading">Keywords</h4>
+                @foreach (var item in Model.Keywords)
+                {
+                    <ul class="list-group-item-text">
+                        <li>@item.Content</li>
+                    </ul><br>
+                }
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <p class="text-left">
+                @Html.ActionLink("Back to List", "Index", new { id = Model.TopicId }, new { @class = "btn btn-default" })
+            </p>
+            <hr>
+            <h5><span class="glyphicon glyphicon-time"></span> @Model.PostTime</h5>
+            <h5><span class="label label-primary"></span></h5><br>
+            @Html.Raw(Model.Content)
+            <br><br>
+            @Html.Partial("CommentPartial", Model)
+        </div>
+    </div>
+</div>
