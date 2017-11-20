@@ -8,6 +8,7 @@ namespace Recursive_Digit_Sum
 {
     internal class Program
     {
+        // https://www.hackerrank.com/challenges/recursive-digit-sum/problem
         private static void Main(String[] args)
         {
             string[] tokens_n = Console.ReadLine().Split(' ');
