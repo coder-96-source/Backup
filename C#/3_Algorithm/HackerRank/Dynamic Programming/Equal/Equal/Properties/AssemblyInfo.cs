@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("The Full Counting Sort")]
+[assembly: AssemblyTitle("Equal")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("The Full Counting Sort")]
+[assembly: AssemblyProduct("Equal")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("96cf4a13-3ee9-4e78-adf2-3c11170bb59d")]
+[assembly: Guid("b2243279-96f7-4fd0-9b25-15dfac59972f")]
 
 // Version information for an assembly consists of the following four values:
 //

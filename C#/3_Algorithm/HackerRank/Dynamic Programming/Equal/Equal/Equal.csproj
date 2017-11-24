@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{96CF4A13-3EE9-4E78-ADF2-3C11170BB59D}</ProjectGuid>
+    <ProjectGuid>{B2243279-96F7-4FD0-9B25-15DFAC59972F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>The_Full_Counting_Sort</RootNamespace>
-    <AssemblyName>The Full Counting Sort</AssemblyName>
+    <RootNamespace>Equal</RootNamespace>
+    <AssemblyName>Equal</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
