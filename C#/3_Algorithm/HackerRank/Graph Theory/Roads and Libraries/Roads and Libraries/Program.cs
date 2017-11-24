@@ -31,7 +31,7 @@ namespace Roads_and_Libraries
 
                     hcl.AddRoad(hcl._cites[city_1 - 1], hcl._cites[city_2 - 1]); // add cities as index number
                 }
-                hcl.Run();
+                hcl.DFS();
                 long cost = n * x < (hcl.RoadCount * y) + (hcl.CityCount * x) 
                     ? n * x // city * library
                     : (hcl.RoadCount * y) + (hcl.CityCount * x); // city * library + road * disconnected cities
@@ -84,44 +84,12 @@ namespace Roads_and_Libraries
                 cityB.AdjList.Add(cityA); // cityA <- cityB
             }
 
-            public void Run()
+            public void DFS()
             {
-                BFS();
-                ResetFlag();
-                DFS();
-            }
-
-            private void BFS()
-            {
-                var queue = new Queue<City>();
-
                 foreach (var c in this.Cities)
                 {
                     if (!c.VisitFlag)
                         this.CityCount++;
-                    c.VisitFlag = true;
-                    queue.Enqueue(c);
-
-                    while (queue.Count != 0)
-                    {
-                        var tempC = queue.Dequeue(); // Visit
-
-                        foreach (var adjC in tempC.AdjList)
-                        {
-                            if (!adjC.VisitFlag)
-                            {
-                                adjC.VisitFlag = true;
-                                queue.Enqueue(adjC);
-                            }
-                        }
-                    }
-                }
-            }
-
-            private void DFS()
-            {
-                foreach (var c in this.Cities)
-                {
                     RecursiveDFS(c);
                 }
             }
