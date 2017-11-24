@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,35 +18,30 @@ namespace Big_Sorting
                 unsorted[unsorted_i] = Console.ReadLine();
             }
 
-            // Bubble Sort
-            int endIndex = unsorted.Count() - 1;
-            bool flag = true;
+            Array.Sort(unsorted, new StringNumberComparer());
 
-            for (int i = 0; i < unsorted.Count() - 1; i++) // do as much as n-1
-            {
-                while (flag) // to avoid unnecessary loop
-                {
-                    flag = false; // set flag as false to escape loop
-
-                    for (int j = 0; j < endIndex; j++)
-                    {
-                        var front = Convert.ToInt64(unsorted[j]);
-                        var back = Convert.ToInt64(unsorted[j + 1]);
-                        if (front.CompareTo(back) > 0)
-                        {
-                            // Swap
-                            var temp = unsorted[j];
-                            unsorted[j] = unsorted[j + 1];
-                            unsorted[j + 1] = temp;
-                            flag = true; // set flag as true to keep looping
-                        }
-                    }
-                    endIndex--;
-                }
-            }
             foreach (var s in unsorted)
             {
                 Console.WriteLine(s);
+            }
+        }
+
+        internal class StringNumberComparer : IComparer<string>
+        {
+            public int Compare(string x, string y)
+            {
+                if (x.Length != y.Length) // different number case
+                    return x.Length - y.Length;
+
+                // same length case
+                for (int i = 0; i < x.Length; i++) // digit comparison
+                {
+                    char left = x[i];
+                    char right = y[i];
+                    if (left != right)
+                        return left - right;
+                }
+                return 0; // same number case
             }
         }
     }
