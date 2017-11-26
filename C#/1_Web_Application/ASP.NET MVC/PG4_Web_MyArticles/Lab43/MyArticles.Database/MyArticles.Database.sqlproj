@@ -63,7 +63,6 @@
     <Folder Include="dbo\Views" />
     <Folder Include="dbo\Tables\Articles" />
     <Folder Include="dbo\Tables\Users" />
-    <Folder Include="dbo\SampleData" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Articles\Article.sql" />
@@ -71,8 +70,8 @@
     <Build Include="dbo\Tables\Articles\Keyword.sql" />
     <Build Include="dbo\Tables\Users\Account.sql" />
     <Build Include="dbo\Tables\Articles\Topic.sql" />
-    <Build Include="dbo\SampleData\SampleDataScript.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Build>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MyArticles.Database.publish.xml" />
   </ItemGroup>
 </Project>
