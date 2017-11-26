@@ -7,7 +7,7 @@
 GO
 
 CREATE INDEX KIndex
-ON Keyword (ArticleID)
+ON Keyword (ArticleId)
 GO
 
 ALTER TABLE Keyword
