@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[SP_BackupArticleClear]
+﻿-- Input Parameter @PostDate
+CREATE PROCEDURE [dbo].[SP_BackupArticleClear]
 	@param1 int = 0,
 	@param2 int
 AS

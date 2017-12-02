@@ -11,5 +11,12 @@
 );
 GO
 
---Trigger Needed
---backup on delete
+CREATE TRIGGER trg_backupTopic ON Topic
+INSTEAD OF DELETE
+AS
+BEGIN
+	INSERT INTO Backup_Topic 
+	SELECT * 
+	FROM DELETED
+END
+GO

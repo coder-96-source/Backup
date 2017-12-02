@@ -15,5 +15,13 @@ ADD CONSTRAINT FK_Article_Keyword_CAS
 FOREIGN KEY (ArticleId) REFERENCES Article(ArticleId) ON DELETE CASCADE
 GO
 
---Trigger
---backup on delete
+--Backup
+CREATE TRIGGER trg_backupTag ON Tag
+INSTEAD OF DELETE
+AS
+BEGIN
+	INSERT INTO Backup_Tag 
+	SELECT * 
+	FROM DELETED
+END
+GO
