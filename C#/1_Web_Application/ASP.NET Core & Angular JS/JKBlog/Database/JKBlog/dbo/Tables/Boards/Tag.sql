@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Tag]
 (
-	[TagId] INT NOT NULL PRIMARY KEY,
+	[TagId] INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
 	[ArticleId] INT,
 	[Content] NVARCHAR(100)
 )

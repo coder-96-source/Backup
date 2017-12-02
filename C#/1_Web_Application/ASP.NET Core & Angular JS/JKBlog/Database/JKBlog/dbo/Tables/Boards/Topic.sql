@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Topic]
 (
-	[TopicId] INT NOT NULL PRIMARY KEY,
+	[TopicId] INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
 	[Title] NVARCHAR(20) NOT NULL,
 	[Description] NVarChar(200) Null,
 	[Picture] VARBINARY(MAX),
