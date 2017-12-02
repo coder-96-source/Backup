@@ -1,16 +1,16 @@
-﻿CREATE TABLE [dbo].[Keyword]
+﻿CREATE TABLE [dbo].[Tag]
 (
-	[KeywordId] INT NOT NULL PRIMARY KEY,
+	[TagId] INT NOT NULL PRIMARY KEY,
 	[ArticleId] INT,
 	[Content] NVARCHAR(100)
 )
 GO
 
-CREATE INDEX KIndex
-ON Keyword (ArticleId)
+CREATE INDEX TIndex
+ON Tag (ArticleId)
 GO
 
-ALTER TABLE Keyword
+ALTER TABLE Tag
 ADD CONSTRAINT FK_Article_Keyword_CAS
 FOREIGN KEY (ArticleId) REFERENCES Article(ArticleId) ON DELETE CASCADE
 GO
