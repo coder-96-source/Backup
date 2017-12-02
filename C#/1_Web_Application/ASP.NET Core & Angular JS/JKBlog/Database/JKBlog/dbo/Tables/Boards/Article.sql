@@ -23,17 +23,17 @@ CREATE TRIGGER trg_ShortenContent ON Article
 AFTER INSERT, UPDATE
 AS
 BEGIN
-	DECLARE @shortenContent NVARCHAR(MAX)
+	DECLARE @content NVARCHAR(MAX)
 	DECLARE @startIndex INT
 	DECLARE @endIndex INT
 
-	SET @startIndex = 0
-	SET @endIndex = LEN(INSERTED.Content) % 49
-	
-	SELECT @shortenContent = INSERTED.Content
+	SELECT @content = INSERTED.Content
 	FROM INSERTED
 
-	UPDATE Article SET ContentDisplay = SUBSTRING(@shortenContent, @startIndex, @endIndex) 
+	SET @startIndex = 0
+	SET @endIndex = LEN(@content) % 49
+
+	UPDATE Article SET ContentDisplay = SUBSTRING(@content, @startIndex, @endIndex) 
 END
 GO
 
