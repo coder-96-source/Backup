@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[SP_BackupTopicClear]
-	@param1 int = 0,
-	@param2 int
 AS
-	SELECT @param1, @param2
-RETURN 0
+	DELETE Backup_Topic
+	WHERE DATEDIFF(dd, ModifyDate, GETDATE()) > 30
+GO

@@ -1,7 +1,5 @@
-﻿-- Input Parameter @PostDate
-CREATE PROCEDURE [dbo].[SP_BackupArticleClear]
-	@param1 int = 0,
-	@param2 int
+﻿CREATE PROCEDURE [dbo].[SP_BackupArticleClear]
 AS
-	SELECT @param1, @param2
-RETURN 0
+	DELETE Backup_Article
+	WHERE DATEDIFF(dd, ModifyDate, GETDATE()) > 30
+GO

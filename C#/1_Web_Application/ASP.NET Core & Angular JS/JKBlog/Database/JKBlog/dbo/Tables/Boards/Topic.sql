@@ -11,6 +11,7 @@
 );
 GO
 
+--backup
 CREATE TRIGGER trg_backupTopic ON Topic
 INSTEAD OF DELETE
 AS
