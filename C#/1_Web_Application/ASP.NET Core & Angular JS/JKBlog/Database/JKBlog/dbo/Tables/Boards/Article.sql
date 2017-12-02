@@ -4,10 +4,10 @@
 	[TopicId] INT FOREIGN KEY REFERENCES Topic(TopicId),
 	[Title] NVARCHAR(100) NOT NULL,
 	[Content] NVARCHAR(MAX) NOT NULL,
-	[ContentDisplay] NVARCHAR(50) NOT NULL,
+	[ContentDisplay] NVARCHAR(50) NULL,
 	[Category] NVARCHAR(10) DEFAULT('Free') NULL, -- Category, inside of topic
 	[PostDate] DATETIME DEFAULT GETDATE(),
-	[ModifyDate] DATETIME NULL,
+	[ModifyDate] DATETIME DEFAULT GETDATE(),
 	[ReadCount] INT DEFAULT 0,
     [CommentCount] INT DEFAULT 0,
 	[ShowFlag] BIT NOT NULL
@@ -18,11 +18,11 @@ CREATE INDEX AIndex
 ON Article (TopicId)
 GO
 
---Shorten Content to ContentDisplay
-CREATE TRIGGER trg_ShortenContent ON Article
+CREATE TRIGGER trg_UpdateArticle ON Article
 AFTER INSERT, UPDATE
 AS
 BEGIN
+	--Update ContentDisplay
 	DECLARE @content NVARCHAR(MAX)
 	DECLARE @startIndex INT
 	DECLARE @endIndex INT
@@ -34,23 +34,19 @@ BEGIN
 	SET @endIndex = LEN(@content) % 49
 
 	UPDATE Article SET ContentDisplay = SUBSTRING(@content, @startIndex, @endIndex) 
-END
-GO
 
---Update ModifyDate
-CREATE TRIGGER trg_UpdateArticleModifyDate ON Article
-AFTER UPDATE
-AS
-BEGIN
+	-- Update ModifyDate
 	UPDATE Article SET ModifyDate = GETDATE()
 END
 GO
 
 --Backup
-CREATE TRIGGER trg_backupArticle ON Article
-INSTEAD OF DELETE
+CREATE TRIGGER trg_BackupArticle ON Article
+AFTER DELETE
 AS
 BEGIN
+	UPDATE Article SET ModifyDate = GETDATE()
+
 	INSERT INTO Backup_Article 
 	SELECT * 
 	FROM DELETED

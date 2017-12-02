@@ -84,5 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="dbo\Tables\Users\UserLogs.sql" />
+    <None Include="dbo\InsertDummy.sql" />
   </ItemGroup>
 </Project>

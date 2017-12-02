@@ -6,7 +6,7 @@
 	[Picture] VARBINARY(MAX),
 	[PictureMimeType] VARCHAR(50),
 	[PostDate] DATETIME DEFAULT GETDATE(),
-	[ModifyDate] DATETIME Null,
+	[ModifyDate] DATETIME DEFAULT GETDATE(),
 	[ShowFlag] BIT NOT NULL
 );
 GO
@@ -21,10 +21,12 @@ END
 GO
 
 --backup
-CREATE TRIGGER trg_backupTopic ON Topic
-INSTEAD OF DELETE
+CREATE TRIGGER trg_BackupTopic ON Topic
+AFTER DELETE
 AS
 BEGIN
+	UPDATE Topic SET ModifyDate = GETDATE()
+	
 	INSERT INTO Backup_Topic 
 	SELECT * 
 	FROM DELETED
