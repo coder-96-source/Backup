@@ -80,7 +80,7 @@
     <Build Include="dbo\Tables\Advertisement.sql" />
     <Build Include="dbo\Tables\Technology.sql" />
     <Build Include="dbo\Tables\Backups\Backup_Article.sql" />
-    <Build Include="dbo\Tables\Backups\Backup_Keyword.sql" />
+    <Build Include="dbo\Tables\Backups\Backup_Tag.sql" />
     <Build Include="dbo\Tables\Backups\Backup_Topic.sql" />
   </ItemGroup>
   <ItemGroup>
