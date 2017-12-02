@@ -11,6 +11,15 @@
 );
 GO
 
+--Update ModifyDate
+CREATE TRIGGER trg_UpdateTopicModifyDate ON Topic
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Topic SET ModifyDate = GETDATE()
+END
+GO
+
 --backup
 CREATE TRIGGER trg_backupTopic ON Topic
 INSTEAD OF DELETE

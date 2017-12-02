@@ -24,11 +24,25 @@ AFTER INSERT, UPDATE
 AS
 BEGIN
 	DECLARE @shortenContent NVARCHAR(MAX)
+	DECLARE @startIndex INT
+	DECLARE @endIndex INT
+
+	SET @startIndex = 0
+	SET @endIndex = LEN(INSERTED.Content) % 49
 	
 	SELECT @shortenContent = INSERTED.Content
 	FROM INSERTED
 
-	UPDATE Article SET ContentDisplay = SUBSTRING(@shortenContent, 0, 49) 
+	UPDATE Article SET ContentDisplay = SUBSTRING(@shortenContent, @startIndex, @endIndex) 
+END
+GO
+
+--Update ModifyDate
+CREATE TRIGGER trg_UpdateArticleModifyDate ON Article
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Article SET ModifyDate = GETDATE()
 END
 GO
 
