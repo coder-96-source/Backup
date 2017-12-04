@@ -1,0 +1,18 @@
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "JKBlog Home";
+}
+
+@*<app asp-prerender-module="ClientApp/dist/main-server">Loading...</app>*@
+<app>
+    <div class="text-center">
+        <h1>
+            App is Loading...
+        </h1>
+    </div>
+</app>
+
+<script src="~/dist/vendor.js" asp-append-version="true"></script>
+@section scripts {
+    <script src="~/dist/main-client.js" asp-append-version="true"></script>
+}
