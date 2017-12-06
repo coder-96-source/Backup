@@ -10,7 +10,7 @@
 	[ModifyDate] DATETIME DEFAULT GETDATE(),
 	[ReadCount] INT DEFAULT 0,
     [CommentCount] INT DEFAULT 0,
-	[ShowFlag] BIT NOT NULL
+	[ShowFlag] BIT NOT NULL DEFAULT 1
 );
 GO
 

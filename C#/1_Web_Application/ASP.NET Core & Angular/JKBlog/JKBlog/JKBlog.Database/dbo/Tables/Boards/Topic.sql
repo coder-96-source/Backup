@@ -7,7 +7,7 @@
 	[PictureMimeType] VARCHAR(50),
 	[PostDate] DATETIME DEFAULT GETDATE(),
 	[ModifyDate] DATETIME DEFAULT GETDATE(),
-	[ShowFlag] BIT NOT NULL
+	[ShowFlag] BIT NOT NULL DEFAULT 1
 );
 GO
 
