@@ -24,13 +24,13 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\components\about\about.component.ts" />
-    <None Remove="ClientApp\app\components\header\header.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\about\about.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\banner\banner.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\contact\contact.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\header\header.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\nav\nav.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,10 +46,12 @@
     <Content Update="wwwroot\Images\banner4.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\" />
+    <Content Update="wwwroot\Images\logo_big.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\logo_small.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

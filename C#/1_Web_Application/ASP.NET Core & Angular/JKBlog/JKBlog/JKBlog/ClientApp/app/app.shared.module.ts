@@ -5,24 +5,22 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
-import { NavMenuComponent } from './components/navmenu/navmenu.component';
+import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
-import { HeaderComponent } from './components/header/header.component';
+import { BannerComponent } from './components/banner/banner.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ArticleComponent } from './components/article/article.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
+        NavComponent,
         HomeComponent,
-        HeaderComponent,
+        BannerComponent,
         AboutComponent,
-        ContactComponent
+        ContactComponent,
+        ArticleComponent
     ],
     imports: [
         CommonModule,
@@ -31,9 +29,6 @@ import { ContactComponent } from './components/contact/contact.component';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-
             { path: 'about', component: AboutComponent },
             { path: 'contact', component: ContactComponent },
 

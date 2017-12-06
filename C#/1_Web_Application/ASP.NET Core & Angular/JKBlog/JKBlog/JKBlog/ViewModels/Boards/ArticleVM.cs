@@ -6,9 +6,12 @@ using System.Web;
 
 namespace MyArticles.Models
 {
-    // will be modified
     public class ArticleVM
     {
+        public IEnumerable<Article> Articles { get; set; }
+        public byte[] Picture { get; set; }
+        public string PictureMimeType { get; set; }
+        // legacy
         //public IEnumerable<Article> Articles { get; set; }
         //public PagingInfo PagingInfo { get; set; }
         //public SelectList SelectList { get; set; }
