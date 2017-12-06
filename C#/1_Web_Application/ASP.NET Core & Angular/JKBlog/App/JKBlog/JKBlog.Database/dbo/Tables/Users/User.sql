@@ -1,9 +1,0 @@
-﻿CREATE TABLE [dbo].[User]
-(
-	[UserId] INT NOT NULL PRIMARY KEY,
-	[Name] NVARCHAR(20) NOT NULL,
-	[Password] NVARCHAR(255) NOT NULL,
-	[Picture] VARBINARY(MAX),
-	[PictureMimeType] VARCHAR(50)
-)
-GO
