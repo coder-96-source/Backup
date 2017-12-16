@@ -4,13 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 import { AppComponent } from './components/app/app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { ArticleComponent } from './components/article/article.component';
+import { ArticleBoardComponent } from './components/articleBoard/articleBoard.component';
+
+import { ArticleAnimationComponent } from './components/articleAnimation/articleAnimation.component';
+
 
 @NgModule({
     declarations: [
@@ -20,7 +27,9 @@ import { ArticleComponent } from './components/article/article.component';
         BannerComponent,
         AboutComponent,
         ContactComponent,
-        ArticleComponent
+        ArticleBoardComponent,
+
+        ArticleAnimationComponent
     ],
     imports: [
         CommonModule,
@@ -33,7 +42,10 @@ import { ArticleComponent } from './components/article/article.component';
             { path: 'contact', component: ContactComponent },
 
             { path: '**', redirectTo: 'home' }
-        ])
+        ]),
+
+        BrowserAnimationsModule
+
     ]
 })
 export class AppModuleShared {

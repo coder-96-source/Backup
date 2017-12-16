@@ -1,0 +1,10 @@
+<h2>Articles</h2>
+
+<ul class="articles">
+    <li *ngFor="let article of articles"
+        [class.selected]="article === selectedArticle">
+        <button (click)="onSelect(article)" class="btn-default">Open</button>
+    </li>
+</ul>
+
+<articleAnimation [article]="selectedArticle"></articleAnimation>

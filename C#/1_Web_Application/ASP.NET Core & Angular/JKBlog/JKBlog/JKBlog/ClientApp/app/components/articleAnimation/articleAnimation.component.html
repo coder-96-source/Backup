@@ -1,0 +1,5 @@
+<div [@dialog] *ngIf="article.visible" class="dialog">
+    <ng-content></ng-content>
+    {{article.title}}
+    <button class="btn btn-default" (click)="close()">X</button>
+</div>

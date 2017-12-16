@@ -1,4 +1,4 @@
-프로젝트 주제: ASP.NET Core 2.0 및 Angular JS를 사용하여 블로그 만들기.
+프로젝트 주제: ASP.NET Core 2.0 및 Angular를 사용하여 블로그 만들기.
 프로젝트 이름: JKBlog
 기능&목표:
 *General
@@ -7,7 +7,7 @@
 3.ASP.NET Core의 Bower를 사용하여 Package 관리
 
 *Home
-1.Angular JS를 사용하여 Home, About, Contact에서 reload없이 웹페이지를 이용 가능 하도록 한다.(SPA)
+1.Angular를 사용하여 Home, About, Contact에서 reload없이 웹페이지를 이용 가능 하도록 한다.(SPA)
 또한 Home에서 Article 클릭시, Pop-up을 통해 reload 없이 Article을 보여준다.
 (Learn more 등 navigation bar에서 Topic 클릭시에는 새로운 웹페이지를 로드한다.)
 
