@@ -2,6 +2,6 @@
     id: number;
     title: string;
     content: string;
-    pictrue: string;
+    picture: string;
     visible: boolean;
 }

@@ -1,10 +1,21 @@
-<h2>Articles</h2>
-
-<ul class="articles">
-    <li *ngFor="let article of articles"
-        [class.selected]="article === selectedArticle">
-        <button (click)="onSelect(article)" class="btn-default">Open</button>
-    </li>
-</ul>
+<section class="board">
+    <div class="section-title">
+        <h2><span>{{title}}</span></h2>
+        <hr />
+    </div>
+    <div class="article">
+        <div *ngFor="let article of articles"
+             [class.selected]="article === selectedArticle">
+            <figure class="col-md-4 well" (click)="onSelect(article)">
+                <img src={{article.picture}} class="figure-img" 
+                     alt="A generic square placeholder image with rounded corners in a figure.">
+                <figcaption class="figure-caption">
+                    <h2>{{article.title}}</h2>
+                    <p>{{article.content}}</p>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
 
 <articleAnimation [article]="selectedArticle"></articleAnimation>

@@ -9,7 +9,7 @@ import { ARTICLES } from '../../models/mock-articles';
 })
 
 export class ArticleBoardComponent {
-
+    title = 'Article'
     articles = ARTICLES;
 
     selectedArticle: Article;
