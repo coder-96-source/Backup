@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MyArticles.Models
 {
-    // will be modified
+    // 수정예정
     public class TopicVM
     {
         //public IEnumerable<Topic> Topics { get; set; }

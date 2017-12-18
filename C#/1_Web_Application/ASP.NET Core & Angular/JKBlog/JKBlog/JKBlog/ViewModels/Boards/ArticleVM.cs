@@ -6,6 +6,7 @@ using System.Web;
 
 namespace MyArticles.Models
 {
+    // 수정예정
     public class ArticleVM
     {
         public IEnumerable<Article> Articles { get; set; }

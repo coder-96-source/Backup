@@ -2,12 +2,12 @@ import {
     Component, OnInit, Input, Output, OnChanges, EventEmitter,
     trigger, state, style, animate, transition
 } from '@angular/core';
-import { Article } from '../../models/article';
+import { ArticleVM } from '../../viewModels/articleVM';
 
 @Component({
-    selector: 'articleAnimation',
-    templateUrl: './articleAnimation.component.html',
-    styleUrls: ['./articleAnimation.component.css'],
+    selector: 'app-article-popup',
+    templateUrl: './article-popup.component.html',
+    styleUrls: ['./article-popup.component.css'],
     animations: [
         trigger('dialog', [
             transition('void => *', [
@@ -20,8 +20,8 @@ import { Article } from '../../models/article';
         ])
     ]
 })
-export class ArticleAnimationComponent implements OnInit {
-    @Input() article: Article;
+export class ArticlePopupComponent implements OnInit {
+    @Input() article: ArticleVM;
 
     @Output() visibleChange: EventEmitter<boolean>
     = new EventEmitter<boolean>

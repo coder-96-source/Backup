@@ -1,0 +1,35 @@
+<div class="container">
+    <h2><span>{{title}}</span></h2>
+    <hr />
+    <div class="card-deck">
+        <div *ngFor="let article of articles"
+             [class.selected]="article === selectedArticle">
+            <div class="col-sm-6 col-md-4 col-lg-4 mt-4">
+                <div class="card">
+                    <img class="card-img-top" src={{article.articlePicture}}>
+                    <div class="card-block">
+                        <figure class="profile">
+                            <img src={{article.userPicture}} class="profile-avatar" alt="name">
+                        </figure>
+                        <h4 class="card-title mt-3">{{article.title}}</h4>
+                        <div class="card-category">
+                            Catrgory
+                        </div>
+                        <div class="card-content">
+                            {{article.contentDisplay}}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small>Last updated 3 mins ago</small>
+                        <button class="btn btn-secondary btn-sm"
+                                (click)="onSelect(article)">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-article-popup [article]="selectedArticle"></app-article-popup>

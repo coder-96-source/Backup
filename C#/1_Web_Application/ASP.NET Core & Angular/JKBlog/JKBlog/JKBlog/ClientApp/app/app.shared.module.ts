@@ -4,9 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Animation
+import { ReactiveFormsModule } from '@angular/forms'; // Animation
 
 import { AppComponent } from './components/app/app.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -14,9 +13,9 @@ import { HomeComponent } from './components/home/home.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { ArticleBoardComponent } from './components/articleBoard/articleBoard.component';
+import { ArticleComponent } from './components/article/article.component';
 
-import { ArticleAnimationComponent } from './components/articleAnimation/articleAnimation.component';
+import { ArticlePopupComponent } from './components/article-popup/article-popup.component'; // Animation
 
 
 @NgModule({
@@ -27,9 +26,9 @@ import { ArticleAnimationComponent } from './components/articleAnimation/article
         BannerComponent,
         AboutComponent,
         ContactComponent,
-        ArticleBoardComponent,
+        ArticleComponent,
 
-        ArticleAnimationComponent
+        ArticlePopupComponent // Animation
     ],
     imports: [
         CommonModule,

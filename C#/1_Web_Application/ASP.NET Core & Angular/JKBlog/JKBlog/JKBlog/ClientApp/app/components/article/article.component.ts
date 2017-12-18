@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../../models/article';
-import { ARTICLES } from '../../models/mock-articles';
+import { ArticleVM } from '../../viewModels/articleVM';
+import { ARTICLES } from '../../viewModels/mock-articles';
 
 @Component({
-    selector: 'articleBoard',
-    templateUrl: './articleBoard.component.html',
-    styleUrls: ['./articleBoard.component.css']
+    selector: 'app-article',
+    templateUrl: './article.component.html',
+    styleUrls: ['./article.component.css']
 })
 
-export class ArticleBoardComponent {
+export class ArticleComponent {
     title = 'Article'
     articles = ARTICLES;
 
-    selectedArticle: Article;
+    selectedArticle: ArticleVM;
 
     constructor() { }
 
@@ -20,7 +20,7 @@ export class ArticleBoardComponent {
 
     }
 
-    onSelect(article: Article): void {
+    onSelect(article: ArticleVM): void {
         this.selectedArticle = article;
         this.selectedArticle.visible = true;
     }
