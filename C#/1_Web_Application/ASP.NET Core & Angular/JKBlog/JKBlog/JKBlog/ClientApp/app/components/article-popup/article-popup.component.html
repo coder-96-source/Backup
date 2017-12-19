@@ -1,4 +1,26 @@
-<div [@popup] *ngIf="article.visible" class="article">
+<div [@popup] *ngIf="article.visible">
+    
+    <div class="article-popup col-sm-6 col-md-6 col-lg-6 mt-6">
+        
+        <figure class="profile">
+            <img src={{article.userPicture}} class="profile-avatar img-circle" alt={{article.userId}}>
+            <p>Learn more about how Netflix designs, builds, and operates our systems and engineering organizations</p>
+        </figure>
+        <h1>{{article.title}}</h1>
+        <hr>
+        <p>
+            <span class="glyphicon glyphicon-time"></span>
+            {{article.postedTime}}
+        </p>
+        <hr>
+        <img class="untitled" src={{article.articlePicture}}>
+        <hr>
+        <p>
+            {{article.content}}
+        </p>
+
+        <button class="btn btn-default right" (click)="close()">X</button>
+    </div>
+
     <ng-content></ng-content>
-    <button class="btn btn-default right" (click)="close()">X</button>
 </div>

@@ -9,19 +9,19 @@
                     <img class="card-img-top" src={{article.articlePicture}}>
                     <div class="card-block">
                         <figure class="profile">
-                            <img src={{article.userPicture}} class="profile-avatar" alt="name">
+                            <img src={{article.userPicture}} class="profile-avatar" alt={{article.userId}}>
                         </figure>
-                        <h4 class="card-title mt-3">{{article.title}}</h4>
+                        <h3 class="card-title">{{article.title}}</h3>
                         <div class="card-category">
-                            Catrgory
+                            {{article.category}}
                         </div>
                         <div class="card-content">
                             {{article.contentDisplay}}
                         </div>
                     </div>
                     <div class="card-footer">
-                        <small>Last updated 3 mins ago</small>
-                        <button class="btn btn-secondary btn-sm"
+                        <small>{{article.postedTime}}</small>
+                        <button class="btn btn-secondary btn-xs pull-right"
                                 (click)="onSelect(article)">
                             Learn More
                         </button>
