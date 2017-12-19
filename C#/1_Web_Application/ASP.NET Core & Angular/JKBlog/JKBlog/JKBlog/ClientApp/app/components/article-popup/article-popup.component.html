@@ -1,25 +1,41 @@
 <div [@popup] *ngIf="article.visible">
     
     <div class="article-popup col-sm-6 col-md-6 col-lg-6 mt-6">
-        
-        <figure class="profile">
-            <img src={{article.userPicture}} class="profile-avatar img-circle" alt={{article.userId}}>
-            <p>Learn more about how Netflix designs, builds, and operates our systems and engineering organizations</p>
-        </figure>
-        <h1>{{article.title}}</h1>
-        <hr>
-        <p>
-            <span class="glyphicon glyphicon-time"></span>
-            {{article.postedTime}}
-        </p>
-        <hr>
-        <img class="untitled" src={{article.articlePicture}}>
-        <hr>
-        <p>
-            {{article.content}}
-        </p>
-
-        <button class="btn btn-default right" (click)="close()">X</button>
+        <div class="card">           
+            <div class="card-block">
+                <button class="btn btn-default pull-right" 
+                        (click)="close()">
+                    X
+                </button>
+                <br />
+                <figure class="profile jumbotron">
+                    <img src={{article.userPicture}} class="profile-avatar" alt={{article.userId}}>
+                    <div class="profile-info">
+                        {{article.userId}}
+                        user self-indroduction
+                        {{article.postedTime}}
+                    </div>
+                </figure>
+                <h3 class="card-title">{{article.title}}</h3>
+                <div class="card-category">
+                    {{article.category}}
+                </div>
+                <div class="card-content">
+                    {{article.contentDisplay}}
+                    {{article.contentDisplay}}
+                    {{article.contentDisplay}}
+                    {{article.contentDisplay}}
+                    {{article.contentDisplay}}
+                    {{article.contentDisplay}}
+                    {{article.contentDisplay}}
+                    {{article.contentDisplay}}
+                    {{article.contentDisplay}}
+                </div>
+            </div>
+            <div class="card-footer">
+                Tags
+            </div>
+        </div>
     </div>
 
     <ng-content></ng-content>
