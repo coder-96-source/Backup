@@ -9,7 +9,7 @@ import { ArticleVM } from '../../viewModels/articleVM';
     templateUrl: './article-popup.component.html',
     styleUrls: ['./article-popup.component.css'],
     animations: [
-        trigger('dialog', [
+        trigger('popup', [
             transition('void => *', [
                 style({ transform: 'scale3d(.3, .3, .3)' }),
                 animate(100)
