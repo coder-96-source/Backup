@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace PG3_MergeSort
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            // test
+            Run();
+        }
+
+        private static void Run()
+        {
             int[] array = new int[] { 5, 4, 3, 2, 1, 10, 9, 8, 7, 6 };
 
             Console.WriteLine("Unsorted");

@@ -10,17 +10,17 @@ namespace PG3_MergeSort.MergeSort
     {
         public static void MergeSort(int[] array)
         {
-            RecursiveMergeSort(array, new int[array.Length], 0, array.Length - 1);
+            MergeSort(array, new int[array.Length], 0, array.Length - 1);
         }
 
-        private static void RecursiveMergeSort(int[] array, int[] temp, int leftStart, int rightEnd)
+        private static void MergeSort(int[] array, int[] temp, int leftStart, int rightEnd)
         {
             if (leftStart >= rightEnd)
                 return;
 
             int middle = (leftStart + rightEnd) / 2;
-            RecursiveMergeSort(array, temp, leftStart, middle);
-            RecursiveMergeSort(array, temp, middle + 1, rightEnd);
+            MergeSort(array, temp, leftStart, middle);
+            MergeSort(array, temp, middle + 1, rightEnd);
             MergeHalves(array, temp, leftStart, rightEnd);
         }
 
