@@ -9,4 +9,4 @@
 
 4. Design_Pattern - .NET based design patterns
 
-5. Effective_C# - Summary of "Effective C# 50 Specific Ways to Improve Your C#" written by Bill Wagner
+5. HackerRank - HackerRank Solutions
