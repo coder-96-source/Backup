@@ -5,6 +5,7 @@ export class User {
     userId: number;
     name: string;
     password: string;
+    birthdate: Date;
     picture: number;
     pictureMimeType: string;
 

@@ -31,5 +31,6 @@
         </div>
     </div>
 </div>
-
-<app-article-popup [article]="selectedArticle"></app-article-popup>
+<div *ngIf="selectedArticle">
+    <app-article-popup [article]="selectedArticle"></app-article-popup>
+</div>

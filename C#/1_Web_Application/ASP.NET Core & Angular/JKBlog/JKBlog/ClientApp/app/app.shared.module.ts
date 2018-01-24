@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Animation
 import { ReactiveFormsModule } from '@angular/forms'; // Animation
+import { UserModule } from './components/user/user.module';
 
 import { AppComponent } from './components/app/app.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -44,6 +45,7 @@ import { ContactComponent } from './components/contact/contact.component';
         ]),
 
         BrowserAnimationsModule, // Animation
+        UserModule
     ]
 })
 export class AppModuleShared {

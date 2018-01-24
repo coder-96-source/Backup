@@ -2,7 +2,7 @@
 
 export class Topic {
     topicId: number;
-    name: string;
+    title: string;
     category: string;
     description: string;
     picture: number;

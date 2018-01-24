@@ -69,7 +69,6 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\app\models\viewModel\" />
-    <Folder Include="ClientApp\app\services\" />
     <Folder Include="Models\ViewModel\" />
   </ItemGroup>
 

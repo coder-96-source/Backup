@@ -13,14 +13,14 @@ export class ArticleComponent {
     articles: Article[];
     selectedArticle: Article;
 
-    constructor(http: Http) {
-        http.get('api/Home/GetArticles').subscribe(a => {
-            this.articles = a.json();
-        });
+    constructor(private http: Http) {
+
     }
 
     ngOnInit() {
-
+        this.http.get('api/Home/GetArticles').subscribe(a => {
+            this.articles = a.json();
+        });
     }
 
     onSelect(article: Article): void {

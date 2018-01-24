@@ -10,7 +10,11 @@ namespace JKBlog.Models.DataModel
 {
     public class Permission
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [HiddenInput(DisplayValue = false)]
         public int PermissionId { get; set; }
+
         public string PermissionType { get; set; }
 
         public ICollection<User> Users { get; set; }

@@ -24,12 +24,15 @@ export class ArticlePopupComponent implements OnInit {
     @Input() article: Article;
 
     @Output() visibleChange: EventEmitter<boolean>
-    = new EventEmitter<boolean>
-        ();
+        = new EventEmitter<boolean>();
 
-    constructor() { }
+    constructor() {
 
-    ngOnInit() { }
+    }
+
+    ngOnInit() {
+
+    }
 
     close() {
         this.article.visible = false;

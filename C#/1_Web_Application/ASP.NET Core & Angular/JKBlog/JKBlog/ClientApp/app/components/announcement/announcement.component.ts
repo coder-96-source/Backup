@@ -12,13 +12,13 @@ export class AnnouncementComponent {
     title = 'Announcement'
     announcements: Announcement[];
 
-    constructor(http: Http) {
-        http.get('api/Home/GetAnnouncements').subscribe(a => {
-            this.announcements = a.json();
-        });
+    constructor(private http: Http) {
+
     }
 
     ngOnInit() {
-
+        this.http.get('api/Home/GetAnnouncements').subscribe(a => {
+            this.announcements = a.json();
+        });
     }
 }
