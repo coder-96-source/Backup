@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PG4_DynamicFibo.DynamicProgramming
+namespace PG2_DynamicFibo.DynamicProgramming
 {
     public static class FiboCalculator
     {

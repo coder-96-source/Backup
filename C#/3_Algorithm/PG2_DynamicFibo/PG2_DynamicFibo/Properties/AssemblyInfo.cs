@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PG4_DynamicFibo")]
+[assembly: AssemblyTitle("PG2_DynamicFibo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PG4_DynamicFibo")]
+[assembly: AssemblyProduct("PG2_DynamicFibo")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fdf37058-8745-4251-ae24-7ce11292770f")]
+[assembly: Guid("d74f2abe-4b07-4fe6-9323-94ea503f7de9")]
 
 // Version information for an assembly consists of the following four values:
 //
