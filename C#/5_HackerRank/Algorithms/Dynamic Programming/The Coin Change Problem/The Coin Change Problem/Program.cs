@@ -46,7 +46,7 @@ namespace The_Coin_Change_Problem
             string[] c_temp = Console.ReadLine().Split(' ');
             long[] c = Array.ConvertAll(c_temp, Int64.Parse);
             // Print the number of ways of making change for 'n' units using coins having the values given by 'c'
-            long ways = getWays(n, c, m);
+            long ways = getWaysDP(n, c, m);
             Console.WriteLine(ways);
         }
     }
