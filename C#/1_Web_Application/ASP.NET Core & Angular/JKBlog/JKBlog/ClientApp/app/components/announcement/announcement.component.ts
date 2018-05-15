@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Announcement } from '../../models/dataModel/announcement';
+import { AnnouncementService } from '../../services/announcement.service';
 
 @Component({
     selector: 'app-announcement',
@@ -8,17 +8,22 @@ import { Announcement } from '../../models/dataModel/announcement';
     styleUrls: ['./announcement.component.css']
 })
 
-export class AnnouncementComponent {
+export class AnnouncementComponent implements OnInit {
     title = 'Announcement'
     announcements: Announcement[];
+    errorMessage: string;
 
-    constructor(private http: Http) {
+    constructor(private announcementService: AnnouncementService) {
 
     }
 
     ngOnInit() {
-        this.http.get('api/Home/GetAnnouncements').subscribe(a => {
-            this.announcements = a.json();
-        });
+        this.fetchAnnouncements().subscribe(res => {
+            this.announcements = res as Announcement[];
+        }, error => this.errorMessage = error as string);
+    }
+
+    fetchAnnouncements() {
+        return this.announcementService.getAnnouncements();
     }
 }

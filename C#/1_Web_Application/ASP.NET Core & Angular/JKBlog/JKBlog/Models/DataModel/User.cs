@@ -33,6 +33,7 @@ namespace JKBlog.Models.DataModel
         public string PictureMimeType { get; set; }
 
         public int PermissionId { get; set; }
+
         public Permission Permission { get; set; }
 
         public ICollection<Article> Articles { get; set; }

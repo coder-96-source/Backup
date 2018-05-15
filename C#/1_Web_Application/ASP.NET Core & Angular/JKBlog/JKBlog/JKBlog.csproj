@@ -29,6 +29,7 @@
     <None Remove="ClientApp\app\components\about\about.component.ts" />
     <None Remove="ClientApp\app\models\dataModel\announcement.ts" />
     <None Remove="ClientApp\app\models\dataModel\article.ts" />
+    <None Remove="ClientApp\app\models\dataModel\permission.ts" />
     <None Remove="ClientApp\app\models\dataModel\tag.ts" />
     <None Remove="ClientApp\app\models\dataModel\topic.ts" />
     <None Remove="ClientApp\app\models\mock-articles.ts" />
@@ -38,12 +39,16 @@
     <TypeScriptCompile Include="ClientApp\app\components\about\about.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\banner\banner.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\contact\contact.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\nav\nav.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\topnav\topnav.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\dataModel\announcement.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\dataModel\permission.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\dataModel\tag.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\dataModel\topic.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\dataModel\user.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\dataModel\article.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\admin\topic-table.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\article-detail.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\article-card.service.ts" />
   </ItemGroup>
 
   <ItemGroup>

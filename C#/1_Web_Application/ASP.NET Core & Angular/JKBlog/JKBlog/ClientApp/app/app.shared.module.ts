@@ -3,30 +3,69 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Animation
-import { ReactiveFormsModule } from '@angular/forms'; // Animation
+import { ArticleModule } from './components/article/article.module';
 import { UserModule } from './components/user/user.module';
+import { SettingModule } from './components/setting/setting.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+} from '@angular/material';
 
 import { AppComponent } from './components/app/app.component';
-import { NavComponent } from './components/nav/nav.component';
+import { TopNavComponent } from './components/topnav/topnav.component';
+import { SideNavComponent } from './components/sidenav/sidenav.component';
 import { HomeComponent } from './components/home/home.component';
 import { BannerComponent } from './components/banner/banner.component';
-import { ArticleComponent } from './components/article/article.component'
-import { ArticlePopupComponent } from './components/article-popup/article-popup.component'; // Animation
+//import { ArticleCardComponent } from './components/article/article-card/article-card.component'
 import { AnnouncementComponent } from './components/announcement/announcement.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 
+//import { ArticleCardService } from './services/article-card.service';
+import { AnnouncementService } from './services/announcement.service';
+import { GatewayService } from './services/gateway.service';
+import { JWTGatewayService } from './services/jwtgateway.service';
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavComponent,
+        TopNavComponent,
+        SideNavComponent,
         HomeComponent,
         BannerComponent,
-        ArticleComponent,
-        ArticlePopupComponent, // Animation
+        //ArticleCardComponent,
         AnnouncementComponent,
         AboutComponent,
         ContactComponent,
@@ -35,6 +74,41 @@ import { ContactComponent } from './components/contact/contact.component';
         CommonModule,
         HttpModule,
         FormsModule,
+        BrowserAnimationsModule,
+        FlexLayoutModule,
+        MatAutocompleteModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        MatDividerModule,
+        MatExpansionModule,
+        MatGridListModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatMenuModule,
+        MatNativeDateModule,
+        MatPaginatorModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        MatRadioModule,
+        MatRippleModule,
+        MatSelectModule,
+        MatSidenavModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatSnackBarModule,
+        MatSortModule,
+        MatStepperModule,
+        MatTableModule,
+        MatTabsModule,
+        MatToolbarModule,
+        MatTooltipModule,
+
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
@@ -43,10 +117,12 @@ import { ContactComponent } from './components/contact/contact.component';
 
             { path: '**', redirectTo: 'home' }
         ]),
-
-        BrowserAnimationsModule, // Animation
-        UserModule
-    ]
+        ArticleModule,
+        UserModule,
+        SettingModule,
+    ],
+    //ArticleCardService
+    providers: [ AnnouncementService, GatewayService, JWTGatewayService ]
 })
 export class AppModuleShared {
 }

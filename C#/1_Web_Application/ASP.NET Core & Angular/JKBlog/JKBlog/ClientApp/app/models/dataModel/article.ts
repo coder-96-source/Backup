@@ -8,7 +8,7 @@ export class Article {
     category: string;
     content: string;
     contentDisplay: string;
-    picture: number;
+    picture: string; // base64
     pictureMimeType: string;
     postDate: Date;
     modifyDate: Date;
@@ -19,9 +19,8 @@ export class Article {
     topicId: number;
     topic: Topic;
 
-    tagId: number;
-    tag: Tag;
-
     userId: number;
     user: User;
+
+    tags: Tag[];
 }

@@ -1,60 +1,68 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
 import { User } from '../models/dataModel/user';
-
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/Rx';
+import { SessionStorage } from 'ngx-store';
+import { GatewayService } from '../services/gateway.service';
 
 @Injectable()
-
 export class UserService {
-    private _authNavStatusSource = new BehaviorSubject<boolean>(false);     // Observable navItem source
-    private loggedIn = false;
+    @SessionStorage() private jwtTokenSession?: string;
+    @SessionStorage() private isSignInSession?: boolean;
+    @SessionStorage() private signInTimeSession?: Date;
+    @SessionStorage() private userSession?: User;
 
-    authNavStatus$ = this._authNavStatusSource.asObservable(); // Observable navItem stream
-    baseUrl: string;
-
-    constructor(private http: Http) {
-        this.loggedIn = !!localStorage.getItem('auth_token');
-        this._authNavStatusSource.next(this.loggedIn);
-        this.baseUrl = "http://localhost:52386/";
+    get getJwtToken(): string | undefined {
+        return this.jwtTokenSession;
     }
 
-    register(name: string, password: string, birthdate: Date) {
-        let body = JSON.stringify({ name, password, birthdate });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.post(this.baseUrl + "/api/users/postuser", body, options).map(res => true);
+    get getIsSignIn(): boolean | undefined {
+        return this.isSignInSession;
     }
 
-    login(name: string, password: string) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        return this.http
-            .post(
-            this.baseUrl + '/api/admin/login',
-            JSON.stringify({ name, password }), { headers }
-            )
-            .map(res => res.json())
-            .map(res => {
-                localStorage.setItem('auth_token', res.auth_token);
-                this.loggedIn = true;
-                this._authNavStatusSource.next(true);
-                return true;
-            });
+    get getSignInTime(): Date | undefined {
+        return this.signInTimeSession;
     }
 
-    logout() {
-        localStorage.removeItem('auth_token');
-        this.loggedIn = false;
-        this._authNavStatusSource.next(false);
+    get getUser(): User | undefined {
+        return this.userSession;
     }
 
-    isLoggedIn() {
-        return this.loggedIn;
+    constructor(private gatewayService: GatewayService) {
+
+    }
+
+    signUp(user: User) {
+        return this.gatewayService.post('users/signup', user)
+            .map(res => res);
+    }
+
+    signIn(user: User) {
+        return this.gatewayService.post('users/signin', user)
+            .map(res => res);
+    }
+
+    signOut() {
+        this.clearUserSession();
+        this.navigateHome();
+    }
+
+    setUserSession(user: User, jwtToken: string) {
+        this.isSignInSession = true;
+        this.signInTimeSession = new Date();
+        this.jwtTokenSession = jwtToken;
+        this.userSession = user;
+    }
+
+    clearUserSession() {
+        this.isSignInSession = undefined;
+        this.signInTimeSession = undefined;
+        this.jwtTokenSession = undefined;
+        this.userSession = undefined;
+    }
+
+    navigateHome() {
+        this.gatewayService.navigateHome();
     }
 }
 

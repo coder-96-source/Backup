@@ -5,101 +5,75 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JKBlog.Models.DataModel;
+using Microsoft.EntityFrameworkCore;
+using JKBlog.Helpers.ModelConverters;
 
 namespace JKBlog.Controllers
 {
+    //[Route("api/[controller]/[action]")]
     public class HomeController : Controller
     {
         private readonly JKBlogDbContext _context;
-        private readonly int _postCount; // number of posted articles
 
         public HomeController(JKBlogDbContext context)
         {
             this._context = context;
-            this._postCount = 6;
         }
 
+        //[Route("[controller]/[action]")]
         public IActionResult Index()
         {
             return View();
         }
 
+        //[Route("[controller]/[action]")]
         public IActionResult Error()
         {
             ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
             return View();
         }
 
+        [HttpGet("{id}")]
+        [Route("api/[controller]/[action]/{id}")]
+        public async Task<IActionResult> Article([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var article = await this._context.Articles.SingleOrDefaultAsync(t => t.ArticleId == id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            //var base64Article = ModelConverter.ConvertBinaryModelsToBase64Models
+            //    (article, _base64ArticleType.Value, _targetPropertyNames.Value) as Base64Article;
+
+            //return Ok(base64Article);
+            return Ok(article);
+        }
+
         [HttpGet]
         [Route("api/[controller]/[action]")]
-        [ActionName("GetArticles")]
-        public IEnumerable<Article> GetArticles()
+        public IEnumerable<Article> Articles()
         {
-            #region Dummy Data
-            var permission = new Permission() { PermissionId = 0, PermissionType = "Admin", Users = null };
-            var user = new User() { UserId = 0, Name = "JK", Permission = null, Password = "0000" };
-            var tag = new Tag() { TagId = 0, ArticleId = 0, Content = "tag" };
-            var articles = new Article[]
-            {
-                new Article { ArticleId = 0, TopicId = 0, Title = "Title1", Content="Content", ContentDisplay = "ContentDisplay",
-                    Category = "Category",
-                    PostDate = DateTime.Now, ModifyDate = DateTime.Now, ReadCount = 0, ShowFlag = true,
-                    Tag = tag,
-                    User = user
-                },
-                new Article { ArticleId = 0, TopicId = 0, Title = "Title1", Content="Content", ContentDisplay = "ContentDisplay",
-                    Category = "Category",
-                    PostDate = DateTime.Now, ModifyDate = DateTime.Now, ReadCount = 0, ShowFlag = true,
-                    Tag = tag,
-                    User = user
-                },
-                new Article { ArticleId = 0, TopicId = 0, Title = "Title1", Content="Content", ContentDisplay = "ContentDisplay",
-                    Category = "Category",
-                    PostDate = DateTime.Now, ModifyDate = DateTime.Now, ReadCount = 0, ShowFlag = true,
-                    Tag = tag,
-                    User = user
-                },
-                new Article { ArticleId = 0, TopicId = 0, Title = "Title1", Content="Content", ContentDisplay = "ContentDisplay",
-                    Category = "Category",
-                    PostDate = DateTime.Now, ModifyDate = DateTime.Now, ReadCount = 0, ShowFlag = true,
-                    Tag = tag,
-                    User = user
-                },
-                new Article { ArticleId = 0, TopicId = 0, Title = "Title1", Content="Content", ContentDisplay = "ContentDisplay",
-                    Category = "Category",
-                    PostDate = DateTime.Now, ModifyDate = DateTime.Now, ReadCount = 0, ShowFlag = true,
-                    Tag = tag,
-                    User = user
-                },
-                new Article { ArticleId = 0, TopicId = 0, Title = "Title1", Content="Content", ContentDisplay = "ContentDisplay",
-                    Category = "Category",
-                    PostDate = DateTime.Now, ModifyDate = DateTime.Now, ReadCount = 0, ShowFlag = true,
-                    Tag = tag,
-                    User = user
-                },
-            };
-            #endregion
+            var articles = this._context.Articles
+                .Include(article => article.User)
+                .Include(article => article.Topic)
+                .ToList();
 
             return articles;
         }
 
         [HttpGet]
         [Route("api/[controller]/[action]")]
-        [ActionName("GetAnnouncements")]
-        public IEnumerable<Announcement> GetAnnouncements()
+        public IEnumerable<Announcement> Announcements()
         {
-            #region Dummy Data
-            var user = new User() { UserId = 0, Name = "JK", Permission = null, Password = "0000" };
-            var announcements = new Announcement[]
-            {
-                new Announcement { AnnouncmentId = 0, Content = "content", PostDate = DateTime.Now, ModifyDate = DateTime.Now, ShowFlag = true, User = user },
-                new Announcement { AnnouncmentId = 1, Content = "content", PostDate = DateTime.Now, ModifyDate = DateTime.Now, ShowFlag = true, User = user },
-                new Announcement { AnnouncmentId = 2, Content = "content", PostDate = DateTime.Now, ModifyDate = DateTime.Now, ShowFlag = true, User = user },
-                new Announcement { AnnouncmentId = 3, Content = "content", PostDate = DateTime.Now, ModifyDate = DateTime.Now, ShowFlag = true, User = user },
-                new Announcement { AnnouncmentId = 4, Content = "content", PostDate = DateTime.Now, ModifyDate = DateTime.Now, ShowFlag = true, User = user },
-                new Announcement { AnnouncmentId = 5, Content = "content", PostDate = DateTime.Now, ModifyDate = DateTime.Now, ShowFlag = true, User = user },
-            };
-            #endregion
+            var announcements = this._context.Announcements
+                .Include(announcement => announcement.User)
+                .ToList();
 
             return announcements;
         }

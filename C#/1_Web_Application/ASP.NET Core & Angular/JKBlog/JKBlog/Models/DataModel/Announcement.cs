@@ -13,7 +13,7 @@ namespace JKBlog.Models.DataModel
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [HiddenInput(DisplayValue = false)]
-        public int AnnouncmentId { get; set; }
+        public int AnnouncementId { get; set; }
 
         [StringLength(100, ErrorMessage = "Content cannot be longer than 100 characters.")]
         public string Content { get; set; }
@@ -31,6 +31,7 @@ namespace JKBlog.Models.DataModel
         public bool ShowFlag { get; set; }
 
         public int UserId { get; set; }
+
         public User User { get; set; }
     }
 }

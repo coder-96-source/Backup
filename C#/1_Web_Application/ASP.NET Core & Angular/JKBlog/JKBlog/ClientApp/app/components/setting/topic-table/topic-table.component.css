@@ -1,0 +1,48 @@
+﻿.header {
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    padding-left: 24px;
+    font-size: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 300px;
+    position: relative;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-table {
+    overflow: auto;
+    min-height: 300px;
+}
+
+.mat-column-topicId,
+.mat-column-showFlag,
+.mat-column-picture {
+    max-width: 64px;
+}
+
+.mat-column-postDate {
+    max-width: 124px;
+}
+
+.mat-column-title {
+    max-width: 20%;
+}
+
+.mat-column-description {
+    max-width: 40%;
+}
+
+.mat-column-action {
+    max-width: 90px;
+    text-align: right;
+}

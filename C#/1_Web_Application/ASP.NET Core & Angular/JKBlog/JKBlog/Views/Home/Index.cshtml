@@ -1,15 +1,13 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @{
     Layout = "_Layout";
     ViewData["Title"] = "JKBlog";
 }
 
-@*<app asp-prerender-module="ClientApp/dist/main-server">Loading...</app>*@
-<app>
-    <div class="text-center">
-        <h1>
-            App is Loading...
-        </h1>
-    </div>
+
+<app asp-ng2-prerender-module="ClientApp/dist/main-server"
+     asp-prerender-data='new { certainKey = Configuration["CertainKey"] }'>
 </app>
 
 <script src="~/dist/vendor.js" asp-append-version="true"></script>

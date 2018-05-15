@@ -3,9 +3,8 @@
 export class Topic {
     topicId: number;
     title: string;
-    category: string;
     description: string;
-    picture: number;
+    picture: string;
     pictureMimeType: string;
     postDate: Date;
     modifyDate: Date;

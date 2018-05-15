@@ -1,0 +1,21 @@
+<h3 mat-dialog-title>{{isAddMode ? 'Create' : 'Edit'}}</h3>
+<mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <mat-form-field>
+        <textarea matInput placeholder="Leave a comment" [(ngModel)]="announcement.content"></textarea>
+    </mat-form-field>
+   
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="announcement.postDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="announcement.showFlag">
+        <span>Show</span>
+    </mat-checkbox>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around stretch">
+    <button mat-raised-button (click)="submitAnnouncement()">{{isAddMode ? 'Create' : 'Edit'}}</button>
+    <button mat-raised-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

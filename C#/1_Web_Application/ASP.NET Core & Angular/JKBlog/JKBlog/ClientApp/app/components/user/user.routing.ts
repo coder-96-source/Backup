@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 
-export const routing: ModuleWithProviders = RouterModule.forChild([
-    { path: 'register', component: RegistrationComponent },
-    { path: 'login', component: LoginComponent },
-]);
+export const UserRouterModule: ModuleWithProviders = RouterModule.forChild([
+    { path: 'signup', component: RegistrationComponent },
+    { path: 'signin', component: LoginComponent },
+]); 

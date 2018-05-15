@@ -17,10 +17,47 @@ module.exports = (env) => {
         },
         module: {
             rules: [
+                //{
+                //    test: /\.scss$/,
+                //    use: [{
+                //        loader: "style-loader" // creates style nodes from JS strings
+                //    }, {
+                //        loader: "css-loader" // translates CSS into CommonJS
+                //    }, {
+                //        loader: "sass-loader" // compiles Sass to CSS
+                //    }]
+                //},
                 { test: /\.ts$/, use: isDevBuild ? ['awesome-typescript-loader?silent=true', 'angular2-template-loader', 'angular2-router-loader'] : '@ngtools/webpack' },
                 { test: /\.html$/, use: 'html-loader?minimize=false' },
                 { test: /\.css$/, use: [ 'to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] },
-                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
+                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
+                { test: /\.scss$/, exclude: /node_modules/, loaders: ['raw-loader', 'sass-loader'] }
+                //{
+               
+                //{ test: /\.scss$/, exclude: /node_modules/, loaders: ['raw-loader', 'sass-loader'] }
+                //    //test: /\.scss$/,
+                //    //use: [
+                //    //    //"style-loader", // creates style nodes from JS strings
+                //    //    //"css-loader", // translates CSS into CommonJS
+                //    //    "sass-loader", // compiles Sass to CSS
+                //    //    //'to-string-loader',
+                //    //    'raw-loader'
+                //    //]
+                
+                    //test: /\.(css|scss)$/,
+                    //use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize',
+                    //    'style-loader', 'sass-loader']
+                //{
+                //    test: /\.css$/,
+                //    loader: [isDevBuild ? 'css-loader' : 'css-loader?minimize']
+                //},
+
+                //}
+                //{
+                //    test: /\.scss$/,
+                //    exclude: /node_modules/,
+                //    loaders: ['style-loader', 'sass-loader', 'to-string-loader']
+                //},
             ]
         },
         plugins: [new CheckerPlugin()]

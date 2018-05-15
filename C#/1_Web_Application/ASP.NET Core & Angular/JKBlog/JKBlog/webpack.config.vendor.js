@@ -12,11 +12,12 @@ const treeShakableModules = [
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     '@angular/router',
- //   '@angular/material',
-    'zone.js',
+    '@angular/material',
+    'zone.js'
 ];
 const nonTreeShakableModules = [
-//    '@angular/material/prebuilt-themes/deeppurple-amber.css',
+    //'@angular/material/prebuilt-themes/indigo-pink.css',
+    './ClientApp/styles/main.scss',
     'bootstrap',
     'bootstrap/dist/css/bootstrap.css',
     'es6-promise',
@@ -59,7 +60,13 @@ module.exports = (env) => {
         output: { path: path.join(__dirname, 'wwwroot', 'dist') },
         module: {
             rules: [
-                { test: /\.css(\?|$)/, use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) }
+                { test: /\.css(\?|$)/, use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) },
+                {
+                    test: /\.scss(\?|$)/,
+                    use: extractCSS.extract({
+                        use: [{ loader: 'css-loader' }, { loader: 'sass-loader' }]
+                    })
+                }
             ]
         },
         plugins: [
@@ -82,7 +89,8 @@ module.exports = (env) => {
             libraryTarget: 'commonjs2',
         },
         module: {
-            rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] } ]
+            rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] },
+                { test: /\.scss$/, exclude: /node_modules/, loaders: ['raw-loader', 'sass-loader'] } ]
         },
         plugins: [
             new webpack.DllPlugin({

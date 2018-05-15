@@ -46,12 +46,13 @@ namespace JKBlog.Models.DataModel
         public bool ShowFlag { get; set; }
 
         public int TopicId { get; set; }
+
         public Topic Topic { get; set; }
 
-        public int TagId { get; set; }
-        public Tag Tag { get; set; }
-
         public int UserId { get; set; }
+
         public User User { get; set; }
+
+        public ICollection<Tag> Tags { get; set; }
     }
 }

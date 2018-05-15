@@ -21,7 +21,7 @@ namespace JKBlog.Models.DataModel
 
         [StringLength(200, ErrorMessage = "Description cannot be longer than 200 characters.")]
         public string Description { get; set; }
-        
+
         public byte[] Picture { get; set; }
 
         public string PictureMimeType { get; set; }

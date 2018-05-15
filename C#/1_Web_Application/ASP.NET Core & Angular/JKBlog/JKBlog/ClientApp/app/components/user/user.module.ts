@@ -1,18 +1,94 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserRouterModule } from './user.routing';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { WebStorageModule } from 'ngx-store';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule
+} from '@angular/material';
 
-import { UserService } from '../../services/user.service';
-
-import { routing } from './user.routing';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 
+import { UserService } from '../../services/user.service';
+import { GatewayService } from '../../services/gateway.service';
+
+import { PasswordValidator } from '../../directives/password-validator';
+
 @NgModule({
-    imports: [
-        CommonModule, FormsModule, routing,
+    declarations: [
+        RegistrationComponent, LoginComponent, PasswordValidator
     ],
-    declarations: [RegistrationComponent, LoginComponent],
-    providers: [UserService]
+    imports: [
+        CommonModule, FormsModule, ReactiveFormsModule, UserRouterModule, FlexLayoutModule, WebStorageModule,
+        MatAutocompleteModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        MatDividerModule,
+        MatExpansionModule,
+        MatGridListModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatMenuModule,
+        MatNativeDateModule,
+        MatPaginatorModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        MatRadioModule,
+        MatRippleModule,
+        MatSelectModule,
+        MatSidenavModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatSnackBarModule,
+        MatSortModule,
+        MatStepperModule,
+        MatTableModule,
+        MatTabsModule,
+        MatToolbarModule,
+        MatTooltipModule
+    ],
+    providers: [
+        UserService, GatewayService
+    ]
 })
 export class UserModule { }
