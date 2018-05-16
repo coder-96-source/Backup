@@ -1,9 +1,9 @@
 ﻿@import '~@angular/material/theming';
-@import '../app/components/app/_app-theme.scss';
-@import './_api.scss';
-@import './_markdown.scss';
-@import './_tables.scss';
-@import './_general.scss';
+@import './app-theme';
+@import './styles/api';
+@import './styles/markdown';
+@import './styles/tables';
+@import './styles/general';
 
 
 // Include material core styles.

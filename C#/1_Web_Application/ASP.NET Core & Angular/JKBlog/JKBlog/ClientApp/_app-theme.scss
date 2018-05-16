@@ -1,11 +1,11 @@
-﻿@import '~@angular/material/theming';
+﻿@import '../node_modules/@angular/material/theming';
 
-@import '../topnav/_topnav-theme.scss';
-@import '../home/_home-theme.scss';
-@import '../../../styles/_api.scss';
-@import '../../../styles/_markdown-theme.scss';
-@import '../../../styles/_svg-theme.scss';
-@import '../../../styles/_tables-theme.scss';
+@import './app/components/topnav/topnav-theme';
+@import './app/components/home/home-theme';
+@import './styles/api-theme';
+@import './styles/markdown-theme';
+@import './styles/svg-theme';
+@import './styles/tables-theme';
 
 // Styles for the docs app that are based on the current theme.
 @mixin app-theme($theme) {

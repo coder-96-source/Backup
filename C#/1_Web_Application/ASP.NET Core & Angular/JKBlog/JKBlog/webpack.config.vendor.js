@@ -17,7 +17,6 @@ const treeShakableModules = [
 ];
 const nonTreeShakableModules = [
     '@angular/material/prebuilt-themes/indigo-pink.css',
-    './ClientApp/styles/main.scss',
     'bootstrap',
     'bootstrap/dist/css/bootstrap.css',
     'es6-promise',
@@ -83,7 +82,7 @@ module.exports = (env) => {
             libraryTarget: 'commonjs2',
         },
         module: {
-            rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] }
+            rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] } ]
         },
         plugins: [
             new webpack.DllPlugin({
