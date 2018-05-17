@@ -9,7 +9,7 @@ import { ArticleDialogService } from '../../../services/admin/article-dialog.ser
 @Component({
     selector: 'app-admin-article-table',
     templateUrl: './article-table.component.html',
-    styleUrls: ['./article-table.component.css']
+    //styleUrls: ['./article-table.component.css']
 })
 
 export class ArticleTableComponent {

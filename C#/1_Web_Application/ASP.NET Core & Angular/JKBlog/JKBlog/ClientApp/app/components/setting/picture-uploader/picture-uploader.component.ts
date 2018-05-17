@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 @Component({
     selector: 'app-picture-uploader',
     templateUrl: './picture-uploader.component.html',
-    styleUrls: ['./picture-uploader.component.css']
+    //styleUrls: ['./picture-uploader.component.css']
 })
 
 export class PictureUploaderComponent implements OnInit {

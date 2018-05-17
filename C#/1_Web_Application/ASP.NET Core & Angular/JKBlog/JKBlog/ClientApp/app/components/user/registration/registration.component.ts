@@ -8,7 +8,7 @@ import { PasswordValidator } from '../../../directives/password-validator';
 @Component({
     selector: 'app-registration',
     templateUrl: './registration.component.html',
-    styleUrls: ['./registration.component.css']
+    //styleUrls: ['./registration.component.css']
 })
 
 export class RegistrationComponent {

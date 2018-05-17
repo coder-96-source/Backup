@@ -7,7 +7,7 @@ import { PictureUploaderComponent } from '../../picture-uploader/picture-uploade
 @Component({
     selector: 'app-admin-topic-dialog',
     templateUrl: './topic-dialog.component.html',
-    styleUrls: ['./topic-dialog.component.css']
+    //styleUrls: ['./topic-dialog.component.css']
 })
 
 export class TopicDialogComponent implements OnInit {

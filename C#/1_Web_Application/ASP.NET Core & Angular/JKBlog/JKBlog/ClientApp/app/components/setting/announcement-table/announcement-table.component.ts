@@ -9,7 +9,7 @@ import { AnnouncementDialogService } from '../../../services/admin/announcement-
 @Component({
     selector: 'app-admin-announcement-table',
     templateUrl: './announcement-table.component.html',
-    styleUrls: ['./announcement-table.component.css']
+    //styleUrls: ['./announcement-table.component.css']
 })
 
 export class AnnouncementTableComponent implements OnInit {
