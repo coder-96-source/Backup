@@ -118,7 +118,8 @@ import { JWTGatewayService } from './services/jwtgateway.service';
         SettingModule,
     ],
     providers: [AnnouncementService, GatewayService, JWTGatewayService
-    ]
+    ],
+    exports: [TopNavComponent]
 })
 export class AppModuleShared {
 }
