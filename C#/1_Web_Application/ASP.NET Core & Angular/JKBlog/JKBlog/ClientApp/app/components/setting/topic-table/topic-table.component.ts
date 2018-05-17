@@ -9,7 +9,7 @@ import { TopicDialogService } from '../../../services/admin/topic-dialog.service
 @Component({
     selector: 'app-admin-topic-table',
     templateUrl: './topic-table.component.html',
-    //styleUrls: ['./topic-table.component.css']
+    styleUrls: ['./topic-table.component.css']
 })
 
 export class TopicTableComponent implements OnInit {

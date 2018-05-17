@@ -10,7 +10,7 @@ import { EditorComponent } from '../../editor/editor.component';
 @Component({
     selector: 'app-admin-article-dialog',
     templateUrl: './article-dialog.component.html',
-    //styleUrls: ['./article-dialog.component.css']
+    styleUrls: ['./article-dialog.component.css']
 })
 
 export class ArticleDialogComponent implements OnInit {

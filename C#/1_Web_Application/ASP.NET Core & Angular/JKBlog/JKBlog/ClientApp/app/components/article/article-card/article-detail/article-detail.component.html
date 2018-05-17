@@ -1,8 +1,18 @@
+<div class="docs-primary-header">
+    <h1 *ngIf="article.topic">{{article.topic.title}}</h1>
+</div>
 
-<div *ngIf="article">
-    <mat-toolbar class="docs-primary-header" color="primary">
-        <h1>{{article.title}}</h1>
-    </mat-toolbar>
+<div class="docs-guide-wrapper">
+    <div class="docs-guide-toc-and-content">
+        <div class="docs-guide-content">
+            <h1 class="docs-markdown">{{article.title}}</h1>
+            <div [innerHTML]="article.content"></div>
+        </div>
+        <!--<doc-viewer class="docs-guide-content"
+                    (contentLoaded)="toc.updateScrollPosition()"
+                    [documentUrl]="guide.document"></doc-viewer>
+        <table-of-contents #toc container="guide-viewer"></table-of-contents>-->
+    </div>
 </div>
 
 <button (click)="goBack()">go back</button>

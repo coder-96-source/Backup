@@ -6,7 +6,7 @@ import { AnnouncementDialogService } from '../../../../services/admin/announceme
 @Component({
     selector: 'app-admin-announcement-dialog',
     templateUrl: './announcement-dialog.component.html',
-    //styleUrls: ['./announcement-dialog.component.css']
+    styleUrls: ['./announcement-dialog.component.css']
 })
 
 export class AnnouncementDialogComponent implements OnInit {

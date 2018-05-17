@@ -11,13 +11,11 @@ using JKBlog.Helpers.ModelConverters;
 namespace JKBlog.Controllers
 {
     //[Route("api/[controller]/[action]")]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly JKBlogDbContext _context;
-
-        public HomeController(JKBlogDbContext context)
+        public HomeController(JKBlogDbContext context) : base(context)
         {
-            this._context = context;
+
         }
 
         //[Route("[controller]/[action]")]
@@ -42,17 +40,19 @@ namespace JKBlog.Controllers
                 return BadRequest(ModelState);
             }
 
-            var article = await this._context.Articles.SingleOrDefaultAsync(t => t.ArticleId == id);
+            var article = await this._context.Articles
+                .Include(a => a.User)
+                .Include(a => a.Topic)
+                .SingleOrDefaultAsync(a => a.ArticleId == id);
             if (article == null)
             {
                 return NotFound();
             }
 
-            //var base64Article = ModelConverter.ConvertBinaryModelsToBase64Models
-            //    (article, _base64ArticleType.Value, _targetPropertyNames.Value) as Base64Article;
+            var base64Article = ModelConverter.ConvertBinaryModelsToBase64Models
+                (article, _base64ArticleType.Value, _targetPropertyNames.Value) as Base64Article;
 
-            //return Ok(base64Article);
-            return Ok(article);
+            return Ok(base64Article);
         }
 
         [HttpGet]

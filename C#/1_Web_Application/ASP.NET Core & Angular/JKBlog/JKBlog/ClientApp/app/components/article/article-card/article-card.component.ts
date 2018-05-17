@@ -5,7 +5,7 @@ import { ArticleCardService } from '../../../services/article-card.service';
 @Component({
     selector: 'app-article-card',
     templateUrl: './article-card.component.html',
-    //styleUrls: ['./article-card.component.css']
+    styleUrls: ['./article-card.component.css']
 })
 
 export class ArticleCardComponent {

@@ -11,8 +11,7 @@
     "strict": true,
     "lib": [ "es6", "dom" ],
     "types": [ "webpack-env" ],
-    "noImplicitAny": false, // to avoid compiler warning about 'any' type
-    "strictPropertyInitialization": false
+    "noImplicitAny": false // to avoid compiler warning about 'any' type
   },
   "exclude": [ "bin", "node_modules" ],
   "atom": { "rewriteTsconfig": false }

@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service';
 @Component({
     selector: 'app-topnav',
     templateUrl: './topnav.component.html',
-    styleUrls: ['./topnav.component.scss']
+    styleUrls: ['./topnav.component.scss', './_topnav-theme.scss']
 })
 export class TopNavComponent {
     
