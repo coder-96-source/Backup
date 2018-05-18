@@ -48,12 +48,10 @@ import { TopNavComponent } from './components/topnav/topnav.component';
 import { SideNavComponent } from './components/sidenav/sidenav.component';
 import { HomeComponent } from './components/home/home.component';
 import { BannerComponent } from './components/banner/banner.component';
-//import { ArticleCardComponent } from './components/article/article-card/article-card.component'
 import { AnnouncementComponent } from './components/announcement/announcement.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 
-//import { ArticleCardService } from './services/article-card.service';
 import { AnnouncementService } from './services/announcement.service';
 import { GatewayService } from './services/gateway.service';
 import { JWTGatewayService } from './services/jwtgateway.service';
@@ -65,7 +63,6 @@ import { JWTGatewayService } from './services/jwtgateway.service';
         SideNavComponent,
         HomeComponent,
         BannerComponent,
-        //ArticleCardComponent,
         AnnouncementComponent,
         AboutComponent,
         ContactComponent,
@@ -109,7 +106,6 @@ import { JWTGatewayService } from './services/jwtgateway.service';
         MatToolbarModule,
         MatTooltipModule,
 
-
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
@@ -122,10 +118,9 @@ import { JWTGatewayService } from './services/jwtgateway.service';
         UserModule,
         SettingModule,
     ],
-    //ArticleCardService
-    providers: [AnnouncementService, GatewayService, JWTGatewayService,
-    ],
-    bootstrap: [AppComponent],
+    providers: [
+        AnnouncementService, GatewayService, JWTGatewayService,
+    ]
 })
 export class AppModuleShared {
 }
