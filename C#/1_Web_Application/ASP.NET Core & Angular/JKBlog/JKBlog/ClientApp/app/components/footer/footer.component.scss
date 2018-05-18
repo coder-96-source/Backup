@@ -1,0 +1,18 @@
+.docs-footer {
+    padding: 12px;
+    font-size: 12px;
+    margin-top: 25px;
+}
+
+.docs-footer-list {
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 8px;
+}
+
+@media screen and (max-width: 884px) {
+    .docs-footer-list {
+        flex-direction: column;
+    }
+}

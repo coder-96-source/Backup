@@ -1,11 +1,12 @@
-﻿@import '../node_modules/@angular/material/theming';
+﻿@import '~@angular/material/theming';
 
-@import './app/components/topnav/topnav-theme';
-@import './app/components/home/home-theme';
-@import './styles/api-theme';
-@import './styles/markdown-theme';
-@import './styles/svg-theme';
-@import './styles/tables-theme';
+@import '../topnav/topnav-theme';
+@import '../footer/footer-theme';
+@import '../home/home-theme';
+@import '../../../styles/api-theme';
+@import '../../../styles/markdown-theme';
+@import '../../../styles/svg-theme';
+@import '../../../styles/tables-theme';
 
 // Styles for the docs app that are based on the current theme.
 @mixin app-theme($theme) {
@@ -33,5 +34,6 @@
     }
 
     @include nav-bar-theme($theme);
+    @include footer-theme($theme);
     @include home-theme($theme);
 }

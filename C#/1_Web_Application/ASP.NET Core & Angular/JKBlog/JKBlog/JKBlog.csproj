@@ -74,7 +74,18 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\app\models\viewModel\" />
+    <Folder Include="ClientApp\assets\img\" />
     <Folder Include="Models\ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\homepage\angular-white-transparent.svg" />
+    <None Include="wwwroot\Images\homepage\fastandconsistent.svg" />
+    <None Include="wwwroot\Images\homepage\github-circle-white-transparent.svg" />
+    <None Include="wwwroot\Images\homepage\material_splash.svg" />
+    <None Include="wwwroot\Images\homepage\optimized.svg" />
+    <None Include="wwwroot\Images\homepage\sprintzerotoapp.svg" />
+    <None Include="wwwroot\Images\homepage\versatile.svg" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
