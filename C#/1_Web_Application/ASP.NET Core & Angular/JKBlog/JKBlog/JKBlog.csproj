@@ -52,16 +52,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\Images\banner1.svg">
+    <Content Update="wwwroot\Images\banner\banner1.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\Images\banner2.svg">
+    <Content Update="wwwroot\Images\banner\banner2.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\Images\banner3.svg">
+    <Content Update="wwwroot\Images\banner\banner3.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\Images\banner4.svg">
+    <Content Update="wwwroot\Images\banner\banner4.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\Images\logo_big.PNG">
@@ -79,13 +79,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Images\homepage\angular-white-transparent.svg" />
-    <None Include="wwwroot\Images\homepage\fastandconsistent.svg" />
-    <None Include="wwwroot\Images\homepage\github-circle-white-transparent.svg" />
-    <None Include="wwwroot\Images\homepage\material_splash.svg" />
-    <None Include="wwwroot\Images\homepage\optimized.svg" />
-    <None Include="wwwroot\Images\homepage\sprintzerotoapp.svg" />
-    <None Include="wwwroot\Images\homepage\versatile.svg" />
+    <None Include="wwwroot\Images\about\fastandconsistent.svg" />
+    <None Include="wwwroot\Images\about\optimized.svg" />
+    <None Include="wwwroot\Images\about\sprintzerotoapp.svg" />
+    <None Include="wwwroot\Images\about\versatile.svg" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

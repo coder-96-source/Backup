@@ -12,45 +12,45 @@ using JKBlog.Helpers.ModelConverters;
 namespace JKBlog.Controllers
 {
     [Authorize]
-    [Produces("application/json")]
-    [Route("api/[controller]/[action]")]
-    public class AdminController : BaseController
+    //[Produces("application/json")]
+    [Route("api/Admin/[action]")]
+    public class AdminApiController : BaseApiController
     {
-        public AdminController(JKBlogDbContext context) : base(context)
+        public AdminApiController(JKBlogDbContext context) : base(context)
         {
  
         }
 
         #region Topic
-        [HttpGet]
-        public IEnumerable<Base64Topic> Topics()
-        {
-            var topics = this._context.Topics.ToArray();
-            var base64Topics = ModelConverter.ConvertBinaryModelsToBase64Models
-                (topics, _base64TopicType.Value, _targetPropertyNames.Value) as IEnumerable<Base64Topic>;
+        //[HttpGet]
+        //public IEnumerable<Base64Topic> Topics()
+        //{
+        //    var topics = this._context.Topics.ToArray();
+        //    var base64Topics = ModelConverter.ConvertBinaryModelsToBase64Models
+        //        (topics, _base64TopicType.Value, _targetPropertyNames.Value) as IEnumerable<Base64Topic>;
 
-            return base64Topics;
-        }
+        //    return base64Topics;
+        //}
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Topic([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Topic([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var topic = await this._context.Topics.SingleOrDefaultAsync(t => t.TopicId == id);
-            if (topic == null)
-            {
-                return NotFound();
-            }
+        //    var topic = await this._context.Topics.SingleOrDefaultAsync(t => t.TopicId == id);
+        //    if (topic == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var base64Topic = ModelConverter.ConvertBinaryModelsToBase64Models
-                (topic, _base64TopicType.Value, _targetPropertyNames.Value) as Base64Topic;
+        //    var base64Topic = ModelConverter.ConvertBinaryModelsToBase64Models
+        //        (topic, _base64TopicType.Value, _targetPropertyNames.Value) as Base64Topic;
 
-            return Ok(base64Topic);
-        }
+        //    return Ok(base64Topic);
+        //}
 
         [HttpPut("{id}")]
         [ActionName("Topic/Update")]
@@ -139,42 +139,42 @@ namespace JKBlog.Controllers
             return Ok(topic);
         }
 
-        private bool IsTopicExists(int id)
-        {
-            return this._context.Topics.Any(t => t.TopicId == id);
-        }
+        //private bool IsTopicExists(int id)
+        //{
+        //    return this._context.Topics.Any(t => t.TopicId == id);
+        //}
         #endregion
 
         #region Article
-        [HttpGet]
-        public IEnumerable<Base64Article> Articles()
-        {
-            var articles = this._context.Articles.ToArray();
-            var base64Articles = ModelConverter.ConvertBinaryModelsToBase64Models
-                (articles, _base64ArticleType.Value, _targetPropertyNames.Value) as IEnumerable<Base64Article>;
+        //[HttpGet]
+        //public IEnumerable<Base64Article> Articles()
+        //{
+        //    var articles = this._context.Articles.ToArray();
+        //    var base64Articles = ModelConverter.ConvertBinaryModelsToBase64Models
+        //        (articles, _base64ArticleType.Value, _targetPropertyNames.Value) as IEnumerable<Base64Article>;
 
-            return base64Articles;
-        }
+        //    return base64Articles;
+        //}
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Article([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Article([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var article = await this._context.Articles.SingleOrDefaultAsync(t => t.ArticleId == id);
-            if (article == null)
-            {
-                return NotFound();
-            }
+        //    var article = await this._context.Articles.SingleOrDefaultAsync(t => t.ArticleId == id);
+        //    if (article == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var base64Article = ModelConverter.ConvertBinaryModelsToBase64Models
-                (article, _base64ArticleType.Value, _targetPropertyNames.Value) as Base64Article;
+        //    var base64Article = ModelConverter.ConvertBinaryModelsToBase64Models
+        //        (article, _base64ArticleType.Value, _targetPropertyNames.Value) as Base64Article;
 
-            return Ok(base64Article);
-        }
+        //    return Ok(base64Article);
+        //}
 
         [HttpPut("{id}")]
         [ActionName("Article/Update")]
@@ -260,42 +260,42 @@ namespace JKBlog.Controllers
             return Ok(article);
         }
 
-        private bool IsArticleExists(int id)
-        {
-            return this._context.Articles.Any(t => t.ArticleId == id);
-        }
+        //private bool IsArticleExists(int id)
+        //{
+        //    return this._context.Articles.Any(t => t.ArticleId == id);
+        //}
         #endregion
 
         #region Announcement
-        [HttpGet]
-        public IEnumerable<Announcement> Announcements()
-        {
-            var announcements = this._context.Announcements
-                .Include(announcement => announcement.User)
-                .ToList();
+        //[HttpGet]
+        //public IEnumerable<Announcement> Announcements()
+        //{
+        //    var announcements = this._context.Announcements
+        //        .Include(announcement => announcement.User)
+        //        .ToList();
 
-            return announcements;
-        }
+        //    return announcements;
+        //}
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Announcement([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Announcement([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var announcement = await this._context.Announcements
-                .Include(a => a.User)
-                .SingleOrDefaultAsync(a => a.AnnouncementId == id);
+        //    var announcement = await this._context.Announcements
+        //        .Include(a => a.User)
+        //        .SingleOrDefaultAsync(a => a.AnnouncementId == id);
 
-            if (announcement == null)
-            {
-                return NotFound();
-            }
+        //    if (announcement == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(announcement);
-        }
+        //    return Ok(announcement);
+        //}
 
         [HttpPut("{id}")]
         [ActionName("Announcement/Update")]
@@ -378,10 +378,10 @@ namespace JKBlog.Controllers
             return Ok(announcement);
         }
 
-        private bool IsAnnouncementExists(int id)
-        {
-            return this._context.Announcements.Any(a => a.AnnouncementId == id);
-        }
+        //private bool IsAnnouncementExists(int id)
+        //{
+        //    return this._context.Announcements.Any(a => a.AnnouncementId == id);
+        //}
         #endregion
     }
 }

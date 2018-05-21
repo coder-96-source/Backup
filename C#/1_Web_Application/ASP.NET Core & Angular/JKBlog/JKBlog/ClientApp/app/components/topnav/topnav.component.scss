@@ -40,6 +40,14 @@
     display: none;
 }
 
+.example-container {
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+}
+
 /**
   * Rules for when the device is detected to be a small screen.
   * Moves content two rows instead of one.

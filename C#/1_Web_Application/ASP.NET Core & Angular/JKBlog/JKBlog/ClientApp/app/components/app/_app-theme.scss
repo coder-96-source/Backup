@@ -3,6 +3,8 @@
 @import '../topnav/topnav-theme';
 @import '../footer/footer-theme';
 @import '../home/home-theme';
+@import '../about/about-theme';
+@import '../contact/contact-theme';
 @import '../../../styles/api-theme';
 @import '../../../styles/markdown-theme';
 @import '../../../styles/svg-theme';
@@ -36,4 +38,6 @@
     @include nav-bar-theme($theme);
     @include footer-theme($theme);
     @include home-theme($theme);
+    @include about-theme($theme);
+    @include contact-theme($theme);
 }

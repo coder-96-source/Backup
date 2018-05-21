@@ -90,9 +90,7 @@ import { ArticleRoutingModule } from './article.routing';
 
         ArticleRoutingModule
     ],
-    exports: [
-        ArticleCardComponent
-    ],
+    exports: [ ArticleCardComponent ],
     providers: [
         ArticleCardService, ArticleDetailService
     ]
