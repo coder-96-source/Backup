@@ -38,17 +38,17 @@ import {
     MatTooltipModule
 } from '@angular/material';
 
+import { ArticleBoardComponent } from './article-board.component';
 import { ArticleCardComponent } from './article-card/article-card.component';
 import { ArticleDetailComponent } from './article-card/article-detail/article-detail.component';
 import { ArticleCardService } from '../../services/article-card.service';
 import { ArticleDetailService } from '../../services/article-detail.service';
-//import { GatewayService } from '../../services/gateway.service';
 
 import { ArticleRoutingModule } from './article.routing';
 
 @NgModule({
     declarations: [
-        ArticleCardComponent, ArticleDetailComponent
+        ArticleBoardComponent, ArticleCardComponent, ArticleDetailComponent
     ],
     imports: [
         CommonModule,
@@ -90,7 +90,7 @@ import { ArticleRoutingModule } from './article.routing';
 
         ArticleRoutingModule
     ],
-    exports: [ ArticleCardComponent ],
+    exports: [ ArticleBoardComponent, ArticleCardComponent ],
     providers: [
         ArticleCardService, ArticleDetailService
     ]

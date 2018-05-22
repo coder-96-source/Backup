@@ -1,8 +1,6 @@
 ﻿@import '~@angular/material/theming';
 @import './app-theme';
-@import '../../../styles/api';
 @import '../../../styles/markdown';
-@import '../../../styles/tables';
 @import '../../../styles/general';
 
 // Include material core styles.
@@ -32,10 +30,6 @@ app-topnav {
     left: 0;
     right: 0;
     z-index: 2;
-}
-
-app > app-component-sidenav {
-    flex: 1;
 }
 
 app > app-home,

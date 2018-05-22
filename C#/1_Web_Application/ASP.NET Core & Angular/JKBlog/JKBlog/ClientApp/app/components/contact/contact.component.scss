@@ -1,16 +1,16 @@
 ﻿$margin-promotion-sections: 60px;
 $margin-promotion-sections-small: 15px;
 
-.docs-header-background {
+.header-background {
     overflow: hidden;
 }
 
-.docs-header-section {
+.header-section {
     text-align: center;
     padding-top: $margin-promotion-sections;
 }
 
-.docs-header-headline {
+.header-headline {
     h1 {
         font-size: 56px;
         font-weight: 300;
@@ -68,11 +68,11 @@ $margin-promotion-sections-small: 15px;
   * Rules for when the device is detected to be a small screen.
   */
 @media (max-width: 720px) {
-    .docs-header-section {
+    .header-section {
         padding-top: $margin-promotion-sections-small;
     }
 
-    .docs-homepage-row {
+    .homepage-row {
         margin: $margin-promotion-sections-small 0;
     }
 }

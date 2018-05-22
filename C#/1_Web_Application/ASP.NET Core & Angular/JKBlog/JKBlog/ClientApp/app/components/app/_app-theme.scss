@@ -5,12 +5,9 @@
 @import '../home/home-theme';
 @import '../about/about-theme';
 @import '../contact/contact-theme';
-@import '../../../styles/api-theme';
 @import '../../../styles/markdown-theme';
-@import '../../../styles/svg-theme';
-@import '../../../styles/tables-theme';
 
-// Styles for the docs app that are based on the current theme.
+// Styles for the app that are based on the current theme.
 @mixin app-theme($theme) {
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
@@ -18,11 +15,11 @@
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
 
-    .docs-app-background {
+    .app-background {
         background: mat-color($background, background);
     }
 
-    .docs-primary-header {
+    .primary-header {
         background: mat-color($primary);
 
         h1 {
@@ -30,7 +27,7 @@
         }
     }
 
-    .docs-footer {
+    .footer {
         background: mat-color($primary);
         color: mat-color($primary, default-contrast);
     }

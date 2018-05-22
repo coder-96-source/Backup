@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../../../models/dataModel/article';
-import { ArticleCardService } from '../../../services/article-card.service';
+import { Article } from '../../models/dataModel/article';
+import { ArticleCardService } from '../../services/article-card.service';
 
 @Component({
-    selector: 'app-article-card',
-    templateUrl: './article-card.component.html',
-    styleUrls: ['./article-card.component.css']
+    selector: 'app-article-board',
+    templateUrl: './article-board.component.html',
+    styleUrls: ['./article-board.component.css']
 })
 
-export class ArticleCardComponent {
+export class ArticleBoardComponent {
     articles: Article[];
     errorMessage: string;
 

@@ -6,15 +6,15 @@
   $foreground: map-get($theme, foreground);
 
   app-about {
-    .docs-header-background {
+    .header-background {
       background: mat-color($primary);
     }
 
-    .docs-header-headline {
+    .header-headline {
       color: mat-color($primary, default-contrast);
     }
 
-    .docs-homepage-row {
+    .homepage-row {
       color: mat-color($foreground, secondary-text);
     }
   }

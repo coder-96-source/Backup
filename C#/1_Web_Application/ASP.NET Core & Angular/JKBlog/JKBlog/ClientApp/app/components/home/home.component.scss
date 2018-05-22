@@ -1,16 +1,16 @@
 ﻿$margin-promotion-sections: 60px;
 $margin-promotion-sections-small: 15px;
 
-.docs-header-background {
+.header-background {
     overflow: hidden;
 }
 
-.docs-header-section {
+.header-section {
     text-align: center;
     padding-top: $margin-promotion-sections;
 }
 
-.docs-header-headline {
+.header-headline {
     h1 {
         font-size: 56px;
         font-weight: 300;
@@ -26,7 +26,7 @@ $margin-promotion-sections-small: 15px;
     }
 }
 
-.docs-homepage-promo {
+.homepage-promo {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -49,36 +49,36 @@ $margin-promotion-sections-small: 15px;
 }
 
 
-.docs-homepage-row {
+.homepage-row {
     display: flex;
     max-width: 920px;
     margin: $margin-promotion-sections 0;
 }
 
-.docs-homepage-row .docs-svg-image {
+.homepage-row .svg-image {
     max-width: 90%;
 }
 
-.docs-homepage-reverse-row {
+.homepage-reverse-row {
     flex-direction: row-reverse;
 }
 
-.docs-header-start,
-.docs-homepage-bottom-start {
+.header-start,
+.homepage-bottom-start {
     text-align: center;
     margin: $margin-promotion-sections 0;
 }
 
-.docs-homepage-promo-img,
-.docs-homepage-promo-desc {
+.homepage-promo-img,
+.homepage-promo-desc {
     width: 50%;
 }
 
-.docs-homepage-promo-img {
+.homepage-promo-img {
     text-align: center;
 }
 
-.docs-homepage-promo-desc {
+.homepage-promo-desc {
     line-height: 2;
     display: flex;
     flex-direction: column;
@@ -90,16 +90,16 @@ $margin-promotion-sections-small: 15px;
   * Rules for when the device is detected to be a small screen.
   */
 @media (max-width: 720px) {
-    .docs-header-section {
+    .header-section {
         padding-top: $margin-promotion-sections-small;
     }
 
-    .docs-header-start,
-    .docs-homepage-bottom-start {
+    .header-start,
+    .homepage-bottom-start {
         margin: $margin-promotion-sections-small 0;
     }
 
-    .docs-homepage-row {
+    .homepage-row {
         margin: $margin-promotion-sections-small 0;
     }
 }

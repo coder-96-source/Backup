@@ -1,61 +1,61 @@
 // Styles for overview and guide docs generated via `marked` from the material2 repo.
 
-.docs-markdown {
+.markdown {
   max-width: 100%;
 }
 
-.docs-markdown-h1 {
+.markdown-h1 {
   display: inline-block;
   font-size: 34px;
   font-weight: 400;
   padding: 5px;
 }
 
-.docs-markdown-h2 {
+.markdown-h2 {
   font-size: 24px;
 }
 
-.docs-markdown-h3 {
+.markdown-h3 {
   font-size: 20px;
 }
 
-.docs-markdown-h2,
-.docs-markdown-h4 {
+.markdown-h2,
+.markdown-h4 {
   margin-top: 40px;
 }
 
-.docs-markdown-h5 {
+.markdown-h5 {
   font-size: 18px;
 }
 
-.docs-markdown-p,
-.docs-markdown-ul,
-.docs-markdown-ol {
+.markdown-p,
+.markdown-ul,
+.markdown-ol {
   font-size: 16px;
   line-height: 28px;
 }
 
-.docs-markdown-a {
+.markdown-a {
   text-decoration: none;
 }
 
-.docs-markdown-td code {
+.markdown-td code {
   font-size: 14px;
 }
 
-.docs-markdown-pre {
+.markdown-pre {
   border-radius: 5px;
   display: block;
   margin: 16px auto;
   overflow-x: auto;
   padding: 20px;
 
-  .docs-markdown-code {
+  .markdown-code {
     padding: 0;
   }
 }
 
-.docs-markdown-code {
+.markdown-code {
   padding: 3px;
 }
 
@@ -67,7 +67,7 @@ pre {
   font-size: 14px;
 }
 
-.docs-header-link {
+.header-link {
   a {
     text-decoration: none;
     // deduct -30px so the anchor icon will be positioned outside the content

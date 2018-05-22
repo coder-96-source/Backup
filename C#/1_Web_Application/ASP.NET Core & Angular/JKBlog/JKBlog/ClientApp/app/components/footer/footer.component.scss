@@ -1,10 +1,10 @@
-.docs-footer {
+.footer {
     /*padding: 12px;*/
     font-size: 12px;
     margin-top: 25px;
 }
 
-.docs-footer-list {
+.footer-list {
     align-items: center;
     display: flex;
     flex-flow: row wrap;
@@ -12,7 +12,7 @@
 }
 
 @media screen and (max-width: 884px) {
-    .docs-footer-list {
+    .footer-list {
         flex-direction: column;
     }
 }

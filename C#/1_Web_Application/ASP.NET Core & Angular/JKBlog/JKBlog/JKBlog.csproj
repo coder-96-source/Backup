@@ -78,13 +78,6 @@
     <Folder Include="Models\ViewModel\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\Images\about\fastandconsistent.svg" />
-    <None Include="wwwroot\Images\about\optimized.svg" />
-    <None Include="wwwroot\Images\about\sprintzerotoapp.svg" />
-    <None Include="wwwroot\Images\about\versatile.svg" />
-  </ItemGroup>
-
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
