@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using JKBlog.Models.DataModel;
+using JKBlog.Models;
 using JKBlog.Helpers.JWTs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

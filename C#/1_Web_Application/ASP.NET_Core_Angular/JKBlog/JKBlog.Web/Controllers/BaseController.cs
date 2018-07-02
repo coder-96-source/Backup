@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JKBlog.Helpers.Encryptors;
-using JKBlog.Models.DataModel;
+using JKBlog.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace JKBlog.Controllers
 {
-    [Produces("application/json")]
     [Route("api/[controller]")]
-    public abstract class BaseController : Controller
+    [ApiController]
+    public abstract class BaseController : ControllerBase
     {
         protected static readonly Lazy<HashEncryptor> _encryptor = new Lazy<HashEncryptor>(() => new HashEncryptor());
         protected static readonly Lazy<Type> _binaryTopicType = new Lazy<Type>(() => typeof(Topic));

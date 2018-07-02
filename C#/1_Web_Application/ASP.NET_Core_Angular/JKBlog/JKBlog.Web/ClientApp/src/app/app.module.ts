@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { MainModule } from './components/main/main.module';
+import { SharedModule } from './shared.module';
 
 import { AppRoutingModule } from './app.routing';
 
@@ -15,6 +16,8 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     MainModule,
+    SharedModule,
+
     AppRoutingModule
   ],
   providers: [

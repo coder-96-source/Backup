@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using JKBlog.Helpers.ModelConverters;
-using JKBlog.Models.DataModel;
+using JKBlog.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

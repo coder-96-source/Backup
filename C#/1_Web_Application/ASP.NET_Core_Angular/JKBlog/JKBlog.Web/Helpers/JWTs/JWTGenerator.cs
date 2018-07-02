@@ -1,4 +1,4 @@
-﻿using JKBlog.Models.DataModel;
+﻿using JKBlog.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;

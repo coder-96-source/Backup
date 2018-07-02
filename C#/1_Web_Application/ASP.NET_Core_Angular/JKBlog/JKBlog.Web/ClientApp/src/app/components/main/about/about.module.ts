@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 //import { BrowserModule } from '@angular/platform-browser';
-//import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     MatTabsModule,
@@ -8,6 +8,7 @@ import {
     MatButtonModule,
     MatProgressSpinnerModule,
 } from '@angular/material';
+import { SharedModule } from '../../../shared.module';
 
 import { AboutRoutingModule } from './about.routing';
 
@@ -26,21 +27,22 @@ import { AboutService } from '../../../services/main/about/about.service';
         AboutBackendComponent
     ],
     imports: [
-        //CommonModule,
+        CommonModule,
         //BrowserModule,
         FlexLayoutModule,
         MatTabsModule,
         MatCardModule,
         MatButtonModule,
         MatProgressSpinnerModule,
-        
+        SharedModule,
+
         AboutRoutingModule
     ],
     exports: [
         AboutComponent
     ],
     providers: [
-        AboutService
+      AboutService
     ]
 })
 export class AboutModule { }
