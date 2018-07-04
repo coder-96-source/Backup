@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-//import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     MatTabsModule,
     MatCardModule,
@@ -28,7 +28,7 @@ import { AboutService } from '../../../services/main/about/about.service';
     ],
     imports: [
         CommonModule,
-        //BrowserModule,
+      BrowserAnimationsModule,
         FlexLayoutModule,
         MatTabsModule,
         MatCardModule,

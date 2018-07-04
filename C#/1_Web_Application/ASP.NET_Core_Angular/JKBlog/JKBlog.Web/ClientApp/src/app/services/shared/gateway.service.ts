@@ -5,60 +5,67 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import { SnackbarService, SnackbarAction } from './snackbar.service';
+import { LoggingService } from './logging.service';
+
 @Injectable({ providedIn: 'root' })
 export class GatewayService {
-  const httpOptions = {
+  protected httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   constructor(
     protected http: HttpClient,
-    protected router: Router) {
+    protected router: Router,
+    protected snackbarService: SnackbarService,
+    protected loggingService: LoggingService) {
 
-    }
+  }
 
-    get(url: string) : Observable<any> {
-      return this.http.get(`${url}`)
-        .pipe(
-          map(res => res),
-          tap(heroes => console.log(),
-        catchError(this.handleError('getHeroes', [])
-        );
-    }
+  get(url: string): Observable<any> {
+    return this.http.get(`${url}`)
+      .pipe(
+        map(res => res),
+        tap(data => this.loggingService.writeInfoLog(url)),
+        catchError(this.handleError(url, []))
+      );
+  }
 
-    post(url: string, data: any) {
-        return this.http.post(`${this.baseUrl}${url}`, data).pipe(map(res => res));
-    }
+  post(url: string, data: any): Observable<any> {
+    return this.http.post(`${url}`, data).pipe(
+      map(res => res),
+      tap(data => this.loggingService.writeInfoLog(url)),
+      catchError(this.handleError(url, []))
+    );
+  }
 
-    put(url: string, data: any) {
-        return this.http.put(`${this.baseUrl}${url}`, data).pipe(map(res => res));
-    }
+  put(url: string, data: any): Observable<any> {
+    return this.http.put(`${url}`, data).pipe(
+      map(res => res),
+      tap(data => this.loggingService.writeInfoLog(url)),
+      catchError(this.handleError(url, []))
+    );
+  }
 
-    delete(url: string) {
-        return this.http.delete(`${this.baseUrl}${url}`).pipe(map(res => res));
-    }
+  delete(url: string): Observable<any> {
+    return this.http.delete(`${url}`).pipe(
+      map(res => res),
+      tap(data => this.loggingService.writeInfoLog(url)),
+      catchError(this.handleError(url, []))
+    );
+  }
 
-    navigateHome() {
-        this.router.navigate([this.baseUrl]);
-    }
+  navigateHome() {
+    //        this.router.initialNavigation();
+  }
 
-  /**
- * Handle Http operation that failed.
- * Let the app continue.
- * @param operation - name of the operation that failed
- * @param result - optional value to return as the observable result
- */
-  private handleError<T>(operation = 'operation', result?: T) {
+  protected handleError<T>(url: string, result?: T) {
     return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+      this.loggingService.writeErrorLog(error); // System side logging
+      this.snackbarService.openSnackBar('Error occurred. Please contact administrator.', SnackbarAction.Error); // Client side display
 
       // Let the app keep running by returning an empty result.
-      return of(result as T);
+      return of(result as T); // optional value to return as the observable result
     };
   }
 }

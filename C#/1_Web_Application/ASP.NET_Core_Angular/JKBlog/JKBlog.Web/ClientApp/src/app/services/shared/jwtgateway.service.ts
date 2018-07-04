@@ -1,22 +1,26 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+
+import { SnackbarService, SnackbarAction } from './snackbar.service';
+import { LoggingService } from './logging.service';
 import { GatewayService } from './gateway.service';
 import { UserService } from '../user/user.service';
-import { ResponseType } from '@angular/http';
 
-@Injectable()
+
+@Injectable({ providedIn: 'root' })
 export class JWTGatewayService extends GatewayService {
-    private headers?: HttpHeaders;
-    private httpOptions?: any;
 
-    constructor(protected http: HttpClient,
-        @Inject('BASE_URL') protected baseUrl: string,
-        protected router: Router,
-        private userService: UserService) {
-        super(http, baseUrl, router);
+  constructor(
+    protected http: HttpClient,
+    protected router: Router,
+    protected snackbarService: SnackbarService,
+    protected loggingService: LoggingService,
+    private userService: UserService) {
+        super(http, router, snackbarService, loggingService);
         this.makeDefaultHttpOption();
     }
 
@@ -26,25 +30,24 @@ export class JWTGatewayService extends GatewayService {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwtToken}`
-            }),
-            responseType: 'json'
+            })
         };
     }
 
     get(url: string): Observable<any> {
-        return this.http.get(`${this.baseUrl}${url}`, this.httpOptions)
+        return this.http.get(`${url}`, this.httpOptions)
             .pipe(map(res => res));
     }
 
     post(url: string, data: any): Observable<any> {
-        return this.http.post(`${this.baseUrl}${url}`, data, this.httpOptions).pipe(map(res => res));
+        return this.http.post(`${url}`, data, this.httpOptions).pipe(map(res => res));
     }
 
     put(url: string, data: any): Observable<any> {
-        return this.http.put(`${this.baseUrl}${url}`, data, this.httpOptions).pipe(map(res => res));
+        return this.http.put(`${url}`, data, this.httpOptions).pipe(map(res => res));
     }
 
     delete(url: string): Observable<any> {
-        return this.http.delete(`${this.baseUrl}${url}`, this.httpOptions).pipe(map(res => res));
+        return this.http.delete(`${url}`, this.httpOptions).pipe(map(res => res));
     }
 }
