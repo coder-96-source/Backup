@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-    MatTabsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
+  MatTabsModule,
+  MatCardModule,
+  MatButtonModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 import { SharedModule } from '../../../shared.module';
 
@@ -20,29 +20,29 @@ import { AboutBackendComponent } from './about-backend/about-backend.component';
 import { AboutService } from '../../../services/main/about/about.service';
 
 @NgModule({
-    declarations: [
-        AboutComponent,
-        AboutSummaryComponent,
-        AboutFrontendComponent,
-        AboutBackendComponent
-    ],
-    imports: [
-        CommonModule,
-      BrowserAnimationsModule,
-        FlexLayoutModule,
-        MatTabsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        SharedModule,
+  declarations: [
+    AboutComponent,
+    AboutSummaryComponent,
+    AboutFrontendComponent,
+    AboutBackendComponent
+  ],
+  imports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    MatTabsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    SharedModule,
 
-        AboutRoutingModule
-    ],
-    exports: [
-        AboutComponent
-    ],
-    providers: [
-      AboutService
-    ]
+    AboutRoutingModule
+  ],
+  exports: [
+    AboutComponent
+  ],
+  providers: [
+    AboutService
+  ]
 })
 export class AboutModule { }

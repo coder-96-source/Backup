@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -15,12 +15,12 @@ import { UserService } from '../user/user.service';
 export class JWTGatewayService extends GatewayService {
 
   constructor(
+    protected injector: Injector,
     protected http: HttpClient,
     protected router: Router,
     protected snackbarService: SnackbarService,
-    protected loggingService: LoggingService,
     private userService: UserService) {
-        super(http, router, snackbarService, loggingService);
+        super(injector, http, router, snackbarService);
         this.makeDefaultHttpOption();
     }
 

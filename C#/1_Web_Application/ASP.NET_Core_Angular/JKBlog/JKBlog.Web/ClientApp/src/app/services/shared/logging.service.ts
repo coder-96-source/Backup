@@ -10,11 +10,11 @@ export class LoggingService {
 
   }
 
-  writeErrorLog(url: string, data = undefined) {
-    this.gatewayService.post('api/logs/error', data)
+  writeErrorLog(message: string) {
+    this.gatewayService.post('api/logs/error', message);
   }
 
-  writeInfoLog(url: string, data = undefined) {
-    this.gatewayService.post('api/logs/info', data)
+  writeInfoLog(message: string) {
+    this.gatewayService.post('api/logs/info', message);
   }
 }
