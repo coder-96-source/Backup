@@ -1,0 +1,39 @@
+@import '~@angular/material/theming';
+
+@import './app/components/shared/topnav/topnav-theme';
+@import './app/components/main/about/about-theme';
+@import './app/components/main/contact/contact-theme';
+@import 'styles/markdown-theme';
+
+// Styles for the app that are based on the current theme.
+@mixin app-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .app-background {
+    background: mat-color($background, background);
+  }
+
+  .primary-header {
+    background: mat-color($primary);
+
+    h1 {
+      color: mat-color($primary, default-contrast);
+    }
+  }
+
+  .footer {
+    background: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+  }
+
+  /*@include nav-bar-theme($theme);
+  @include footer-theme($theme);
+  @include home-theme($theme);*/
+  @include topnav-theme($theme);
+  @include about-theme($theme);
+  @include contact-theme($theme);
+}

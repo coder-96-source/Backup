@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
-
-import { GatewayService } from './gateway.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class LoggingService {
 
   constructor(
-    private gatewayService: GatewayService) {
+    private http: HttpClient) {
 
   }
 
   writeErrorLog(message: string) {
-    this.gatewayService.post('api/logs/error', message);
+    this.http.post('api/logs/error', message);
   }
 
   writeInfoLog(message: string) {
-    this.gatewayService.post('api/logs/info', message);
+    this.http.post('api/logs/info', message);
   }
 }

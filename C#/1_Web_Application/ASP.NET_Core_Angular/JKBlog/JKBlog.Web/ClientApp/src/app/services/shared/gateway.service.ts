@@ -1,27 +1,22 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { SnackbarService, SnackbarAction } from './snackbar.service';
 import { LoggingService } from './logging.service';
-import { logging } from 'protractor';
+import { SnackbarService, SnackbarAction } from './snackbar.service';
 
 @Injectable({ providedIn: 'root' })
 export class GatewayService {
-  protected httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  protected loggingService: LoggingService;
 
   constructor(
-    protected injector: Injector,
     protected http: HttpClient,
     protected router: Router,
+    protected loggingService: LoggingService,
     protected snackbarService: SnackbarService) {
-    this.loggingService = injector.get(LoggingService);
+
   }
 
   get(url: string): Observable<any> {
@@ -58,7 +53,7 @@ export class GatewayService {
   }
 
   navigateHome() {
-    //        this.router.initialNavigation();
+    // this.router.initialNavigation();
   }
 
   protected handleError<T>(url: string, result?: T) {

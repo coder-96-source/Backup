@@ -9,7 +9,7 @@ import { AboutService } from '../../../../services/main/about/about.service';
 })
 export class AboutBackendComponent implements OnInit {
     private isLoaded = false;
-    private features?: Feature[];
+    private features: Feature[];
 
     constructor(private aboutService: AboutService) {
 

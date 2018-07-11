@@ -1,0 +1,42 @@
+﻿.topnav-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px 16px;
+
+    > .mat-button {
+        &:last-child {
+            margin-left: auto;
+        }
+    }
+}
+
+    .topnav-header .mat-button {
+        color: white;
+    }
+
+.flex-spacer {
+    flex-grow: 1;
+}
+
+.topnav {
+    display: none;
+}
+
+.sidenav-container {
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+}
+
+/**
+  * Rules for when the device is detected to be a small screen.
+  * Moves content two rows instead of one.
+  */
+@media (max-width: 720px) {
+    .topnav {
+        display: flex;
+    }
+}
