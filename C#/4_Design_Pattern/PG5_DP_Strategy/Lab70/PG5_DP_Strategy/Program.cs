@@ -18,22 +18,30 @@ namespace PG5_DP_Strategy
             var randomNumbers = GetRandomNumbers(100);
             PrintArray(randomNumbers);
 
-            RunBubbleSorter(randomNumbers);
-            RunInsertionSorter(randomNumbers);
+            //RunBubbleSorter(randomNumbers);
+            //RunInsertionSorter(randomNumbers);
+            RunQuickSorter(randomNumbers);
         }
 
         private static void RunBubbleSorter(int[] randomNumbers)
         {
             var bubbleSorter = new SortingLibrary.BubbleSorter<int>();
-            var sortedNumbers = bubbleSorter.Sort(randomNumbers);
-            PrintArray(sortedNumbers);
+            bubbleSorter.Sort(randomNumbers);
+            PrintArray(randomNumbers);
         }
 
         private static void RunInsertionSorter(int[] randomNumbers)
         {
             var insertionSorter = new SortingLibrary.InsertionSorter<int>();
-            var sortedNumbers = insertionSorter.Sort(randomNumbers);
-            PrintArray(sortedNumbers);
+            insertionSorter.Sort(randomNumbers);
+            PrintArray(randomNumbers);
+        }
+
+        private static void RunQuickSorter(int[] randomNumbers)
+        {
+            var quickSorter = new SortingLibrary.QuickSorter<int>();
+            quickSorter.Sort(randomNumbers);
+            PrintArray(randomNumbers);
         }
 
         private static int[] GetRandomNumbers(int size)

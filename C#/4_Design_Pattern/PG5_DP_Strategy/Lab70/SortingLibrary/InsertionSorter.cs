@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SortingLibrary
 {
-    public class InsertionSorter<T> : ISortable<T> where T : IComparable
+    public class InsertionSorter<T> : ISortable<T> where T : IComparable<T>
     {
-        public T[] Sort(T[] elements)
+        public void Sort(T[] elements)
         {
             if (elements == null)
             {
@@ -17,26 +17,16 @@ namespace SortingLibrary
 
             for (int i = 1; i < elements.Length; i++)
             {
-                int startIndex = i;
-                while (startIndex > 0)
+                T key = elements[i];
+                int j = i - 1;
+
+                while (j >= 0 && elements[j].CompareTo(key) > 0)
                 {
-                    if (elements[startIndex].CompareTo(elements[startIndex - 1]) < 0)
-                    {
-                        Swap(elements, startIndex, startIndex - 1);
-                    }
-                    startIndex--;
+                    elements[j + 1] = elements[j];
+                    j--;
                 }
+                elements[j + 1] = key;
             }
-
-            return elements;
-        }
-
-
-        public void Swap(T[] elements, int i, int j)
-        {
-            T temp = elements[i];
-            elements[i] = elements[j];
-            elements[j] = temp;
         }
     }
 }

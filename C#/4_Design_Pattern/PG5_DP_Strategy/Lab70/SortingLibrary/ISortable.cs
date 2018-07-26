@@ -8,6 +8,6 @@ namespace SortingLibrary
 {
     public interface ISortable<T>
     {
-        T[] Sort(T[] elements);
+        void Sort(T[] elements);
     }
 }

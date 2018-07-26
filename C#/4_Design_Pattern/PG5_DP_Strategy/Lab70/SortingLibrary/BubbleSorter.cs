@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SortingLibrary
 {
-    public class BubbleSorter<T> : ISortable<T> where T : IComparable
+    public class BubbleSorter<T> : ISortable<T> where T : IComparable<T>
     {
-        public T[] Sort(T[] elements)
+        public void Sort(T[] elements)
         {
             if (elements == null)
             {
@@ -35,8 +35,6 @@ namespace SortingLibrary
                 }
                 endIndex--;
             }
-
-            return elements;
         }
 
         public void Swap(T[] elements, int i, int j)
