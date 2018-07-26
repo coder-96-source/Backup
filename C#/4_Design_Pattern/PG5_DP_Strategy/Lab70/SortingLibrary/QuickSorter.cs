@@ -15,6 +15,11 @@ namespace SortingLibrary
                 throw new ArgumentNullException();
             }
 
+            if (elements.Length < 1)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             QuickSort(elements, 0, elements.Length - 1);
         }
 
