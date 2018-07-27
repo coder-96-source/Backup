@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SortingLibrary.Algorithms;
+using SortingLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,33 +17,31 @@ namespace PG5_DP_Strategy
 
         private static void Run()
         {
-            var randomNumbers = GetRandomNumbers(100);
-            PrintArray(randomNumbers);
 
-            //RunBubbleSorter(randomNumbers);
-            //RunInsertionSorter(randomNumbers);
-            RunQuickSorter(randomNumbers);
-        }
+            var sorters = new List<ISortable<int>>()
+            {
+                new BubbleSorter<int>(),
+                new InsertionSorter<int>(),
+                //new QuickSorter<int>(),
+                new MergeSorter<int>()
+            };
 
-        private static void RunBubbleSorter(int[] randomNumbers)
-        {
-            var bubbleSorter = new SortingLibrary.BubbleSorter<int>();
-            bubbleSorter.Sort(randomNumbers);
-            PrintArray(randomNumbers);
-        }
+            var randomNumbers = GetRandomNumbers(10);
+            foreach (var s in sorters)
+            {
+                var sorter = new Sorter<int>(s);
+                var numbers = randomNumbers.Clone() as int[]; // Shallow copy from random 
 
-        private static void RunInsertionSorter(int[] randomNumbers)
-        {
-            var insertionSorter = new SortingLibrary.InsertionSorter<int>();
-            insertionSorter.Sort(randomNumbers);
-            PrintArray(randomNumbers);
-        }
+                PrintArray(numbers); // Before sorting
+                var ts = sorter.GetSortingTime(numbers);
+                PrintArray(numbers); // After sorting
 
-        private static void RunQuickSorter(int[] randomNumbers)
-        {
-            var quickSorter = new SortingLibrary.QuickSorter<int>();
-            quickSorter.Sort(randomNumbers);
-            PrintArray(randomNumbers);
+                // Print runtime
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                Console.WriteLine($"{s.GetType().Name} RunTime {elapsedTime}");
+            }
         }
 
         private static int[] GetRandomNumbers(int size)
@@ -61,7 +61,7 @@ namespace PG5_DP_Strategy
         {
             for (int i = 0; i < array.Length; i++)
             {
-                Console.Write($"{array[i]} ");
+                Console.Write($"[{array[i]}]");
             }
             Console.WriteLine();
         }

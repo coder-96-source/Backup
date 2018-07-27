@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SortingLibrary
+namespace SortingLibrary.Algorithms
 {
     public class QuickSorter<T> : ISortable<T> where T : IComparable<T>
     {
@@ -25,42 +25,47 @@ namespace SortingLibrary
 
         private void QuickSort(T[] elements, int left, int right)
         {
-            int i = left, j = right;
-
-            Partitioning(elements, ref i, ref j);
-
-            if (left < j)
+            if (left < right)
             {
-                QuickSort(elements, left, j);
-            }
+                int index = Partition(elements, left, right);
 
-            if (i < right)
-            {
-                QuickSort(elements, i, right);
+                QuickSort(elements, left, index - 1);
+                QuickSort(elements, index + 1, right);
             }
         }
 
-        private void Partitioning(T[] elements, ref int i, ref int j)
+        private int Partition(T[] elements, int left, int right)
         {
-            T pivot = elements[(i + j) / 2];
+            int first = left;
+            T pivot = elements[first];
 
-            while (i <= j)
+            ++left;
+
+            while (left <= right)
             {
-                while (elements[i].CompareTo(pivot) < 0)
+                while (elements[left].CompareTo(pivot) <= 0 && left < right)
                 {
-                    i++;
+                    ++left;
                 }
 
-                while (elements[j].CompareTo(pivot) > 0)
+                while (elements[right].CompareTo(pivot) > 0 && left <= right)
                 {
-                    j--;
+                    --right;
                 }
 
-                if (i <= j)
+                if (left < right)
                 {
-                    Swap(elements, i++, j--);
+                    Swap(elements, first, right);
+                }
+                else
+                {
+                    break;
                 }
             }
+
+            Swap(elements, first, right);
+
+            return right;
         }
 
         private void Swap(T[] elements, int i, int j)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SortingLibrary
+namespace SortingLibrary.Algorithms
 {
     public class BubbleSorter<T> : ISortable<T> where T : IComparable<T>
     {
