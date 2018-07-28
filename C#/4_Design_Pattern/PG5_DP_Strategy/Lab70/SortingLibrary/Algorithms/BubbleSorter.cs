@@ -19,7 +19,7 @@ namespace SortingLibrary.Algorithms
             bool flag = true; // Flag to prevent unnecessary loop
             while (endIndex >= 0)
             {
-                if (!flag) // If loop without swapping
+                if (!flag) // If looped without swapping
                 {
                     break;
                 }

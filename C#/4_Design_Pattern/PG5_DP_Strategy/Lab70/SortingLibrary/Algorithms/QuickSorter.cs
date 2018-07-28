@@ -55,7 +55,7 @@ namespace SortingLibrary.Algorithms
 
                 if (left < right)
                 {
-                    Swap(elements, first, right);
+                    Swap(elements, left, right);
                 }
                 else
                 {
@@ -73,6 +73,13 @@ namespace SortingLibrary.Algorithms
             T temp = elements[i];
             elements[i] = elements[j];
             elements[j] = temp;
+
+            for (int k = 0; k < elements.Length; k++)
+            {
+                Console.Write($"[{elements[k]}]");
+            }
+            Console.Write($"\tSwap: [{elements[i]}] <-> [{elements[j]}]");
+            Console.WriteLine();
         }
     }
 }
