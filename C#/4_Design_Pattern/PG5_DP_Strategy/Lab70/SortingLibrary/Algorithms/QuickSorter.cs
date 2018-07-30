@@ -27,7 +27,7 @@ namespace SortingLibrary.Algorithms
         {
             if (left < right)
             {
-                int index = Partition(elements, left, right);
+                int index = Partition(elements, left, right); // Return partitioned index 
 
                 QuickSort(elements, left, index - 1);
                 QuickSort(elements, index + 1, right);
@@ -39,7 +39,7 @@ namespace SortingLibrary.Algorithms
             int first = left;
             T pivot = elements[first];
 
-            ++left;
+            ++left; // Start with 
 
             while (left <= right)
             {
@@ -63,7 +63,7 @@ namespace SortingLibrary.Algorithms
                 }
             }
 
-            Swap(elements, first, right);
+            Swap(elements, first, right); // Place pivot to end position
 
             return right;
         }
@@ -73,13 +73,6 @@ namespace SortingLibrary.Algorithms
             T temp = elements[i];
             elements[i] = elements[j];
             elements[j] = temp;
-
-            for (int k = 0; k < elements.Length; k++)
-            {
-                Console.Write($"[{elements[k]}]");
-            }
-            Console.Write($"\tSwap: [{elements[i]}] <-> [{elements[j]}]");
-            Console.WriteLine();
         }
     }
 }

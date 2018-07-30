@@ -43,7 +43,6 @@
     <Compile Include="Algorithms\BubbleSorter.cs" />
     <Compile Include="Algorithms\InsertionSorter.cs" />
     <Compile Include="Algorithms\ISortable.cs" />
-    <Compile Include="Algorithms\MergeSorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algorithms\QuickSorter.cs" />
     <Compile Include="Sorter.cs" />
