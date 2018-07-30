@@ -10,14 +10,9 @@ namespace SortingLibrary.Algorithms
     {
         public void Sort(T[] elements)
         {
-            if (elements == null)
+            if (elements == null || elements.Length < 1)
             {
-                throw new ArgumentNullException();
-            }
-
-            if (elements.Length < 1)
-            {
-                throw new ArgumentOutOfRangeException();
+                return;
             }
 
             QuickSort(elements, 0, elements.Length - 1);

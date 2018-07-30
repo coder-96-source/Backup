@@ -12,7 +12,7 @@ namespace SortingLibrary.Algorithms
         {
             if (elements == null)
             {
-                throw new ArgumentNullException();
+                return;
             }
 
             int endIndex = elements.Length - 1;
@@ -37,7 +37,7 @@ namespace SortingLibrary.Algorithms
             }
         }
 
-        public void Swap(T[] elements, int i, int j)
+        private void Swap(T[] elements, int i, int j)
         {
             T temp = elements[i];
             elements[i] = elements[j];

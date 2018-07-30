@@ -12,7 +12,7 @@ namespace SortingLibrary.Algorithms
         {
             if (elements == null)
             {
-                throw new ArgumentNullException();
+                return;
             }
 
             for (int i = 1; i < elements.Length; i++)
