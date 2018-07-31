@@ -17,13 +17,13 @@ namespace PG5_DP_Strategy
 
             var sorters = new List<ISortable<int>>()
             {
-                //new BubbleSorter<int>(),
-                //new InsertionSorter<int>(),
-                //new QuickSorter<int>(),
+                new BubbleSorter<int>(),
+                new InsertionSorter<int>(),
+                new QuickSorter<int>(),
                 new MergeSorter<int>()
             };
 
-            var randomNumbers = GetRandomNumbers(10); // Get 500 random numbers
+            var randomNumbers = GetRandomNumbers(500); // Get 500 random numbers
             PrintArray(randomNumbers); // Before sorting
             foreach (var s in sorters)
             {

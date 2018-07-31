@@ -31,13 +31,12 @@ namespace SortingLibrary.Algorithms
 
         private void Merge(T[] elements, int start, int middle, int end)
         {
-            int size = end - start + 1;
-
             int left = start;
             int right = middle + 1;
-            int index = start;
+            int size = end - start + 1;
             T[] temp = new T[size];
 
+            int index = 0;
             while (left <= middle && right <= end)
             {
                 if (elements[left].CompareTo(elements[right]) <= 0)
@@ -53,9 +52,9 @@ namespace SortingLibrary.Algorithms
                 index++;
             }
 
-            Array.Copy(elements, left, temp, index, middle - left + 1);
-            Array.Copy(elements, right, temp, index, end - right + 1);
-            Array.Copy(temp, start, elements, start, size);
+            Array.Copy(elements, left, temp, index, middle - left + 1); // If while loop ended without copying left part to temp
+            Array.Copy(elements, right, temp, index, end - right + 1); // If while loop ended without copying right part to temp
+            Array.Copy(temp, 0, elements, start, size);
         }
     }
 }
