@@ -1,0 +1,41 @@
+<div class="article-list-header">
+    <h1 class="mat-display-2">All Stories</h1>
+</div>
+
+<div *ngIf="!isLoaded" class="article-list-spinner-container">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="isLoaded">
+    <div calss="article-list" *ngFor="let article of articles">
+        <mat-divider></mat-divider>
+        <a routerLink="/article/{{article.articleId}}">
+            <div class="article-list-content" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="100" fxFlex.gt-sm="90" fxFlex.gt-md="90">
+                    <h1 class="mat-h1">{{article.postDate | date}} / {{article.topic.title}}</h1>
+                    <h1 class="mat-display-1">{{article.title}}</h1>
+                </div>
+                <div fxFlex="5px" fxHide.sm fxHide.xs></div>
+                <div class="article-list-image" fxFlex fxHide.sm fxHide.xs>
+                    <img *ngIf="article.picture" mat-card-image src="data:{{article.pictureMimeType}};base64,{{article.picture}}" alt="{{article.title}}">
+                    <img *ngIf="!article.picture" mat-card-image src="/Images/default/default-article.jpg" alt="default-article">
+                </div>
+            </div>
+        </a>
+    </div>
+    <div *ngIf="!isAllLoaded">
+        <div *ngIf="isExpanded">
+            <div class="article-list-expand">
+                <button mat-mini-fab color="primary" (click)="expandArticles()">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!isExpanded" class="article-list-expand-spinner-container">
+            <mat-spinner [diameter]="50"></mat-spinner>
+        </div>
+    </div>
+    <div *ngIf="isAllLoaded" class="article-list-expand-statement">
+        <h1 class="mat-h1">All article has been loaded!</h1>
+    </div>
+</div>
+

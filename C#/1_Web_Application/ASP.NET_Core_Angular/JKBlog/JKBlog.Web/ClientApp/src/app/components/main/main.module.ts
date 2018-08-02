@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { ContactModule } from './contact/contact.module';
 
@@ -8,11 +9,12 @@ import { ContactModule } from './contact/contact.module';
 
   ],
   imports: [
+    HomeModule,
     AboutModule,
     ContactModule
   ],
   exports: [
-    ContactModule
+
   ],
   providers: [
 

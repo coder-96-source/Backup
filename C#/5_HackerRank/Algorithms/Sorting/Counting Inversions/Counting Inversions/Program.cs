@@ -11,10 +11,10 @@ namespace Counting_Inversions
     {
         private static long countInversions(int[] arr)
         {
-            long result = 0;
-            MergeSort(arr, 0, arr.Length - 1, ref result);
+            long swapCount = 0;
+            MergeSort(arr, 0, arr.Length - 1, ref swapCount);
 
-            return result;
+            return swapCount;
         }
 
         private static void MergeSort(int[] elements, int start, int end, ref long count)
@@ -39,15 +39,17 @@ namespace Counting_Inversions
             int index = 0;
             while (left <= middle && right <= end)
             {
-                if (elements[left] < elements[right])
+                if (elements[left] <= elements[right])
                 {
-                    count += (left - start - index);
+                    if (elements[left] != elements[right] && left - start - index > 0)
+                        count += (left - start - index);
                     temp[index] = elements[left];
                     left++;
                 }
                 else
                 {
-                    count += (right - start - index);
+                    if (right - start - index > 0)
+                        count += (right - start - index);
                     temp[index] = elements[right];
                     right++;
                 }
@@ -59,17 +61,13 @@ namespace Counting_Inversions
                 Array.Copy(elements, left, temp, index, middle - left + 1); // If while loop ended without copying left part to temp
                 count += (left - index) * (end - right + 1);
             }
-            if (end - right + 1 > 0)
-            {
-                Array.Copy(elements, right, temp, index, end - right + 1); // If while loop ended without copying right part to temp
-                count += (right - index) * (end - right + 1);
-            }
+            Array.Copy(elements, right, temp, index, end - right + 1); // If while loop ended without copying right part to temp
             Array.Copy(temp, 0, elements, start, size);
         }
 
         public static void Main(string[] args)
         {
-            //TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+            TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
             int t = Convert.ToInt32(Console.ReadLine());
 
@@ -80,12 +78,11 @@ namespace Counting_Inversions
                 int[] arr = Array.ConvertAll(Console.ReadLine().Split(' '), arrTemp => Convert.ToInt32(arrTemp));
                 long result = countInversions(arr);
 
-                Console.WriteLine(result);
-                //textWriter.WriteLine(result);
+                textWriter.WriteLine(result);
             }
 
-            //textWriter.Flush();
-            //textWriter.Close();
+            textWriter.Flush();
+            textWriter.Close();
         }
     }
 }

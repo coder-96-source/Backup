@@ -1,6 +1,8 @@
 @import '~@angular/material/theming';
 
 @import './app/components/shared/topnav/topnav-theme';
+@import './app/components/shared/footer/footer-theme';
+@import './app/components/main/home/home-theme';
 @import './app/components/main/about/about-theme';
 @import './app/components/main/contact/contact-theme';
 @import 'styles/markdown-theme';
@@ -30,10 +32,9 @@
     color: mat-color($primary, default-contrast);
   }
 
-  /*@include nav-bar-theme($theme);
-  @include footer-theme($theme);
-  @include home-theme($theme);*/
   @include topnav-theme($theme);
+  @include footer-theme($theme);
+  @include home-theme($theme);
   @include about-theme($theme);
   @include contact-theme($theme);
 }

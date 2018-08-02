@@ -1,0 +1,57 @@
+@import "../../../../../../../node_modules/@angular/material/theming";
+@import '../../../../../../styles/constants';
+
+/* For desktop, the content should be aligned with the page title. */
+$article-content-margin-side: 70px;
+$article-content-margin-side-xs: 15px;
+$comment-content-margin-top: 30px;
+$comment-content-margin-top-xs: 15px;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.article-wrapper {
+    padding: 20px $content-padding-side 0;
+    display: block;
+    text-align: center;
+
+    @media ($mat-xsmall) {
+        padding-left: $content-padding-side-xs;
+        padding-right: $content-padding-side-xs;
+    }
+}
+
+.article-toc-and-content {
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 940px;
+    margin: 0 auto;
+
+    @media (max-width: $breakpoint-width-tablet) {
+        flex-direction: column;
+    }
+}
+
+.article-content {
+    flex-grow: 1;
+    width: 80%;
+
+    @media (max-width: $breakpoint-width-tablet) {
+        width: 100%;
+    }
+}
+
+.comment-content {
+  width: 100%;
+  max-width: 940px;
+  padding-top: $comment-content-margin-top;
+  display: inline-block;
+
+  @media ($mat-xsmall) {
+    padding-top: $comment-content-margin-top-xs;
+  }
+}

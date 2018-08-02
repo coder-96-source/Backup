@@ -7,6 +7,7 @@ import {
   MatCardModule,
   MatButtonModule,
   MatProgressSpinnerModule,
+  MatIconModule
 } from '@angular/material';
 import { SharedModule } from '../../../shared.module';
 
@@ -34,8 +35,8 @@ import { AboutService } from '../../../services/main/about/about.service';
     MatCardModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatIconModule,
     SharedModule,
-
     AboutRoutingModule
   ],
   exports: [

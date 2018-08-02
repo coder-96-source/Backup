@@ -3,10 +3,12 @@
 @import './styles/markdown';
 @import './styles/general';
 
+// Include font-awesome
+@import './styles/font-awesome-variables';
+@import '../node_modules/font-awesome/scss/font-awesome';
 
 // Include material core styles.
 @include mat-core();
-
 
 // Define the light theme.
 $primary: mat-palette($mat-indigo);
