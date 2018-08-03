@@ -8,17 +8,17 @@ https://myarticle.azurewebsites.net/
 
 ----------------------------------------------------------------------------------------------------------------
 
-This is an ASP.NET MVC based blog type web application.
+My Articles is a blog type website using ASP.NET MVC 5
 
 ## Features
 
-* topic & article & keyword & comment CRUD
-* authentication by administrator feature
-* simple maintenance database by including database project
-* basic responsive design
+* Topic & Article & Keyword & Comment management
+* Authentication by administrator role
+* Simple maintenance database by including database project
+* Basic responsive design
  
 ## Stack
 
-* ASP.NET MVC
+* ASP.NET MVC 5
 * Entity Framework
 * Bootstrap 3
