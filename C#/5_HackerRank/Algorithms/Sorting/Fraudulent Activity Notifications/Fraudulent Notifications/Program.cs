@@ -11,21 +11,20 @@ namespace Fraudulent_Notifications
     {
         private static int activityNotifications(int[] expenditure, int d)
         {
+            bool isDayEven = (d & 1) == 0 ? true : false;
             int notice = 0;
 
-            int length = expenditure.Length - d - 1;
+            int length = expenditure.Length - d;
             for (int i = 0; i < length; i++)
             {
-                for (int j = i; j <= i + d; j++)
+                Array.Sort(expenditure, i, d);
+                double median = isDayEven
+                    ? (expenditure[(d / 2) + i] + expenditure[(d / 2) + i + 1]) / 2
+                    : expenditure[(d / 2) + i];
+
+                if (median * 2 <= expenditure[i + d])
                 {
-                    Array.Sort(expenditure, j, d);
-                    int median = expenditure[(d / 2) + j];
-
-                    if (median > expenditure[i + d])
-                    {
-                        notice++;
-                    }
-
+                    notice++;
                 }
             }
 
