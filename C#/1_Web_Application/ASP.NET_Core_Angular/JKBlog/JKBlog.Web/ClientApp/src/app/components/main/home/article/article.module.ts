@@ -1,15 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { DisqusModule } from "ngx-disqus";
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatDividerModule,
-  MatProgressSpinnerModule,
-  MatIconModule
-} from '@angular/material';
 import { SharedModule } from '../../../../shared.module';
 
 import { ArticleCardComponent } from './article-card/article-card.component';
@@ -30,15 +20,7 @@ import { ArticleRoutingModule } from './article.routing';
     CommentComponent
   ],
   imports: [
-    CommonModule,
-    BrowserModule,
-    FlexLayoutModule,
     DisqusModule.forRoot('jkblog-com-1'),
-    MatButtonModule,
-    MatCardModule,
-    MatDividerModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
     SharedModule,
     ArticleRoutingModule
   ],

@@ -1,14 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatTabsModule,
-  MatCardModule,
-  MatButtonModule,
-  MatProgressSpinnerModule,
-  MatIconModule
-} from '@angular/material';
 import { SharedModule } from '../../../shared.module';
 
 import { AboutRoutingModule } from './about.routing';
@@ -28,14 +18,6 @@ import { AboutService } from '../../../services/main/about/about.service';
     AboutBackendComponent
   ],
   imports: [
-    CommonModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    MatTabsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
     SharedModule,
     AboutRoutingModule
   ],
