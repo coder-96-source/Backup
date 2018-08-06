@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JKBlog.Web", "JKBlog.Web\JKBlog.Web.csproj", "{99CE11E6-4DFE-4971-A961-9376064A6D59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JKBlog.Web", "JKBlog.Web\JKBlog.Web.csproj", "{99CE11E6-4DFE-4971-A961-9376064A6D59}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "JKBlog.Database", "JKBlog.Database\JKBlog.Database.sqlproj", "{6CF08CC0-7712-46A4-9C63-834DAE5E2E2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,12 @@ Global
 		{99CE11E6-4DFE-4971-A961-9376064A6D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99CE11E6-4DFE-4971-A961-9376064A6D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99CE11E6-4DFE-4971-A961-9376064A6D59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF08CC0-7712-46A4-9C63-834DAE5E2E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF08CC0-7712-46A4-9C63-834DAE5E2E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF08CC0-7712-46A4-9C63-834DAE5E2E2B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6CF08CC0-7712-46A4-9C63-834DAE5E2E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF08CC0-7712-46A4-9C63-834DAE5E2E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF08CC0-7712-46A4-9C63-834DAE5E2E2B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

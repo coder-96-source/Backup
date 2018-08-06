@@ -1,8 +1,14 @@
+.topnav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
 /*.example-app-name a, a:link, a:visited, a:hover, a:active {
   text-decoration: none;
   color: white;
 }*/
-
 .example-container {
   display: flex;
   flex-direction: column;

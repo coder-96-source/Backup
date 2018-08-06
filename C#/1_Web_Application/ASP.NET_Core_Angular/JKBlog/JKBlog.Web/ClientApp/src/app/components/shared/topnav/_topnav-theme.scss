@@ -6,11 +6,11 @@
   $foreground: map-get($theme, foreground);
 
   app-topnav {
-    position: fixed;
+    /*position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 2;
+    z-index: 2;*/
     color: mat-color($primary, default-contrast);
 
     .topnav, .topnav-header {
