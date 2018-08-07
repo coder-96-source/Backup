@@ -17,7 +17,26 @@ namespace PG5_DP_Proxy
         private static void Run()
         {
             var proxyHttp = new ProxyHttp();
-            var result = proxyHttp.RequestHttpBinGetMethod();
+            var actions = new List<Func<string>>()
+            {
+                proxyHttp.RequestHttpBinDeleteMethod,
+                proxyHttp.RequestHttpBinGetMethod,
+                proxyHttp.RequestHttpBinPatchMethod,
+                proxyHttp.RequestHttpBinPostMethod,
+                proxyHttp.RequestHttpBinPutMethod
+            };
+
+            foreach (var action in actions) // Before cached
+            {
+                string result = action.Invoke();
+                Console.WriteLine(result);
+            }
+
+            foreach (var action in actions) // After cached
+            {
+                string result = action.Invoke();
+                Console.WriteLine(result);
+            }
         }
     }
 }
