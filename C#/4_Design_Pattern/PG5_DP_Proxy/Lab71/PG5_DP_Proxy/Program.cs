@@ -41,7 +41,7 @@ namespace PG5_DP_Proxy
                     Console.WriteLine(result);
                 }
 
-                RequestNaverGetMethod(); // Test prohibited url
+                RequestHttpNaverGetMethod(); // Test prohibited url
             }
             catch (Exception ex)
             {
@@ -165,7 +165,7 @@ Cookie: _gauges_unique_hour=1; _gauges_unique_month=1; _gauges_unique_day=1; _ga
             return result;
         }
 
-        private static string RequestNaverGetMethod()
+        private static string RequestHttpNaverGetMethod()
         {
             int port = 80;
             string result = null;
