@@ -2,14 +2,6 @@
 {
     public interface IHttpRequestable
     {
-        string RequestHttpBinDeleteMethod();
-
-        string RequestHttpBinGetMethod();
-
-        string RequestHttpBinPatchMethod();
-
-        string RequestHttpBinPostMethod();
-
-        string RequestHttpBinPutMethod();
+        string SendHttpRequest(int port, string hostName, string httpRawData);
     }
 }
