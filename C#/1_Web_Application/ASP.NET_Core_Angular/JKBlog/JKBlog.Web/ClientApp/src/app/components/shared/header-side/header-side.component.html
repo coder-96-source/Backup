@@ -1,0 +1,34 @@
+<div class="example-container">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <button mat-button routerLink="/home">JKBlog</button>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container"
+                         [style.marginTop.px]="56">
+    <mat-sidenav #snav [mode]="over"
+                 [fixedInViewport]="true" fixedTopGap="56">
+      <mat-nav-list>
+        <h3 class="mat-h3">JKBlog</h3>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/home">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </a>
+        <a mat-list-item routerLink="/about">
+          <mat-icon>assignment</mat-icon>
+          <span>About</span>
+        </a>
+        <a mat-list-item routerLink="/contact">
+          <mat-icon>contacts</mat-icon>
+          <span>Contact</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+
+      <app-footer></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

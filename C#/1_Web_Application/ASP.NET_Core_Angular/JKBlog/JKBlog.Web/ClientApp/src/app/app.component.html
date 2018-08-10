@@ -1,1 +1,4 @@
-<app-topnav class="mat-elevation-z6"></app-topnav>
+<!--<app-header-top *ngIf="!mobileQuery.matches" class="mat-elevation-z6">
+</app-header-top>-->
+
+<app-header-side *ngIf="mobileQuery.matches" class="mat-elevation-z6"></app-header-side>

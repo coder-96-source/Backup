@@ -45,6 +45,8 @@ import {
 import { PipeSharedModule } from './pipes/pipe.shared.module';
 
 import { TopNavComponent } from './components/shared/topnav/topnav.component';
+import { HeaderTopComponent } from './components/shared/header-top/header-top.component';
+import { HeaderSideComponent } from './components/shared/header-side/header-side.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 
 import { GatewayService } from './services/shared/gateway.service';
@@ -55,6 +57,8 @@ import { LoggingService } from './services/shared/logging.service';
 @NgModule({
   declarations: [
     TopNavComponent,
+    HeaderTopComponent,
+    HeaderSideComponent,
     FooterComponent
   ],
   imports: [
@@ -103,6 +107,8 @@ import { LoggingService } from './services/shared/logging.service';
   ],
   exports: [
     TopNavComponent,
+    HeaderTopComponent,
+    HeaderSideComponent,
     FooterComponent,
 
     CommonModule,
