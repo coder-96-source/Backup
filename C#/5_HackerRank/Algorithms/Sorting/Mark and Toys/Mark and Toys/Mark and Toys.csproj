@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{254C7CED-4937-40BA-9155-DFFAEB34B835}</ProjectGuid>
+    <ProjectGuid>{5809F0CF-C12D-447F-9BB9-EA58E030B6FE}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MarkAndToys</RootNamespace>
-    <AssemblyName>MarkAndToys</AssemblyName>
+    <RootNamespace>Mark_and_Toys</RootNamespace>
+    <AssemblyName>Mark and Toys</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
