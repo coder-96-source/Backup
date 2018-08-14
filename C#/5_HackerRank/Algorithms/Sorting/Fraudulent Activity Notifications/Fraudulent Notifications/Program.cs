@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fraudulent_Notifications
 {
@@ -25,45 +21,35 @@ namespace Fraudulent_Notifications
             int length = expenditure.Length - d;
             for (int i = 0; i < length; i++)
             {
-                int index = 0;
-                int count = 0;
+                int sum = 0; // Sum of counts on array
+                int previousNumber = 0; // Previous number before middle number
                 Predicate<bool> medianCondition = s => s
-                    ? count >= d / 2
-                    : count >= (d / 2) + 1;
+                    ? sum >= d / 2
+                    : sum >= (d / 2) + 1;
 
                 countingArray[expenditure[i + d - 1]]++; // Queue
                 for (int j = 0; j < countingArray.Length; j++)
                 {
                     if (medianCondition(isDayEven))
                     {
-                        index = j;
+                        double median = (isDayEven && sum == d / 2)
+                            ? (double)(j + previousNumber) / 2
+                            : j - 1;
+
+                        if (median * 2 <= expenditure[i + d])
+                        {
+                            notice++;
+                        }
                         break;
                     }
-                    count += countingArray[j];
-                }
-                countingArray[expenditure[i]]--; // Dequeue
 
-                double median = 0;
-                if (isDayEven && count == d / 2)
-                {
-                    for (int j = index - 1; j >= 0; j--)
+                    if (countingArray[j] > 0)
                     {
-                        if (countingArray[j] > 0)
-                        {
-                            median = (double)(j + index) / 2;
-                            break;
-                        }
+                        sum += countingArray[j];
+                        previousNumber = j;
                     }
                 }
-                else
-                {
-                    median = index - 1;
-                }
-
-                if (median * 2 <= expenditure[i + d])
-                {
-                    notice++;
-                }
+                countingArray[expenditure[i]]--; // Dequeue
             }
 
             return notice;
@@ -79,8 +65,8 @@ namespace Fraudulent_Notifications
 
             int d = Convert.ToInt32(nd[1]);
 
-            int[] expenditure = Array.ConvertAll(Console.ReadLine().Split(' '), expenditureTemp => Convert.ToInt32(expenditureTemp))
-            ;
+            int[] expenditure = Array.ConvertAll(Console.ReadLine().Split(' '), expenditureTemp => Convert.ToInt32(expenditureTemp));
+
             int result = activityNotifications(expenditure, d);
 
             textWriter.WriteLine(result);
