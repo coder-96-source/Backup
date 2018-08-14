@@ -73,6 +73,7 @@ namespace DataStructureLibrary.DoublyLinkedList
                 node.Prev.Next = node.Next;
                 node.Next.Prev = node.Prev;
             }
+            this.Count--;
         }
 
         public LinkedListNode<T> GetNode(int index)

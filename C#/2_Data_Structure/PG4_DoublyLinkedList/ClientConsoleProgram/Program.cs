@@ -16,10 +16,13 @@ namespace ClientConsoleProgram
             var firstNode = new LinkedListNode<int>(10);
             var secondNode = new LinkedListNode<int>(20);
             var thirdNode = new LinkedListNode<int>(30);
+            var forthNode = new LinkedListNode<int>(40);
 
             doublyLinkedList.Add(firstNode);
             doublyLinkedList.Add(secondNode);
-            doublyLinkedList.Add(thirdNode);
+            doublyLinkedList.Add(forthNode);
+            doublyLinkedList.AddAfter(secondNode, thirdNode);
+            doublyLinkedList.Remove(firstNode);
 
             PrintAllElements(doublyLinkedList);
         }
