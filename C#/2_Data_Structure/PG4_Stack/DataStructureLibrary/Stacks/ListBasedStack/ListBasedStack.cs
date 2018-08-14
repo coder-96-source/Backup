@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataStructureLibrary.Stacks.ListBasedStack
 {
@@ -44,7 +40,7 @@ namespace DataStructureLibrary.Stacks.ListBasedStack
         {
             var node = new StackNode<T>(value);
 
-            if (this._top == null)
+            if (IsEmpty())
             {
                 this._top = node;
             }

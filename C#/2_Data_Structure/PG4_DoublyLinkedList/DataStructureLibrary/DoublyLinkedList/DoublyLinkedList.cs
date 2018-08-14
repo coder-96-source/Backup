@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataStructureLibrary.DoublyLinkedList
 {
@@ -13,7 +9,7 @@ namespace DataStructureLibrary.DoublyLinkedList
 
         }
 
-        public int Count { get; set; }
+        public int Count { get; private set; }
         public LinkedListNode<T> FirstNode { get; set; } 
         public LinkedListNode<T> LastNode { get; set; }
 

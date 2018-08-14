@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataStructureLibrary.SingleyLinkedList
 {
@@ -13,7 +9,7 @@ namespace DataStructureLibrary.SingleyLinkedList
 
         }
 
-        public LinkedListNode<T> Head { get; private set; }
+        public LinkedListNode<T> Head { get; set; }
         public int Count { get; private set; }
 
         public void Add(LinkedListNode<T> node)
@@ -29,7 +25,7 @@ namespace DataStructureLibrary.SingleyLinkedList
             }
             else
             {
-                LinkedListNode<T> current = this.Head;
+                var current = this.Head;
                 while (current.Next != null)
                 {
                     current = current.Next;
@@ -53,7 +49,7 @@ namespace DataStructureLibrary.SingleyLinkedList
             }
             else
             {
-                LinkedListNode<T> current = this.Head;
+                var current = this.Head;
 
                 while (current.Next != null)
                 {
@@ -86,7 +82,7 @@ namespace DataStructureLibrary.SingleyLinkedList
                 throw new IndexOutOfRangeException();
             }
 
-            LinkedListNode<T> current = this.Head;
+            var current = this.Head;
             for (int i = 0; i < index; i++)
             {
                 current = current.Next;
