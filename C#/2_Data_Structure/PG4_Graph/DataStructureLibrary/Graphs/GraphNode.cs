@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 
-namespace MyDataStructures
+namespace DataStructureLibrary.Graphs
 {
     public class GraphNode<T>
     {
         private List<GraphNode<T>> _adjList;
         private List<int> _weightList;
 
-        public GraphNode(T data)
+        public GraphNode(T value)
         {
-            Data = data;
-            VisitFlag = false;
+            this.Value = value;
+            this.IsVisited = false;
         }
 
-        public T Data { get; set; }
-        public bool VisitFlag { get; set; }
+        public T Value { get; set; }
+        public bool IsVisited { get; set; }
         public List<GraphNode<T>> AdjList
         {
             get
