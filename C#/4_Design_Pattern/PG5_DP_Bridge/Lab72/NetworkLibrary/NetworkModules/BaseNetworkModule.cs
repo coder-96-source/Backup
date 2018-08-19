@@ -23,21 +23,20 @@ namespace NetworkLibrary.NetworkModules
 
         public virtual void Disconnect()
         {
-            if (!this._isConnected)
-            {
-                throw new InvalidOperationException("Network is not connected exception.");
-            }
+            CheckNetworkStatus();
         }
 
         public virtual void Send()
         {
-            if (!this._isConnected)
-            {
-                throw new InvalidOperationException("Network is not connected exception.");
-            }
+            CheckNetworkStatus();
         }
 
         public virtual void Receive()
+        {
+            CheckNetworkStatus();
+        }
+
+        private void CheckNetworkStatus()
         {
             if (!this._isConnected)
             {
