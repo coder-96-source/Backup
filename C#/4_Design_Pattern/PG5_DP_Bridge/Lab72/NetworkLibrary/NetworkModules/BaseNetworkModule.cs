@@ -7,13 +7,67 @@ using System.Threading.Tasks;
 
 namespace NetworkLibrary.NetworkModules
 {
-    public abstract class BaseNetworkModule
+    public abstract class BaseNetworkModule : IDisposable
     {
-        protected INetwork _network;
+        public abstract void Connect();
+
+        protected bool _isConnected;
 
         public BaseNetworkModule(INetwork network)
         {
-            this._network = network;
+            this.Network = network;
+            this._isConnected = false;
         }
+
+        public INetwork Network { get; set; }
+
+        public virtual void Disconnect()
+        {
+            if (!this._isConnected)
+            {
+                throw new InvalidOperationException("Network is not connected exception.");
+            }
+        }
+
+        public virtual void Send()
+        {
+            if (!this._isConnected)
+            {
+                throw new InvalidOperationException("Network is not connected exception.");
+            }
+        }
+
+        public virtual void Receive()
+        {
+            if (!this._isConnected)
+            {
+                throw new InvalidOperationException("Network is not connected exception.");
+            }
+        }
+
+        #region IDisposable Support
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (this.Network != null && this._isConnected)
+                    {
+                        this.Network.Disconnect(); 
+                    }
+                }
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

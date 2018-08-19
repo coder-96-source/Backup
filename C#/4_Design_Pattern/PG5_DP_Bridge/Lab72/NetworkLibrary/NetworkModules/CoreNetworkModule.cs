@@ -13,5 +13,28 @@ namespace NetworkLibrary.NetworkModules
         {
       
         }
+
+        public override void Connect()
+        {
+            this._isConnected = this.Network.Connect();
+        }
+
+        public override void Disconnect()
+        {
+            base.Disconnect();
+            this._isConnected =  !this.Network.Disconnect();
+        }
+
+        public override void Receive()
+        {
+            base.Receive();
+            this.Network.Receive();
+        }
+
+        public override void Send()
+        {
+            base.Send();
+            this.Network.Send();
+        }
     }
 }

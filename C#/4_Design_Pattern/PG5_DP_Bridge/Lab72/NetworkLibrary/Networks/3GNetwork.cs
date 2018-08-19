@@ -8,24 +8,31 @@ namespace NetworkLibrary.Networks
 {
     public class _3GNetwork : INetwork
     {
-        public void Connect()
+        public _3GNetwork()
         {
-            throw new NotImplementedException();
+
         }
 
-        public void Disconnect()
+        public bool Connect()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{nameof(_3GNetwork)} has been connected.");
+            return true;
+        }
+
+        public bool Disconnect()
+        {
+            Console.WriteLine($"{nameof(_3GNetwork)} has been disconnected.");
+            return true;
         }
 
         public void Receive()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{nameof(_3GNetwork)} received successfully.");
         }
 
         public void Send()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{nameof(_3GNetwork)} sent successfully.");
         }
     }
 }

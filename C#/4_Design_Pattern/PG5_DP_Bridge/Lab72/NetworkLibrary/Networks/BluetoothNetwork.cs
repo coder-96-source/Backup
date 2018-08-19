@@ -8,63 +8,31 @@ namespace NetworkLibrary.Networks
 {
     public class BluetoothNetwork : INetwork
     {
-        private bool _isConnected;
-
         public BluetoothNetwork()
         {
-            this._isConnected = false;
+
         }
 
-        public void Connect()
+        public bool Connect()
         {
-            this._isConnected = true;
+            Console.WriteLine($"{nameof(BluetoothNetwork)} has been connected.");
+            return true;
         }
 
-        public void Disconnect()
+        public bool Disconnect()
         {
-            this._isConnected = false;
+            Console.WriteLine($"{nameof(BluetoothNetwork)} has been disconnected.");
+            return true;
         }
 
         public void Receive()
         {
-            Console.WriteLine($"{nameof(BluetoothNetwork)} receives ");
+            Console.WriteLine($"{nameof(BluetoothNetwork)} received successfully.");
         }
 
         public void Send()
         {
-            Console.WriteLine($"{nameof(BluetoothNetwork)} sends ");
-        }
-
-        // Flag: Has Dispose already been called?
-        bool disposed = false;
-
-        // Public implementation of Dispose pattern callable by consumers.
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        // Protected implementation of Dispose pattern.
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposed)
-                return;
-
-            if (disposing)
-            {
-                // Free any other managed objects here.
-                //
-            }
-
-            // Free any unmanaged objects here.
-            //
-            disposed = true;
-        }
-
-        ~BluetoothNetwork()
-        {
-            Dispose(false);
+            Console.WriteLine($"{nameof(BluetoothNetwork)} sent successfully.");
         }
     }
 }

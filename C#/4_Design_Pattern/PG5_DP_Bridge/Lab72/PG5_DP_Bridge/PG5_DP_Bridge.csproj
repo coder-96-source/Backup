@@ -48,5 +48,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetworkLibrary\NetworkLibrary.csproj">
+      <Project>{6C057224-FD54-48A8-83B9-01227829C85E}</Project>
+      <Name>NetworkLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

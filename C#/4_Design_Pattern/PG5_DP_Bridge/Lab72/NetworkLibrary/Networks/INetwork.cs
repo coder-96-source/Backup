@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace NetworkLibrary.Networks
 {
-    public interface INetwork : IDisposable
+    public interface INetwork
     {
-        void Connect();
-        void Disconnect();
+        bool Connect();
+        bool Disconnect();
         void Send();
         void Receive();
     }

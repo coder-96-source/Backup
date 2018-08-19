@@ -8,29 +8,31 @@ namespace NetworkLibrary.Networks
 {
     public class WiFiNetwork : INetwork
     {
-        public void Connect()
+        public WiFiNetwork()
         {
-            throw new NotImplementedException();
+
         }
 
-        public void Disconnect()
+        public bool Connect()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{nameof(WiFiNetwork)} has been connected.");
+            return true;
         }
 
-        public void Dispose()
+        public bool Disconnect()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{nameof(WiFiNetwork)} has been disconnected.");
+            return true;
         }
 
         public void Receive()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{nameof(WiFiNetwork)} received successfully.");
         }
 
         public void Send()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{nameof(WiFiNetwork)} sent successfully.");
         }
     }
 }
