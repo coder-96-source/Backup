@@ -1,19 +1,14 @@
-@mixin topnav-theme($theme) {
+@mixin header-top-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  app-topnav {
-    /*position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;*/
+  app-header-top {
     color: mat-color($primary, default-contrast);
 
-    .topnav, .topnav-header {
+    .header-top-header {
       background: mat-color($primary);
     }
   }

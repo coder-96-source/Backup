@@ -47,11 +47,11 @@ import {
 } from '@angular/material';
 import { PipeSharedModule } from './pipes/pipe.shared.module';
 
-import { TopNavComponent } from './components/shared/topnav/topnav.component';
 import { HeaderTopComponent } from './components/shared/header-top/header-top.component';
 import { HeaderSideComponent } from './components/shared/header-side/header-side.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 
+import { HeaderService } from './services/shared/header.service';
 import { GatewayService } from './services/shared/gateway.service';
 import { JWTGatewayService } from './services/shared/jwtgateway.service';
 import { SnackbarService } from './services/shared/snackbar.service';
@@ -59,7 +59,6 @@ import { LoggingService } from './services/shared/logging.service';
 
 @NgModule({
   declarations: [
-    TopNavComponent,
     HeaderTopComponent,
     HeaderSideComponent,
     FooterComponent
@@ -113,7 +112,6 @@ import { LoggingService } from './services/shared/logging.service';
     PipeSharedModule,
   ],
   exports: [
-    TopNavComponent,
     HeaderTopComponent,
     HeaderSideComponent,
     FooterComponent,
@@ -166,6 +164,7 @@ import { LoggingService } from './services/shared/logging.service';
     PipeSharedModule,
   ],
   providers: [
+    HeaderService,
     GatewayService,
     JWTGatewayService,
     SnackbarService,

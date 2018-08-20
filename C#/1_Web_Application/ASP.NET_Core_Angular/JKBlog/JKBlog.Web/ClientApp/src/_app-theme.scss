@@ -1,6 +1,7 @@
 @import '~@angular/material/theming';
 
-@import './app/components/shared/topnav/topnav-theme';
+@import './app/components/shared/header-top/header-top-theme';
+@import './app/components/shared/header-side/header-side-theme';
 @import './app/components/shared/footer/footer-theme';
 @import './app/components/main/home/home-theme';
 @import './app/components/main/about/about-theme';
@@ -32,7 +33,8 @@
     color: mat-color($primary, default-contrast);
   }
 
-  @include topnav-theme($theme);
+  @include header-top-theme($theme);
+  @include header-side-theme($theme);
   @include footer-theme($theme);
   @include home-theme($theme);
   @include about-theme($theme);

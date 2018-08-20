@@ -1,4 +1,7 @@
-<!--<app-header-top *ngIf="!mobileQuery.matches" class="mat-elevation-z6">
-</app-header-top>-->
+<app-header-top class="mat-elevation-z6"></app-header-top>
 
-<app-header-side *ngIf="mobileQuery.matches" class="mat-elevation-z6"></app-header-side>
+<mat-sidenav-container>
+  <app-header-side></app-header-side>
+
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

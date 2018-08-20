@@ -10,7 +10,6 @@ import { LoggingService } from './logging.service';
 import { GatewayService } from './gateway.service';
 import { UserService } from '../user/user.service';
 
-
 @Injectable({ providedIn: 'root' })
 export class JWTGatewayService extends GatewayService {
   private headers: HttpHeaders;
