@@ -1,52 +1,17 @@
 @import '../../../../styles/constants';
 
-$header-sections-margin-desktop: 75px 0;
-$header-sections-margin-desktop-mobile: 15px 0;
-$home-container-padding-desktop: 20px 10%;
-$home-container-padding-mobile: 5px 15px;
-
 .home-container {
-    padding: $home-container-padding-desktop;
+  padding: 20px 10%;
 }
 
-.header-background {
-    overflow: hidden;
-}
-
-.header-section {
-    text-align: center;
-    padding: $header-sections-margin-desktop;
-}
-
-.header-headline {
-    h1 {
-        font-size: 56px;
-        font-weight: 300;
-        line-height: 56px;
-        margin: 15px 5px;
-    }
-
-    h2 {
-        font-size: 18px;
-        font-weight: 300;
-        line-height: 28px;
-        margin: 15px 0 25px 0;
-    }
-}
-
-.home-article-card-container, 
-.home-article-list-container, 
+.home-article-card-container,
+.home-article-list-container,
 .home-announcement-container {
-    padding: 0 15px;
+  padding: 0 15px;
 }
 
-/*Mobile*/
 @media (max-width: $breakpoint-width-mobile) {
-    .home-container {
-        padding: $home-container-padding-mobile;
-    }
-
-    .header-section {
-        padding: $header-sections-margin-desktop-mobile;
-    }
+  .home-container {
+    padding: 5px 15px;
+  }
 }

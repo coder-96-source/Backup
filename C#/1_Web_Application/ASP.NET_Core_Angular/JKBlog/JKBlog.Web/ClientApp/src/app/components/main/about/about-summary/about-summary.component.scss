@@ -1,7 +1,7 @@
 @import '../../../../../styles/constants';
 
-$about-row-margin-desktop: 60px;
-$about-row-margin-mobile: 15px;
+$about-row-margin-desktop: 60px 0px;
+$about-row-margin-mobile: 15px 0px;
 
 .about-promo {
     align-items: center;
@@ -27,7 +27,7 @@ $about-row-margin-mobile: 15px;
 .about-row {
     display: flex;
     max-width: 920px;
-    margin: $about-row-margin-desktop 0;
+    margin: $about-row-margin-desktop;
 }
 
 .about-row {
@@ -66,6 +66,6 @@ $about-row-margin-mobile: 15px;
     }
 
     .about-row {
-        margin: $about-row-margin-mobile 0;
+        margin: $about-row-margin-mobile;
     }
 }

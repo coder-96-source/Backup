@@ -1,6 +1,7 @@
 @import '../../../../styles/constants';
 
-.footer {
+.footer-container {
+  height: 40px;
   font-size: 12px;
   position: absolute;
   right: 0;
@@ -9,16 +10,16 @@
 }
 
 .footer-list {
-    align-items: center;
-    display: flex;
-    flex-flow: row wrap;
-    padding: 8px;
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 8px;
 }
 
-  .footer-list a, a:link, a:visited, a:hover, a:active {
-    text-decoration: none;
-    color: black;
-  }
+.footer-list a, a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+  color: black;
+}
 
 @media (max-width: $breakpoint-width-mobile) {
   .footer-list {
