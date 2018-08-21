@@ -20,7 +20,7 @@ namespace PG5_DP_Bridge
             try
             {
                 var network = PickNetwork();
-                using (BaseNetworkModule coreNetworkModule = new CoreNetworkModule(network))
+                using (var coreNetworkModule = new CoreNetworkModule(network))
                 {
                     coreNetworkModule.Connect();
                     coreNetworkModule.Send();
