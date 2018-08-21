@@ -1,5 +1,4 @@
-﻿$margin-promotion-sections-desktop: 60px;
-$margin-promotion-sections-mobile: 15px;
+@import '../../../../styles/constants';
 
 .header-background {
     overflow: hidden;
@@ -7,7 +6,7 @@ $margin-promotion-sections-mobile: 15px;
 
 .header-section {
     text-align: center;
-    padding-top: $margin-promotion-sections-desktop;
+    padding-top: 60px;
 }
 
 .header-headline {
@@ -26,12 +25,6 @@ $margin-promotion-sections-mobile: 15px;
     }
 }
 
-@media (max-width: 720px) {
-    .header-section {
-        padding-top: $margin-promotion-sections-mobile;
-    }
+@media (max-width: $breakpoint-width-mobile) {
 
-    .about-row {
-        margin: $margin-promotion-sections-mobile 0;
-    }
 }

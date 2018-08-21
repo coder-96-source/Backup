@@ -1,3 +1,5 @@
+@import '../../../../styles/constants';
+
 .footer {
   font-size: 12px;
   position: absolute;
@@ -18,8 +20,8 @@
     color: black;
   }
 
-@media screen and (max-width: 884px) {
-    .footer-list {
-        flex-direction: column;
-    }
+@media (max-width: $breakpoint-width-mobile) {
+  .footer-list {
+    flex-direction: column;
+  }
 }

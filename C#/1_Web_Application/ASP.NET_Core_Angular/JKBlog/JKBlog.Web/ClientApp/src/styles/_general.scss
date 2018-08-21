@@ -30,3 +30,18 @@ code {
 .markdown-pre code {
   font-size: 100%;
 }
+
+.spinner-container-small {
+  display: flex;
+  justify-content: center;
+}
+
+.spinner-container-medium {
+  margin: 10% 0;
+  display: flex;
+  justify-content: center;
+}
+
+.spinner-container-large {
+  padding: 10% 50%;
+}

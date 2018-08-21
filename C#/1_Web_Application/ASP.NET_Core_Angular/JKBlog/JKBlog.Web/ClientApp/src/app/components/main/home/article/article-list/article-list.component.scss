@@ -8,16 +8,10 @@ $article-list-content-topic-font-margin-bottom: 16px;
 $article-list-content-title-font-size: 34px;
 $article-list-content-title-font-margin-bottom: 34px;
 
-.article-list-spinner-container,
 .article-list-expand,
-.article-list-expand-spinner-container,
 .article-list-expand-statement {
     display: flex;
     justify-content: center;
-}
-
-.article-list-spinner-container {
-    margin: 10% 0;
 }
 
 .article-list a, a:link, a:visited, a:hover, a:active {
