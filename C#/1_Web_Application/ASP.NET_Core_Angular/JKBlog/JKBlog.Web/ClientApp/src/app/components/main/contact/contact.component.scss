@@ -1,15 +1,12 @@
 @import '../../../../styles/constants';
 
-$margin-promotion-sections: 60px;
-$margin-promotion-sections-small: 15px;
-
 .header-background {
     overflow: hidden;
 }
 
 .header-section {
     text-align: center;
-    padding-top: $margin-promotion-sections;
+    padding-top: 60px;
 }
 
 .header-headline {
@@ -29,7 +26,7 @@ $margin-promotion-sections-small: 15px;
 }
 
 .contact-container {
-  padding: 25px 15%;
+  padding: 25px 12%;
   text-align: center;
 }
 
@@ -48,9 +45,17 @@ $margin-promotion-sections-small: 15px;
   color: rgba(0,0,0,.54) !important;
 }
 
+.contact-introduction {
+  padding-top: 20px;
+}
+
+.contact-introduction-hobbies {
+  text-align: left;
+}
+
 @media (max-width: $breakpoint-width-mobile) {
-  .header-section {
-    padding-top: $margin-promotion-sections-small;
+  .contact-container {
+    padding: 25px 5%;
   }
 
   .contact-image img {
