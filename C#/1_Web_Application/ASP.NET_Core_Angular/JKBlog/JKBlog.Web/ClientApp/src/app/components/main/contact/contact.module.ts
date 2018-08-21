@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { ContactComponent } from './contact.component';
 
+import { SharedModule } from '../../../shared.module';
 import { ContactRoutingModule } from './contact.routing';
 
 @NgModule({
@@ -9,6 +10,7 @@ import { ContactRoutingModule } from './contact.routing';
     ContactComponent
   ],
   imports: [
+    SharedModule,
     ContactRoutingModule
   ],
   exports: [
