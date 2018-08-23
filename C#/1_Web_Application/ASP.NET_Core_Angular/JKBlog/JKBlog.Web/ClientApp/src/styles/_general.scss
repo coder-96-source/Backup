@@ -9,14 +9,6 @@ h1, h2 {
   font-weight: 400;
 }
 
-code {
-  font-size: 90%;
-}
-
-.markdown-pre code {
-  font-size: 100%;
-}
-
 /*Header*/
 .header-background {
   overflow: hidden;
@@ -94,6 +86,26 @@ body {
 
 .spinner-container-large {
   padding: 10% 50%;
+}
+
+/*Article Contents*/
+pre.ql-syntax {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #333;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: auto;
+}
+
+p > img {
+  width: 100%;
 }
 
 @media (max-width: $breakpoint-width-mobile) {
