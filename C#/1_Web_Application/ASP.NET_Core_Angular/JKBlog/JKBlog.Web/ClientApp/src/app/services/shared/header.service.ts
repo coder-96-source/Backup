@@ -9,6 +9,7 @@ export class HeaderService implements OnDestroy {
   private activeSize: string;
   private isSidenavOpened$ = new BehaviorSubject<boolean>(false); // Default closed
   private isMobile$ = new BehaviorSubject<boolean>(false);
+  private menuItems: any[] = [];
 
   constructor(private media: ObservableMedia) {
     this.watcher = this.media.subscribe((change: MediaChange) => {
@@ -17,6 +18,7 @@ export class HeaderService implements OnDestroy {
       this.isMobile$.next(this.activeSize == 'xs');
       this.isSidenavOpened$.next(false); // Close when media query detected
     });
+    this.setMenuItems();
   }
 
   ngOnDestroy() {
@@ -37,5 +39,27 @@ export class HeaderService implements OnDestroy {
 
   setIsMobile(isMobile: boolean) {
     this.isMobile$.next(isMobile);
+  }
+
+  getMenuItems() {
+    return this.menuItems;
+  }
+
+  private setMenuItems() {
+    this.menuItems.push({
+      name: 'Home',
+      icon: 'home',
+      routerLink: '/home'
+    });
+    this.menuItems.push({
+      name: 'About',
+      icon: 'info',
+      routerLink: '/about'
+    });
+    this.menuItems.push({
+      name: 'Contact',
+      icon: 'contacts',
+      routerLink: '/contact'
+    });
   }
 }
