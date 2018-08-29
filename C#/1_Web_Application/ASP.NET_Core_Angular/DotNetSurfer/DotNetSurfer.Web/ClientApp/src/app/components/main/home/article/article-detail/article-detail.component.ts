@@ -12,6 +12,7 @@ import { SnackbarService, SnackbarAction } from '../../../../../services/shared/
 })
 
 export class ArticleDetailComponent {
+  private isLoaded = false;
   private article?: Article;
   private commentPageId?: string;
 
@@ -24,7 +25,7 @@ export class ArticleDetailComponent {
   }
 
   ngOnInit() {
-    this.initializeArticles();
+    this.initializeArticle();
   }
 
   fetchArticle() {
@@ -33,9 +34,10 @@ export class ArticleDetailComponent {
     return this.articleDetailService.getArticle(id);
   }
 
-  initializeArticles() {
+  initializeArticle() {
     this.fetchArticle().subscribe(res => {
       this.article = res as Article;
+      this.isLoaded = true;
     },
       error => {
         const errorMessage = error as string;

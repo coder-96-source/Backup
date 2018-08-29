@@ -21,14 +21,14 @@ export class AboutFrontendComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initializeArticles();
+    this.initializeFrontendFeatures();
   }
 
   fetchFeatures() {
     return this.aboutService.getFrontendFeatures();
   }
 
-  initializeArticles() {
+  initializeFrontendFeatures() {
     this.fetchFeatures().subscribe(res => {
       this.features = res as Feature[];
       this.isLoaded = true;

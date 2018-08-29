@@ -33,6 +33,10 @@ h1, h2 {
 .header-section {
   padding: 75px 0px;
   text-align: center;
+
+  @media (max-width: $breakpoint-width-mobile) {
+    padding: 55px 5px 5px 5px;
+  }
 }
 
 .primary-header {
@@ -85,7 +89,15 @@ body {
 }
 
 .spinner-container-large {
-  padding: 10% 50%;
+  margin: 25% 0;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: $breakpoint-width-mobile) {
+    margin: 50% 0;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 /*Article Contents*/
@@ -106,11 +118,4 @@ pre.ql-syntax {
 
 p > img {
   width: 100%;
-}
-
-@media (max-width: $breakpoint-width-mobile) {
-  /*Header*/
-  .header-section {
-    padding: 55px 5px 5px 5px;
-  }
 }

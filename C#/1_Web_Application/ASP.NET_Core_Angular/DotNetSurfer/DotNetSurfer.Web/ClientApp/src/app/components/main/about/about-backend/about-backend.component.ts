@@ -21,14 +21,14 @@ export class AboutBackendComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initializeArticles();
+    this.initializeBackendFeatures();
   }
 
   fetchFeatures() {
     return this.aboutService.getBackendFeatures();
   }
 
-  initializeArticles() {
+  initializeBackendFeatures() {
     this.fetchFeatures().subscribe(res => {
       this.features = res as Feature[];
       this.isLoaded = true;
