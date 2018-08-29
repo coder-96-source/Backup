@@ -1,0 +1,18 @@
+<nav class="header-top-header">
+  <div *ngIf="!isMobile">
+    <button mat-button routerLink="/home">Home</button>
+    <button mat-button routerLink="/about">About</button>
+    <button mat-button routerLink="/contact">Contact</button>
+    <div class="flex-spacer"></div>
+  </div>
+
+  <div *ngIf="isMobile">
+    <button mat-icon-button
+            (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink="/home" class="logo-text">
+      <span>JKBlog</span>
+    </a>
+  </div>
+</nav>
