@@ -3,7 +3,7 @@
 ## Preview
 http://dotnetsurfer.blog
 
-![Alt text](https://github.com/kims07231992/JasonPrivateStudy/blob/master/C%23/1_Web_Application/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer/README.PNG)
+![Alt text](https://github.com/kims07231992/JasonPrivateStudy/blob/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer/README.PNG)
 
 
 ----------------------------------------------------------------------------------------------------------------
