@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from '../../../../../models/article';
-import { ArticleDetailService } from '../../../../../services/main/home/article-detail.service';
+import { ArticleService } from '../../../../../services/main/home/article.service';
 import { LoggingService } from '../../../../../services/shared/logging.service';
 import { SnackbarService, SnackbarAction } from '../../../../../services/shared/snackbar.service';
 
@@ -11,14 +11,14 @@ import { SnackbarService, SnackbarAction } from '../../../../../services/shared/
   styleUrls: ['./article-detail.component.scss']
 })
 
-export class ArticleDetailComponent {
+export class ArticleDetailComponent implements OnInit {
   private isLoaded = false;
   private article?: Article;
   private commentPageId?: string;
 
   constructor(
     private route: ActivatedRoute,
-    private articleDetailService: ArticleDetailService,
+    private articleService: ArticleService,
     private loggingService: LoggingService,
     private snackbarService: SnackbarService) {
 
@@ -31,7 +31,7 @@ export class ArticleDetailComponent {
   fetchArticle() {
     const id = this.route.snapshot.paramMap.get('id');
     this.commentPageId = '/article/' + id;
-    return this.articleDetailService.getArticle(id);
+    return this.articleService.getArticle(id);
   }
 
   initializeArticle() {

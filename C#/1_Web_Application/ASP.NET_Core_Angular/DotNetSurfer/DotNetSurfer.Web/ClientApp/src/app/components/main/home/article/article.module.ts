@@ -7,8 +7,7 @@ import { ArticleListComponent } from './article-list/article-list.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { CommentComponent } from './article-detail/comment/comment.component';
 
-import { ArticleCardService } from '../../../../services/main/home/article-card.service';
-import { ArticleDetailService } from '../../../../services/main/home/article-detail.service';
+import { ArticleService } from '../../../../services/main/home/article.service';
 
 import { ArticleRoutingModule } from './article.routing';
 
@@ -29,8 +28,7 @@ import { ArticleRoutingModule } from './article.routing';
     ArticleListComponent
   ],
   providers: [
-    ArticleCardService,
-    ArticleDetailService
+    ArticleService
   ]
 })
 export class ArticleModule { }

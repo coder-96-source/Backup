@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../../../../../models/article';
-import { ArticleCardService } from '../../../../../services/main/home/article-card.service';
+import { ArticleService } from '../../../../../services/main/home/article.service';
 import { LoggingService } from '../../../../../services/shared/logging.service';
 import { SnackbarService, SnackbarAction } from '../../../../../services/shared/snackbar.service';
 
@@ -10,14 +10,14 @@ import { SnackbarService, SnackbarAction } from '../../../../../services/shared/
   styleUrls: ['./article-card.component.scss']
 })
 
-export class ArticleCardComponent {
+export class ArticleCardComponent implements OnInit{
   private readonly articleDisplayLimit = 3; // Article number to show
   private readonly contentDisplayLength = 50; // Content string length to show
   private isLoaded = false;
   private articles?: Article[];
 
   constructor(
-    private articleCardService: ArticleCardService,
+    private articleService: ArticleService,
     private loggingService: LoggingService,
     private snackbarService: SnackbarService) {
 
@@ -28,7 +28,7 @@ export class ArticleCardComponent {
   }
 
   fetchArticles() {
-    return this.articleCardService.getArticles();
+    return this.articleService.getArticles();
   }
 
   initializeArticles() {
