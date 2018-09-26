@@ -1,9 +1,11 @@
-﻿import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'plainText' })
 export class PlainTextPipe implements PipeTransform {
-    transform(htmlText: string): string {
-        return htmlText.replace(/<(?:[^>=]|='[^']*'|="[^"]*"|=[^'"][^\s>]*)*>/g, '')
+  transform(htmlText: string): string {
+    return htmlText == null
+      ? null
+      : htmlText.replace(/<(?:[^>=]|='[^']*'|="[^"]*"|=[^'"][^\s>]*)*>/g, '')
             .split(/\n/)
             .map(function (line) {
                 return line.replace(/(&nbsp;)/g, ' ').trim();
