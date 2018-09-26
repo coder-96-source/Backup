@@ -48,6 +48,8 @@ namespace DotNetSurfer.Web.Models
 
         public Permission Permission { get; set; }
 
+        public ICollection<Topic> Topics { get; set; }
+
         public ICollection<Article> Articles { get; set; }
 
         public ICollection<Announcement> Announcements { get; set; }
