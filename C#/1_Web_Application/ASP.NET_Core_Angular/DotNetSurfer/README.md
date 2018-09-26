@@ -1,7 +1,7 @@
 # .NETSurfer
 
 ## Preview
-http://dotnetsurfer.blog
+https://dotnetsurfer.blog
 
 ![Alt text](https://github.com/kims07231992/JasonPrivateStudy/blob/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer/README.PNG)
 
@@ -15,6 +15,7 @@ http://dotnetsurfer.blog
 * Topic & Article & Keyword & Announcement management
 * Simple maintenance database by including database project
 * Responsive design
+* Role Based Authentication
  
 ## Stacks
 
@@ -22,8 +23,8 @@ http://dotnetsurfer.blog
 * Entity Framework Core
 * NLog
 * JWT Authentication
-* Role Based Authentication
 * Azure Depolyment
+* Azure Let's Encrypt
 * Angular 6
 * Angular Material 2
 * Angular Flex Layout

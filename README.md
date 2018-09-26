@@ -4,8 +4,8 @@
 
 ### Web Application
 
-* [MyArticles](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/1_Web_Application/ASP.NET_MVC/PG4_Web_MyArticles/Lab43) - A basic ASP.NET MVC 5 based blog type web aplication.
-* [.NETSurfer](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer) - An ASP.NET Core 2.1 & Angular 6 based blog type web aplication.
+* [MyArticles](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/1_Web_Application/ASP.NET_MVC/PG4_Web_MyArticles/Lab43) - A basic ASP.NET MVC 5 based blog type web application.
+* [.NETSurfer](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer) - An ASP.NET Core 2.1 & Angular 6 based blog type web application.
 
 ### Data Structure
 
