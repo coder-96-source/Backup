@@ -17,7 +17,7 @@
                              alt="{{article.user.name}}">
                         <img *ngIf="!article.user.picture"
                              mat-card-avatar
-                             src="/Images/default/default-user.png"
+                             src="/assets/Images/default/default-user.png"
                              alt="default-user">
                         <mat-card-title>{{article.user.name}}</mat-card-title>
                         <mat-card-subtitle>{{article.postDate | date}}</mat-card-subtitle>
@@ -28,7 +28,7 @@
                          alt="{{article.title}}">
                     <img *ngIf="!article.picture"
                          mat-card-image
-                         src="/Images/default/default-article.jpg"
+                         src="/assets/Images/default/default-article.jpg"
                          alt="default-article">
                     <mat-card-content>
                         <h3 class="mat-subheading-1">{{article.title}}</h3>

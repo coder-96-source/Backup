@@ -17,7 +17,7 @@
                 <div fxFlex="5px" fxHide.sm fxHide.xs></div>
                 <div class="article-list-image" fxFlex fxHide.sm fxHide.xs>
                     <img *ngIf="article.picture" mat-card-image src="data:{{article.pictureMimeType}};base64,{{article.picture}}" alt="{{article.title}}">
-                    <img *ngIf="!article.picture" mat-card-image src="/Images/default/default-article.jpg" alt="default-article">
+                    <img *ngIf="!article.picture" mat-card-image src="/assets/Images/default/default-article.jpg" alt="default-article">
                 </div>
             </div>
         </a>
