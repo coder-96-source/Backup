@@ -33,14 +33,13 @@ namespace DotNetSurfer.Web.Controllers
                 announcement = await this._context.Announcements
                     .Include(a => a.User)
                     .Include(a => a.Status)
+                    .AsNoTracking()
                     .SingleOrDefaultAsync(a => a.AnnouncementId == id);
 
                 if (announcement == null)
                 {
                     return NotFound();
                 }
-
-                ClearSensitiveUserInformation(announcement.User);
             }
             catch (Exception ex)
             {
@@ -60,13 +59,8 @@ namespace DotNetSurfer.Web.Controllers
                 announcements = this._context.Announcements
                     .Include(a => a.User)
                     .Include(a => a.Status)
-                    .Where(a => a.ShowFlag == true)
-                    .ToList();
-
-                foreach (var announcement in announcements)
-                {
-                    ClearSensitiveUserInformation(announcement.User);
-                }
+                    .Where(a => a.ShowFlag)
+                    .AsNoTracking();
             }
             catch (Exception ex)
             {
@@ -84,7 +78,8 @@ namespace DotNetSurfer.Web.Controllers
 
             try
             {
-                bool isUserExist = this._context.Users.Any(u => u.UserId == userId);
+                bool isUserExist = this._context.Users
+                    .Any(u => u.UserId == userId);
                 if (!isUserExist)
                 {
                     return null;
@@ -92,19 +87,14 @@ namespace DotNetSurfer.Web.Controllers
 
                 announcements = IsAdministrator()
                     ? this._context.Announcements
-                    .Include(a => a.User)
-                    .Include(a => a.Status)
-                    .ToList()
+                        .Include(a => a.User)
+                        .Include(a => a.Status)
+                        .AsNoTracking()
                     : this._context.Announcements
-                    .Include(a => a.User)
-                    .Include(a => a.Status)
-                    .Where(a => a.UserId == userId)
-                    .ToList();
-
-                foreach (var announcement in announcements)
-                {
-                    ClearSensitiveUserInformation(announcement.User);
-                }
+                        .Include(a => a.User)
+                        .Include(a => a.Status)
+                        .Where(a => a.UserId == userId)
+                        .AsNoTracking();
             }
             catch (Exception ex)
             {

@@ -23,8 +23,7 @@ namespace DotNetSurfer.Web.Controllers
             try
             {
                 features = this._context.Features
-                    .Where(f => f.FeatureType == featureType)
-                    .ToList();
+                    .Where(f => f.FeatureType == featureType);
             }
             catch (Exception ex)
             {

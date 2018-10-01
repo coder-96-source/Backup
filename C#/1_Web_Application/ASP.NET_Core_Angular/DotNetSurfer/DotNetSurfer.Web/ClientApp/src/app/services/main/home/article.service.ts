@@ -8,8 +8,8 @@ export class ArticleService {
 
   }
 
-  getArticles() {
-    return this.gateway.get('api/articles');
+  getTopArticles(item: number) {
+    return this.gateway.get(`api/articles/top/${item}`);
   }
 
   getArticlesByPage(page: number) {

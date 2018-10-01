@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetSurfer.Web.Helpers.ModelConverters;
 using DotNetSurfer.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +20,7 @@ namespace DotNetSurfer.Web.Controllers
 
         #region Topics
         [HttpPut("topics/{id}")]
-        public async Task<IActionResult> UpdateTopic([FromRoute] int id, [FromBody] Base64Topic base64Topic)
+        public async Task<IActionResult> UpdateTopic([FromRoute] int id, [FromBody] Topic topic)
         {
             try
             {
@@ -30,20 +29,18 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (id != base64Topic.TopicId)
+                if (id != topic.TopicId)
                 {
                     return BadRequest();
                 }
 
                 // Author check
                 int? userId = GetUserIdFromClaims();
-                if (!IsAdministrator() && base64Topic.UserId != userId.Value)
+                if (!IsAdministrator() && topic.UserId != userId.Value)
                 {
                     return Unauthorized();
                 }
 
-                var topic = ModelConverter.ConvertBase64ModelsToBinaryModels
-                    (base64Topic, _binaryTopicType.Value, _targetPropertyNames.Value) as Topic;
                 topic.ModifyDate = DateTime.Now;
 
                 this._context.Entry(topic).State = EntityState.Modified;
@@ -56,11 +53,11 @@ namespace DotNetSurfer.Web.Controllers
                 return BadRequest(ex.Message);
             }
             
-            return Ok(base64Topic);
+            return Ok(topic);
         }
 
         [HttpPost("topics")]
-        public async Task<IActionResult> CreateTopic([FromBody] Base64Topic base64Topic)
+        public async Task<IActionResult> CreateTopic([FromBody] Topic topic)
         {
             try
             {
@@ -69,14 +66,11 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool isTitleExist = this._context.Topics.Any(t => t.Title == base64Topic.Title);
+                bool isTitleExist = this._context.Topics.Any(t => t.Title == topic.Title);
                 if (isTitleExist)
                 {
                     return BadRequest("Title already exists");
                 }
-
-                var topic = ModelConverter.ConvertBase64ModelsToBinaryModels
-                    (base64Topic, _binaryTopicType.Value, _targetPropertyNames.Value) as Topic;
 
                 this._context.Topics.Add(topic);
                 await this._context.SaveChangesAsync();
@@ -87,7 +81,7 @@ namespace DotNetSurfer.Web.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return CreatedAtAction(nameof(Topic), new { id = base64Topic.TopicId }, base64Topic);
+            return CreatedAtAction(nameof(Topic), new { id = topic.TopicId }, topic);
         }
 
         [HttpDelete("topics/{id}")]
@@ -132,7 +126,7 @@ namespace DotNetSurfer.Web.Controllers
 
         #region Articles
         [HttpPut("articles/{id}")]
-        public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromBody] Base64Article base64Article)
+        public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromBody] Article article)
         {
             try
             {
@@ -141,22 +135,19 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (id != base64Article.ArticleId)
+                if (id != article.ArticleId)
                 {
                     return BadRequest();
                 }
 
                 // Author check
                 int? userId = GetUserIdFromClaims();
-                if (!IsAdministrator() && base64Article.UserId != userId.Value)
+                if (!IsAdministrator() && article.UserId != userId.Value)
                 {
                     return Unauthorized();
                 }
 
-                var article = ModelConverter.ConvertBase64ModelsToBinaryModels
-                    (base64Article, _binaryArticleType.Value, _targetPropertyNames.Value) as Article;
                 article.ModifyDate = DateTime.Now;
-
                 this._context.Entry(article).State = EntityState.Modified;
 
                 await this._context.SaveChangesAsync();
@@ -167,23 +158,18 @@ namespace DotNetSurfer.Web.Controllers
                 return BadRequest(ex.Message);
             }         
 
-            return Ok(base64Article);
+            return Ok(article);
         }
 
         [HttpPost("articles")]
-        public async Task<IActionResult> CreateArticle([FromBody] Base64Article base64Article)
+        public async Task<IActionResult> CreateArticle([FromBody] Article article)
         {
-            Article article = null;
-
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
-
-                article = ModelConverter.ConvertBase64ModelsToBinaryModels
-                   (base64Article, _binaryArticleType.Value, _targetPropertyNames.Value) as Article;
 
                 this._context.Articles.Add(article);
                 await this._context.SaveChangesAsync();
@@ -327,7 +313,7 @@ namespace DotNetSurfer.Web.Controllers
 
         #region Users
         [HttpPut("users/{id}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromBody] Base64User base64User)
+        public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromBody] User user)
         {
             try
             {
@@ -336,37 +322,34 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (id != base64User.UserId)
+                if (id != user.UserId)
                 {
                     return BadRequest();
                 }
 
                 // Author check
                 int? userId = GetUserIdFromClaims();
-                if (!IsAdministrator() && base64User.UserId != userId.Value)
+                if (!IsAdministrator() && user.UserId != userId.Value)
                 {
                     return Unauthorized();
                 }
 
                 var currentUser = this._context.Users.AsNoTracking(). // To avoid context tracking exception
-                    FirstOrDefault(u => u.UserId == base64User.UserId);
-                if (!IsPasswordCorrect(currentUser.Password, base64User.Password))
+                    FirstOrDefault(u => u.UserId == user.UserId);
+                if (!IsPasswordCorrect(currentUser.Password, user.Password))
                 {
                     return Unauthorized();
                 }
 
                 // Email check, if there is already an email trying to change
-                bool isAlreadyEmailExists = currentUser.Email != base64User.Email
-                    && IsUserEmailExists(base64User.Email);
+                bool isAlreadyEmailExists = currentUser.Email != user.Email
+                    && IsUserEmailExists(user.Email);
                 if (isAlreadyEmailExists)
                 {
                     return BadRequest("User email already exists");
                 }
 
-                var user = ModelConverter.ConvertBase64ModelsToBinaryModels
-                    (base64User, _binaryUserType.Value, _targetPropertyNames.Value) as User;
                 user.Password = _encryptor.Value.Encrypt(user.Password);
-
                 this._context.Entry(user).State = EntityState.Modified;
 
                 await this._context.SaveChangesAsync();
@@ -376,7 +359,7 @@ namespace DotNetSurfer.Web.Controllers
                 this._logger.LogError(ex, nameof(UpdateUser));
             }
 
-            return Ok(base64User);
+            return Ok(user);
         }
         #endregion
     }

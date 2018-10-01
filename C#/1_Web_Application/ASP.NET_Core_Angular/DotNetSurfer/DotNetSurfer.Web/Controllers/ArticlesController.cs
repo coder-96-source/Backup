@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetSurfer.Web.Helpers.ModelConverters;
 using DotNetSurfer.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +21,7 @@ namespace DotNetSurfer.Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetArticle([FromRoute] int id)
         {
-            Base64Article base64Article = null;
+            Article article = null;
 
             try
             {
@@ -31,10 +30,11 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var article = await this._context.Articles
+                article = await this._context.Articles
                     .Include(a => a.User)
                     .Include(a => a.Topic)
                     .Include(a => a.Tags)
+                    .AsNoTracking()
                     .SingleOrDefaultAsync(a => a.ArticleId == id);
 
                 if (article == null)
@@ -46,56 +46,20 @@ namespace DotNetSurfer.Web.Controllers
                 article.ReadCount++;
                 this._context.Entry(article).State = EntityState.Modified;
                 await this._context.SaveChangesAsync();
-
-                base64Article = ModelConverter.ConvertBinaryModelsToBase64Models
-                    (article, _base64ArticleType.Value, _targetPropertyNames.Value) as Base64Article;
-
-                ClearSensitiveUserInformation(base64Article.User);
             }
             catch (Exception ex)
             {
                 this._logger.LogError(ex, nameof(GetArticle));
             }
 
-            return Ok(base64Article);
-        }
-
-        [HttpGet]
-        public IEnumerable<Base64Article> GetArticles()
-        {
-            IEnumerable<Base64Article> base64Articles = null;
-
-            try
-            {
-                var articles = this._context.Articles
-                    .Include(article => article.User)
-                    .Include(article => article.Topic)
-                    .Include(a => a.Tags)
-                    .Where(a => a.ShowFlag == true)
-                    .ToArray();
-
-                base64Articles = ModelConverter.ConvertBinaryModelsToBase64Models
-                    (articles, _base64ArticleType.Value, _targetPropertyNames.Value) as IEnumerable<Base64Article>;
-
-                foreach (var article in base64Articles)
-                {
-                    ClearSensitiveUserInformation(article.User);
-                }
-            }
-            catch (Exception ex)
-            {
-                this._logger.LogError(ex, nameof(GetArticles));
-            }
-
-            return base64Articles;
+            return Ok(article);
         }
 
         [HttpGet("users/{userId}")]
         [Authorize(Roles = nameof(PermissionType.Admin) + "," + nameof(PermissionType.User))]
-
-        public IEnumerable<Base64Article> GetArticlesByUserId([FromRoute] int userId)
+        public IEnumerable<Article> GetArticlesByUserId([FromRoute] int userId)
         {
-            IEnumerable<Base64Article> base64Articles = null;
+            IEnumerable<Article> articles = null;
 
             try
             {
@@ -105,65 +69,68 @@ namespace DotNetSurfer.Web.Controllers
                     return null;
                 }
 
-                var articles = IsAdministrator()
+                articles = IsAdministrator()
                     ? this._context.Articles
                     .Include(a => a.User)
-                    .Include(a => a.Topic)
-                    .ToArray()
+                    .AsNoTracking()
                     : this._context.Articles
                     .Include(a => a.User)
-                    .Include(a => a.Topic)
                     .Where(a => a.UserId == userId)
-                    .ToArray();
-
-                base64Articles = ModelConverter.ConvertBinaryModelsToBase64Models
-                    (articles, _base64ArticleType.Value, _targetPropertyNames.Value) as IEnumerable<Base64Article>;
-
-                foreach (var article in base64Articles)
-                {
-                    ClearSensitiveUserInformation(article.User);
-                }
+                    .AsNoTracking();
             }
             catch (Exception ex)
             {
                 this._logger.LogError(ex, nameof(GetArticlesByUserId));
             }
 
-            return base64Articles;
+            return articles;
         }
 
         [HttpGet("page/{pageId?}")]
-        public IEnumerable<Base64Article> GetArticlesByPage(int pageId = 1)
+        public IEnumerable<Article> GetArticlesByPage(int pageId = 1)
         {
             const int itemPerPage = 3;
-            IEnumerable<Base64Article> base64Articles = null;
+            IEnumerable<Article> articles = null;
 
             try
             {
-                var articles = this._context.Articles
+                articles = this._context.Articles
                     .Include(article => article.User)
                     .Include(article => article.Topic)
-                    .Include(a => a.Tags)
-                    .Where(a => a.ShowFlag == true)
-                    .OrderByDescending(a => a.PostDate)
+                    .Where(a => a.ShowFlag)
+                    .OrderByDescending(article => article.PostDate)
                     .Skip((pageId - 1) * itemPerPage)
                     .Take(itemPerPage)
-                    .ToArray();
-
-                base64Articles = ModelConverter.ConvertBinaryModelsToBase64Models
-                    (articles, _base64ArticleType.Value, _targetPropertyNames.Value) as IEnumerable<Base64Article>;
-
-                foreach (var article in base64Articles)
-                {
-                    ClearSensitiveUserInformation(article.User);
-                }
+                    .AsNoTracking();
             }
             catch (Exception ex)
             {
                 this._logger.LogError(ex, nameof(GetArticlesByPage));
             }
 
-            return base64Articles;
+            return articles;
+        }
+
+        [HttpGet("top/{item?}")]
+        public IEnumerable<Article> GetTopArticles(int item = 3)
+        {
+            IEnumerable<Article> articles = null;
+
+            try
+            {
+                articles = this._context.Articles
+                    .Include(article => article.User)
+                    .Where(article => article.ShowFlag)
+                    .OrderByDescending(a => a.ReadCount)
+                    .Take(item)
+                    .AsNoTracking();
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError(ex, nameof(GetArticlesByPage));
+            }
+
+            return articles;
         }
     }
 }

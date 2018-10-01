@@ -16,9 +16,6 @@ namespace DotNetSurfer.Web.Controllers
         protected static readonly Lazy<Type> _binaryTopicType = new Lazy<Type>(() => typeof(Topic));
         protected static readonly Lazy<Type> _binaryArticleType = new Lazy<Type>(() => typeof(Article));
         protected static readonly Lazy<Type> _binaryUserType = new Lazy<Type>(() => typeof(User));
-        protected static readonly Lazy<Type> _base64TopicType = new Lazy<Type>(() => typeof(Base64Topic));
-        protected static readonly Lazy<Type> _base64ArticleType = new Lazy<Type>(() => typeof(Base64Article));
-        protected static readonly Lazy<Type> _base64UserType = new Lazy<Type>(() => typeof(Base64User));
         protected static readonly Lazy<List<string>> _targetPropertyNames = new Lazy<List<string>>(() => {
             return new List<string>() { "Picture" };
         }); // binary, base64 property names
@@ -45,11 +42,6 @@ namespace DotNetSurfer.Web.Controllers
         protected bool IsAnnouncementExists(int id)
         {
             return this._context.Announcements.Any(a => a.AnnouncementId == id);
-        }
-
-        protected void ClearSensitiveUserInformation(User user)
-        {
-            user.Password = null;
         }
 
         protected bool IsUserExists(int id)

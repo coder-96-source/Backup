@@ -28,7 +28,7 @@ export class ArticleCardComponent implements OnInit{
   }
 
   fetchArticles() {
-    return this.articleService.getArticles();
+    return this.articleService.getTopArticles(this.articleDisplayLimit);
   }
 
   initializeArticles() {

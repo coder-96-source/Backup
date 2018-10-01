@@ -22,7 +22,7 @@ namespace DotNetSurfer.Web.Controllers
 
             try
             {
-                statuses = this._context.Statuses.ToList();
+                statuses = this._context.Statuses;
             }
             catch (Exception ex)
             {

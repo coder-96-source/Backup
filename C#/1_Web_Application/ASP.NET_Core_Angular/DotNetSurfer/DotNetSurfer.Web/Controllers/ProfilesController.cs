@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DotNetSurfer.Web.Helpers.ModelConverters;
 using DotNetSurfer.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +20,11 @@ namespace DotNetSurfer.Web.Controllers
         [Authorize(Roles = nameof(PermissionType.Admin) + "," + nameof(PermissionType.User))]
         public async Task<IActionResult> GetUser([FromRoute] int id)
         {
-            Base64User base64User = null;
+            User user = null;
 
             try
             {
-                var user = await this._context.Users
+                user = await this._context.Users
                     .SingleOrDefaultAsync(u => u.UserId == id);
                 if (user == null)
                 {
@@ -38,11 +37,6 @@ namespace DotNetSurfer.Web.Controllers
                 {
                     return Unauthorized();
                 }
-
-                ClearSensitiveUserInformation(user);
-
-                base64User = ModelConverter.ConvertBinaryModelsToBase64Models
-                        (user, _base64UserType.Value, _targetPropertyNames.Value) as Base64User;
             }
             catch (Exception ex)
             {
@@ -53,7 +47,7 @@ namespace DotNetSurfer.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            return Ok(base64User);
+            return Ok(user);
         }
     }
 }

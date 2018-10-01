@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetSurfer.Web.Helpers.ModelConverters;
 using DotNetSurfer.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +21,7 @@ namespace DotNetSurfer.Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTopic([FromRoute] int id)
         {
-            Base64Topic base64Topic = null;
+            Topic topic = null;
 
             try
             {
@@ -31,35 +30,33 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var topic = await this._context.Topics
+                topic = await this._context.Topics
                     .Include(t => t.User)
+                    .AsNoTracking()
                     .SingleOrDefaultAsync(t => t.TopicId == id);
+
                 if (topic == null)
                 {
                     return NotFound();
                 }
-
-                base64Topic = ModelConverter.ConvertBinaryModelsToBase64Models
-                    (topic, _base64TopicType.Value, _targetPropertyNames.Value) as Base64Topic;
             }
             catch (Exception ex)
             {
                 this._logger.LogError(ex, nameof(GetTopic));
             }
 
-            return Ok(base64Topic);
+            return Ok(topic);
         }
 
         [HttpGet]
-        public IEnumerable<Base64Topic> GetTopics()
+        public IEnumerable<Topic> GetTopics()
         {
-            IEnumerable<Base64Topic> base64Topics = null;
+            IEnumerable<Topic> topics = null;
 
             try
             {
-                var topics = this._context.Topics.ToArray();
-                base64Topics = ModelConverter.ConvertBinaryModelsToBase64Models
-                    (topics, _base64TopicType.Value, _targetPropertyNames.Value) as IEnumerable<Base64Topic>;
+                topics = this._context.Topics
+                    .AsNoTracking();
 
             }
             catch (Exception ex)
@@ -67,41 +64,37 @@ namespace DotNetSurfer.Web.Controllers
                 this._logger.LogError(ex, nameof(GetTopics));
             }
 
-            return base64Topics;
+            return topics;
         }
 
         [HttpGet("users/{userId}")]
         [Authorize(Roles = nameof(PermissionType.Admin) + "," + nameof(PermissionType.User))]
-        public IEnumerable<Base64Topic> GetTopicsByUserId([FromRoute] int userId)
+        public IEnumerable<Topic> GetTopicsByUserId([FromRoute] int userId)
         {
-            IEnumerable<Base64Topic> base64Topics = null;
+            IEnumerable<Topic> topics = null;
 
             try
             {
-                bool isUserExist = this._context.Users.Any(u => u.UserId == userId);
+                bool isUserExist = this._context.Users
+                    .Any(u => u.UserId == userId);
                 if (!isUserExist)
                 {
                     return null;
                 }
 
-                var topics = IsAdministrator() 
-                    ? this._context.Topics.ToArray() 
-                    : this._context.Topics.Where(a => a.UserId == userId).ToArray();
-
-                base64Topics = ModelConverter.ConvertBinaryModelsToBase64Models
-                      (topics, _base64TopicType.Value, _targetPropertyNames.Value) as IEnumerable<Base64Topic>;
-
-                foreach (var topic in base64Topics)
-                {
-                    ClearSensitiveUserInformation(topic.User);
-                }
+                topics = IsAdministrator() 
+                    ? this._context.Topics
+                        .AsNoTracking()
+                    : this._context.Topics
+                        .Where(a => a.UserId == userId)
+                        .AsNoTracking();
             }
             catch (Exception ex)
             {
                 this._logger.LogError(ex, nameof(GetTopicsByUserId));
             }
 
-            return base64Topics;
+            return topics;
         }
     }
 }

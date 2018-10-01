@@ -77,7 +77,8 @@ namespace DotNetSurfer.Web.Controllers
                     return NotFound();
                 }
 
-                var user = this._context.Users.Include(u => u.Permission)
+                var user = this._context.Users
+                    .Include(u => u.Permission)
                     .First(u => u.Email == model.Email);
                 if (!IsPasswordCorrect(user.Password, model.Password))
                 {
