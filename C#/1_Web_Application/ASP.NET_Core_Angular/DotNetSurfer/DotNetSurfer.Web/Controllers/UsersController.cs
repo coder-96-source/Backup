@@ -74,7 +74,7 @@ namespace DotNetSurfer.Web.Controllers
 
                 if (!IsUserEmailExists(model.Email))
                 {
-                    return NotFound();
+                    return NotFound("Please check that your email addresses");
                 }
 
                 var user = this._context.Users
@@ -82,7 +82,7 @@ namespace DotNetSurfer.Web.Controllers
                     .First(u => u.Email == model.Email);
                 if (!IsPasswordCorrect(user.Password, model.Password))
                 {
-                    return Unauthorized();
+                    return BadRequest("Wrong type of the password, please enter it again");
                 }
 
                 var jwtGenerator = new JWTGenerator(this._configuration);

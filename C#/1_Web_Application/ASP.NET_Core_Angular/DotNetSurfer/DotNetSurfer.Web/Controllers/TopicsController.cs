@@ -84,8 +84,10 @@ namespace DotNetSurfer.Web.Controllers
 
                 topics = IsAdministrator() 
                     ? this._context.Topics
+                        .Include(t => t.User)
                         .AsNoTracking()
                     : this._context.Topics
+                        .Include(t => t.User)
                         .Where(a => a.UserId == userId)
                         .AsNoTracking();
             }

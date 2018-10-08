@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../../../../../models/article';
 import { ArticleService } from '../../../../../services/main/home/article.service';
-import { LoggingService } from '../../../../../services/shared/logging.service';
 import { SnackbarService, SnackbarAction } from '../../../../../services/shared/snackbar.service';
 
 @Component({
@@ -20,7 +19,6 @@ export class ArticleListComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
-    private loggingService: LoggingService,
     private snackbarService: SnackbarService) {
 
   }
@@ -39,9 +37,7 @@ export class ArticleListComponent implements OnInit {
       this.isLoaded = true;
     },
       error => {
-        const errorMessage = error as string;
-        this.loggingService.writeErrorLog(errorMessage);
-        this.snackbarService.openSnackBar(errorMessage, SnackbarAction.Error);
+
       });
   }
 

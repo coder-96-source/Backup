@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MainModule } from './components/main/main.module';
+import { AdminModule } from './components/admin/admin.module';
 import { SharedModule } from './shared.module';
 
 import { AppRoutingModule } from './app.routing';
@@ -12,6 +13,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     MainModule,
+    AdminModule,
     SharedModule,
 
     AppRoutingModule
