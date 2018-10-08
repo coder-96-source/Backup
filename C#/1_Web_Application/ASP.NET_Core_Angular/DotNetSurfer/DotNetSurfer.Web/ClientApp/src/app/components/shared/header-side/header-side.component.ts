@@ -10,7 +10,8 @@ export class HeaderSideComponent implements OnInit {
   private isOpen: boolean;
   private menuItems: any[] = [];
 
-  constructor(private headerService: HeaderService) {
+  constructor(
+    private headerService: HeaderService) {
 
   }
 

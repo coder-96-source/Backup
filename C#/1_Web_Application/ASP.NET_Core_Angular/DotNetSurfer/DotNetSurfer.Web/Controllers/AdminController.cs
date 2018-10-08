@@ -97,7 +97,6 @@ namespace DotNetSurfer.Web.Controllers
                 }
 
                 topic = await this._context.Topics
-                    .Include(t => t.User)
                     .SingleOrDefaultAsync(t => t.TopicId == id);
                 if (topic == null)
                 {

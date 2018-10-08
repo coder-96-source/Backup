@@ -1,10 +1,10 @@
 # .NETSurfer
 
 ## Preview
-https://dotnetsurfer.blog
+http://dotnetsurfer.blog (Https Removed because of high cost)
 
-![Alt text](https://github.com/kims07231992/JasonPrivateStudy/blob/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer/README.PNG)
-
+![Alt text](https://github.com/kims07231992/JasonPrivateStudy/blob/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer/README_Picture1.PNG)
+![Alt text](https://github.com/kims07231992/JasonPrivateStudy/blob/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer/README_Picture2.PNG)
 
 ----------------------------------------------------------------------------------------------------------------
 
@@ -12,10 +12,12 @@ https://dotnetsurfer.blog
 
 ## Features
 
-* Topic & Article & Keyword & Announcement management
+* Single paged application using Angular framework
+* API based resource assess by ASP.NET Core framework
+* Resource management administrator page
 * Simple maintenance database by including database project
 * Responsive design
-* Role Based Authentication
+* Role based authentication
  
 ## Stacks
 
@@ -24,7 +26,7 @@ https://dotnetsurfer.blog
 * NLog
 * JWT Authentication
 * Azure Depolyment
-* Azure Let's Encrypt
+* Azure Let's Encrypt (Https Removed because of high cost)
 * Angular 6
 * Angular Material 2
 * Angular Flex Layout

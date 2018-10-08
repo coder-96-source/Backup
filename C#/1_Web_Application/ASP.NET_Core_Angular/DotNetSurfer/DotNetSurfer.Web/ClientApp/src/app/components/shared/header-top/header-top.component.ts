@@ -9,8 +9,10 @@ import { HeaderService } from '../../../services/shared/header.service';
 export class HeaderTopComponent implements OnInit {
   private isOpen: boolean;
   private isMobile: boolean;
+  private adminMenuItems: any[] = [];
 
-  constructor(private headerService: HeaderService) {
+  constructor(
+    private headerService: HeaderService) {
 
   }
 
@@ -24,9 +26,19 @@ export class HeaderTopComponent implements OnInit {
       .subscribe(s => {
         this.isMobile = s as boolean;
       });
+
+    this.adminMenuItems = this.headerService.getAdminMenuItems();
   }
 
   toggleSidenav() {
     this.headerService.setIsSidenavOpened(!this.isOpen);
+  }
+
+  isAuthenticated() {
+    return this.headerService.getIsAuthenticated();
+  }
+
+  signOut() {
+    this.headerService.signOut();
   }
 }

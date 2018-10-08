@@ -52,10 +52,10 @@ import { HeaderSideComponent } from './components/shared/header-side/header-side
 import { FooterComponent } from './components/shared/footer/footer.component';
 
 import { HeaderService } from './services/shared/header.service';
+import { UserService } from './services/admin/user/user.service';
 import { GatewayService } from './services/shared/gateway.service';
 import { JWTGatewayService } from './services/shared/jwtgateway.service';
 import { SnackbarService } from './services/shared/snackbar.service';
-import { LoggingService } from './services/shared/logging.service';
 
 @NgModule({
   declarations: [
@@ -165,10 +165,10 @@ import { LoggingService } from './services/shared/logging.service';
   ],
   providers: [
     HeaderService,
+    UserService,
     GatewayService,
     JWTGatewayService,
-    SnackbarService,
-    LoggingService
+    SnackbarService
   ],
   bootstrap: [
 

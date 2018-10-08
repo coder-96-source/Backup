@@ -9,7 +9,10 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using NLog;
+using NLog.Extensions.Logging;
 
 namespace DotNetSurfer.Web
 {
@@ -78,7 +81,7 @@ namespace DotNetSurfer.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -90,10 +93,15 @@ namespace DotNetSurfer.Web
                 app.UseHsts();
             }
 
+            // NLog
+            GlobalDiagnosticsContext.Set("connectionString", Configuration.GetConnectionString("DefaultConnection"));
+            loggerFactory.AddNLog();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
+            app.UseAuthentication();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
