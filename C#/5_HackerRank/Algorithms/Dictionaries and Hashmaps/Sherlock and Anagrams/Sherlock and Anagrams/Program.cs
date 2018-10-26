@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sherlock_and_Anagrams
 {
@@ -11,12 +9,39 @@ namespace Sherlock_and_Anagrams
     {
         private static int sherlockAndAnagrams(string s)
         {
+            int pairs = 0;
 
+            for (int i = 1; i < s.Length; i++) // Length of substring
+            {
+                var anagrams = new Dictionary<string, int>(); // Key: substring, Value: pair
+                for (int j = 0; j <= s.Length - i; j++)
+                {
+                    string sub = string.Concat(s.Substring(j, i).OrderBy(c => c)); // Rearrange for an unique key
+                    if (anagrams.ContainsKey(sub))
+                    {
+                        anagrams[sub]++;
+                    }
+                    else
+                    {
+                        anagrams.Add(sub, 1);
+                    }
+                }
+                foreach (var anagram in anagrams)
+                {
+                    if (anagram.Value > 1)
+                    {
+                        int n = anagram.Value - 1; // n = pair - 1
+                        pairs += (int)(Math.Pow(n, 2) + n) / 2; // (n * (n + 1)) / 2
+                    }
+                }
+            }
+
+            return pairs;
         }
 
         private static void Main(string[] args)
         {
-            //TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+            TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
             int q = Convert.ToInt32(Console.ReadLine());
 
@@ -25,12 +50,11 @@ namespace Sherlock_and_Anagrams
                 string s = Console.ReadLine();
 
                 int result = sherlockAndAnagrams(s);
-                Console.WriteLine(result);
-                //textWriter.WriteLine(result);
+                textWriter.WriteLine(result);
             }
 
-            //textWriter.Flush();
-            //textWriter.Close();
+            textWriter.Flush();
+            textWriter.Close();
         }
     }
 }
