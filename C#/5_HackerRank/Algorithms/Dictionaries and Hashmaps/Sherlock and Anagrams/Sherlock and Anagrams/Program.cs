@@ -17,21 +17,13 @@ namespace Sherlock_and_Anagrams
                 for (int j = 0; j <= s.Length - i; j++)
                 {
                     string sub = string.Concat(s.Substring(j, i).OrderBy(c => c)); // Rearrange for an unique key
-                    if (anagrams.ContainsKey(sub))
-                    {
-                        anagrams[sub]++;
-                    }
-                    else
+                    if (!anagrams.ContainsKey(sub))
                     {
                         anagrams.Add(sub, 1);
                     }
-                }
-                foreach (var anagram in anagrams)
-                {
-                    if (anagram.Value > 1)
-                    {
-                        int n = anagram.Value - 1; // n = pair - 1
-                        pairs += (int)(Math.Pow(n, 2) + n) / 2; // (n * (n + 1)) / 2
+                    else
+                    {        
+                        pairs += anagrams[sub]++; // Part of (n * (n + 1)) / 2
                     }
                 }
             }
