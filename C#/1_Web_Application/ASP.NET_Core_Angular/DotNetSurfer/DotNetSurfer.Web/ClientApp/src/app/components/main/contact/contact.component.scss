@@ -1,6 +1,6 @@
 @import '../../../../styles/constants';
 
-.contact-container {
+.contact-contents {
   padding: 5% 10%;
   text-align: center;
 }
@@ -29,7 +29,7 @@
 }
 
 @media (max-width: $breakpoint-width-mobile) {
-  .contact-container {
+  .contact-contents {
     padding: 25px 5%;
   }
 

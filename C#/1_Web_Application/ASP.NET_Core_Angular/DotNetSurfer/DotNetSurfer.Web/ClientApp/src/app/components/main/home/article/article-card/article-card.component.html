@@ -7,8 +7,13 @@
         <mat-spinner></mat-spinner>
     </div>
     <div *ngIf="isLoaded">
-        <div fxLayout="row wrap">
-            <div *ngFor="let article of articles" fxFlex fxFlex.gt-sm="50" fxFlex.gt-md="33" fxLayoutAlign="space-around center">
+        <div fxLayout="row wrap"
+             [@fadeInAnimations]="articles.length">
+            <div *ngFor="let article of articles" class="article"
+                 fxFlex
+                 fxFlex.gt-sm="50"
+                 fxFlex.gt-md="33"
+                 fxLayoutAlign="space-around center">
                 <mat-card class="article-card mat-elevation-z8">
                     <mat-card-header>
                         <img *ngIf="article.user.picture"
