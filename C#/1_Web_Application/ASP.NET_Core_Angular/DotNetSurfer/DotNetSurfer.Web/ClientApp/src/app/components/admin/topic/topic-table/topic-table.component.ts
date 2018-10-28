@@ -5,10 +5,6 @@ import { Topic } from '../../../../models/topic';
 import { TopicTableService } from '../../../../services/admin/topic/topic-table.service';
 import { TopicDialogService } from '../../../../services/admin/topic/topic-dialog.service';
 import { SnackbarService, SnackbarAction } from '../../../../services/shared/snackbar.service';
-import {
-  HttpEvent, HttpInterceptor, HttpHandler,
-  HttpRequest, HttpResponse, HttpErrorResponse
-} from '@angular/common/http';
 
 @Component({
     selector: 'app-admin-topic-table',
