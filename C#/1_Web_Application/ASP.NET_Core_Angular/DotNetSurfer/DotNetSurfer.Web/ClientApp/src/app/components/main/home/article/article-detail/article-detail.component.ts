@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { fadeInAnimation } from '../../../../../animations/animations';
 import { Article } from '../../../../../models/article';
 import { ArticleService } from '../../../../../services/main/home/article.service';
 import { SnackbarService, SnackbarAction } from '../../../../../services/shared/snackbar.service';
@@ -7,7 +8,8 @@ import { SnackbarService, SnackbarAction } from '../../../../../services/shared/
 @Component({
   selector: 'app-article-detail',
   templateUrl: './article-detail.component.html',
-  styleUrls: ['./article-detail.component.scss']
+  styleUrls: ['./article-detail.component.scss'],
+  animations: [fadeInAnimation]
 })
 
 export class ArticleDetailComponent implements OnInit {
