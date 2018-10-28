@@ -45,7 +45,6 @@ export class SignUpComponent implements OnInit {
     this.userService.signUp(signUpModel)
       .subscribe(res => {
         this.snackbarService.openSnackBar(`Please sign in with created account!`, SnackbarAction.Success);
-        this.userService.navigateHome();
       },
       error => {
           // Refresh form status

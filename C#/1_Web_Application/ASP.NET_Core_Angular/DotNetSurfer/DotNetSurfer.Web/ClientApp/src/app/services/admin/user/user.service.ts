@@ -11,6 +11,8 @@ export class UserService {
   @SessionStorage() private signInTimeSession?: Date;
   @SessionStorage() private userSession?: User;
 
+  redirectUrl: string;
+
   get getJwtToken(): string | undefined {
     return this.jwtTokenSession;
   }
@@ -29,7 +31,11 @@ export class UserService {
 
   signUp(user: User) {
     return this.gatewayService.post('users/signup', user)
-      .pipe(map(res => res));
+      .pipe(
+      map(res => res),
+      tap(res => {
+        this.navigateHome();
+      }));
   }
 
   signIn(user: User) {
@@ -40,6 +46,12 @@ export class UserService {
         const user = res['user'] as User;
         const jwtToken = res['auth_token'] as string;
         this.setUserSession(user, jwtToken);
+        if (this.redirectUrl == null) {
+          this.navigateHome();
+        }
+        else {
+          this.navigateToPreviousUrl();
+        }
       }));
   }
 
@@ -48,8 +60,12 @@ export class UserService {
     this.navigateHome();
   }
 
-  navigateHome() {
+  private navigateHome() {
     this.gatewayService.navigateHome();
+  }
+
+  private navigateToPreviousUrl() {
+    this.gatewayService.navigateToPreviousUrl(this.redirectUrl);
   }
 
   private setUserSession(user: User, jwtToken: string) {
@@ -65,7 +81,17 @@ export class UserService {
   }
 
   private isAuthenticated() {
-    return this.signInTimeSession != undefined;
+    if (this.signInTimeSession == undefined) {
+      return false;
+    }
+    else {
+      const sessionTime = Date.parse(this.signInTimeSession.toString()); // Get time from session
+      const diffMs = Date.now() - sessionTime; // Time comparison
+      const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // Minutes
+      const sessionMinutes = 30;
+
+      return diffMins < sessionMinutes;
+    }
   }
 }
 
