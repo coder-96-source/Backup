@@ -11,8 +11,6 @@ import { ArticleService } from '../../../../services/main/home/article.service';
 
 import { ArticleRoutingModule } from './article.routing';
 
-var configuration = require('../../../../../../angular.json');
-
 @NgModule({
   declarations: [
     ArticleCardComponent,
@@ -21,7 +19,7 @@ var configuration = require('../../../../../../angular.json');
     CommentComponent
   ],
   imports: [
-    DisqusModule.forRoot(configuration.disqus),
+    DisqusModule.forRoot('Your disqus id'),
     SharedModule,
     ArticleRoutingModule
   ],
