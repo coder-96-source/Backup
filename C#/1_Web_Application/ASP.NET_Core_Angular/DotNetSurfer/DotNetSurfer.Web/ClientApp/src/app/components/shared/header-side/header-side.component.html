@@ -3,8 +3,10 @@
              [opened]="isOpen">
 
   <mat-nav-list *ngIf="isMobile">
-    <div *ngFor="let menuItem of menuItems" class="sidenav-main">
-      <a mat-list-item routerLink="{{menuItem.routerLink}}">
+    <div *ngFor="let menuItem of menuItems">
+      <a mat-list-item
+         class="sidenav-main"
+         routerLink="{{menuItem.routerLink}}">
         <span>{{menuItem.name}}</span>
       </a>
     </div>
