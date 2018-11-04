@@ -34,3 +34,11 @@ export const fadeInAnimation =
       animate(1000)
     ])
   ]);
+
+export const fastFadeInAnimation =
+  trigger('fastFadeInAnimation', [
+    transition(':enter', [
+      style({ opacity: 0 }),
+      animate(500)
+    ])
+  ]);

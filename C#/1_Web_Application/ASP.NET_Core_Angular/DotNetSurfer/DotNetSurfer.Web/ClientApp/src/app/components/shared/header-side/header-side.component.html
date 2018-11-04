@@ -1,13 +1,33 @@
 <mat-sidenav class="sidenav-container"
-             #sidenav mode="over"
+             #sidenav
              [opened]="isOpen">
-  <mat-nav-list class="sidenav-list">
-    <div *ngFor="let menuItem of menuItems">
-      <a class="sidenav-item"
-         mat-list-item routerLink="{{menuItem.routerLink}}">
-        <mat-icon class="sidenav-icon">{{menuItem.icon}}</mat-icon>
+
+  <mat-nav-list *ngIf="isMobile">
+    <div *ngFor="let menuItem of menuItems" class="sidenav-main">
+      <a mat-list-item routerLink="{{menuItem.routerLink}}">
         <span>{{menuItem.name}}</span>
       </a>
     </div>
+    <mat-divider></mat-divider>
   </mat-nav-list>
+
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild"
+                   class="sidenav-topic"
+                   matTreeNodeToggle
+                   matTreeNodePadding>
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+      <span>{{node.title}}</span>
+    </mat-tree-node>
+    <mat-tree-node *matTreeNodeDef="let node"
+                   class="sidenav-article"
+                   routerLink="article/{{node.id}}"
+                   matTreeNodeToggle
+                   matTreeNodePadding
+                   @fastFadeInAnimation>
+      <span>{{node.title}}</span>
+    </mat-tree-node>
+  </mat-tree>
 </mat-sidenav>

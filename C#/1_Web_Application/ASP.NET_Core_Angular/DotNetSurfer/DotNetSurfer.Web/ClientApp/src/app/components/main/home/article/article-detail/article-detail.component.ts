@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { fadeInAnimation } from '../../../../../animations/animations';
 import { Article } from '../../../../../models/article';
 import { ArticleService } from '../../../../../services/main/home/article.service';
@@ -18,6 +18,7 @@ export class ArticleDetailComponent implements OnInit {
   private commentPageId?: string;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private articleService: ArticleService,
     private snackbarService: SnackbarService) {
@@ -25,6 +26,10 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.router.events.subscribe(res => { // When another article selected
+      this.isLoaded = false;
+      this.initializeArticle();
+    });
     this.initializeArticle();
   }
 

@@ -9,13 +9,13 @@ export class ArticleService {
   private topArticles: Article[];
   private articlesByPage: Article[];
 
-  constructor(private gateway: GatewayService) {
+  constructor(private gatewayService: GatewayService) {
 
   }
 
   getTopArticles(item: number) {
     if (this.topArticles == null) {
-      return this.gateway.get(`api/articles/top/${item}`)
+      return this.gatewayService.get(`api/articles/top/${item}`)
         .pipe(tap(res => {
           this.topArticles = res as Article[];
         }));
@@ -27,7 +27,7 @@ export class ArticleService {
 
   getArticlesByPage(page: number, itemPerPage: number) {
     if (this.articlesByPage == null) {
-      return this.gateway.get(`api/articles/page/${page}`)
+      return this.gatewayService.get(`api/articles/page/${page}`)
         .pipe(tap(res => {
           this.articlesByPage = res as Article[];
         }));
@@ -39,7 +39,7 @@ export class ArticleService {
         return of(this.articlesByPage.slice(startIndex, endIndex));
       }
       else {
-        return this.gateway.get(`api/articles/page/${page}`)
+        return this.gatewayService.get(`api/articles/page/${page}`)
           .pipe(tap(res => {
             console.log(res);
             this.articlesByPage = this.articlesByPage.concat(res as Article[]);
@@ -49,6 +49,6 @@ export class ArticleService {
   }
 
   getArticle(articleId: any) {
-    return this.gateway.get(`api/articles/${articleId}`);
+    return this.gatewayService.get(`api/articles/${articleId}`);
   }
 } 

@@ -1,18 +1,19 @@
 .sidenav-container {
-  width: 60%;
-  bottom: 40px;
+  width: 260px;
   position: fixed;
   padding-top: 56px;
-}
 
-.sidenav-item {
-  flex-direction: row;
-  box-sizing: border-box;
-  display: flex;
-}
+  .sidenav-main {
+    margin-left: 10px;
+    text-transform: uppercase;
+  }
 
-.sidenav-icon {
-  height: 48px;
-  width: 36px;
-  line-height: 48px;
+  .sidenav-topic {
+    margin-left: 14px;
+    text-transform: uppercase;
+  }
+
+  .sidenav-article {
+    padding-right: 5px;
+  }
 }

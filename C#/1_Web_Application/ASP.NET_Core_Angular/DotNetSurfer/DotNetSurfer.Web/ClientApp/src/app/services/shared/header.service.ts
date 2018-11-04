@@ -1,7 +1,12 @@
 import { OnDestroy, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { UserService } from '../admin/user/user.service';
+import { GatewayService } from '../shared/gateway.service';
+import { SideMenuNode } from '../../models/sideMenuNode';
 
 @Injectable()
 export class HeaderService implements OnDestroy {
@@ -12,16 +17,19 @@ export class HeaderService implements OnDestroy {
   private isMobile$ = new BehaviorSubject<boolean>(false);
   private menuItems: any[] = [];
   private adminMenuItems: any[] = [];
+  private sideMenuNodes: SideMenuNode[];
 
   constructor(
     private media: ObservableMedia,
-    private userSerivce: UserService) {
+    private router: Router,
+    private userSerivce: UserService,
+    private gatewayService: GatewayService) {
     this.watcher = this.media.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
       this.activeSize = change.mqAlias; // 'xs', 'sm', ..., 'xl'
       this.isMobile$.next(this.activeSize == 'xs');
-      this.isSidenavOpened$.next(false); // Close when media query detected
     });
+    router.events.subscribe(res => this.isSidenavOpened$.next(false)); // Close side nav when route changed
     this.setMenuItems();
     this.setAdminMenuItems();
   }
@@ -58,6 +66,18 @@ export class HeaderService implements OnDestroy {
     return this.userSerivce.getIsAuthenticated;
   }
 
+  getSideMenuNodes() {
+    if (this.sideMenuNodes == null) {
+      return this.gatewayService.get(`api/headers/menu/side`)
+        .pipe(tap(res => {
+          this.sideMenuNodes = res as SideMenuNode[];
+        }));
+    }
+    else {
+      return of(this.sideMenuNodes);
+    }
+  }
+
   signOut() {
     this.userSerivce.signOut();
   }
@@ -65,17 +85,14 @@ export class HeaderService implements OnDestroy {
   private setMenuItems() {
     this.menuItems.push({
       name: 'Home',
-      icon: 'home',
       routerLink: '/home'
     });
     this.menuItems.push({
       name: 'About',
-      icon: 'info',
       routerLink: '/about'
     });
     this.menuItems.push({
       name: 'Contact',
-      icon: 'contacts',
       routerLink: '/contact'
     });
   }
