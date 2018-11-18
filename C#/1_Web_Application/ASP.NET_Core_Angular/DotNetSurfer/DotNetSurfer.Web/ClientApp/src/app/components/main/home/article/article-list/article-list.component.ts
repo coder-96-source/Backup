@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { flyRightToLeftAnimations } from '../../../../../animations/animations';
 import { Article } from '../../../../../models/article';
 import { ArticleService } from '../../../../../services/main/home/article.service';
 import { SnackbarService, SnackbarAction } from '../../../../../services/shared/snackbar.service';
@@ -6,12 +7,14 @@ import { SnackbarService, SnackbarAction } from '../../../../../services/shared/
 @Component({
   selector: 'app-article-list',
   templateUrl: './article-list.component.html',
-  styleUrls: ['./article-list.component.scss']
+  styleUrls: ['./article-list.component.scss'],
+  animations: [flyRightToLeftAnimations]
 })
 
 export class ArticleListComponent implements OnInit {
   private readonly contentDisplayLength = 50; // Content string length to show
   private page = 1;
+  private itemPerPage = 3;
   private isLoaded = false;
   private isAllLoaded = false;
   private isExpanded = true;
@@ -28,7 +31,7 @@ export class ArticleListComponent implements OnInit {
   }
 
   fetchArticles() {
-    return this.articleService.getArticlesByPage(this.page++);
+    return this.articleService.getArticlesByPage(this.page++, this.itemPerPage);
   }
 
   initializeArticles() {
@@ -45,7 +48,7 @@ export class ArticleListComponent implements OnInit {
     this.isExpanded = false;
     this.fetchArticles().subscribe(res => {
       const loadedArticles = res as Article[];
-      if (loadedArticles.length <= 0) {
+      if (loadedArticles.length < this.itemPerPage) {
         this.isAllLoaded = true;
       }
       this.articles = this.articles!.concat(loadedArticles);

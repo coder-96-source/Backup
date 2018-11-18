@@ -65,6 +65,10 @@ export class GatewayService {
     this.router.navigateByUrl('');
   }
 
+  navigateToPreviousUrl(redirectUrl: string) {
+    this.router.navigateByUrl(redirectUrl);
+  }
+
   writeErrorLog(message: string) {
     this.http.post('api/logs/error', message);
   }
@@ -75,7 +79,8 @@ export class GatewayService {
 
   protected handleError<T>(error: any) {
     const httpResponse = error as HttpErrorResponse;
+    const message = httpResponse.error;
     this.writeErrorLog(error); // System side logging
-    this.snackbarService.openSnackBar(httpResponse.error, SnackbarAction.Error); // Client side display
+    this.snackbarService.openSnackBar(message, SnackbarAction.Error); // Client side display
   }
 }

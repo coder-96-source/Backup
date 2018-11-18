@@ -1,4 +1,4 @@
-﻿@import '../../../../styles/constants';
+@import '../../../../styles/constants';
 
 $profile-container-padding-desktop: 25px 15%;
 $profile-container-padding-tablet: 20px 5%;
@@ -9,7 +9,8 @@ $profile-container-padding-mobile: 0 0;
 }
 
 .profile-image img {
-    width: 80%;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     margin-bottom: 5px;
 }

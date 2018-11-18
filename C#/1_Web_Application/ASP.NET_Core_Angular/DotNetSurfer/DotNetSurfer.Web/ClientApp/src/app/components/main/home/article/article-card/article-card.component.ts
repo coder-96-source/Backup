@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { fadeInAnimations } from '../../../../../animations/animations';
 import { Article } from '../../../../../models/article';
 import { ArticleService } from '../../../../../services/main/home/article.service';
 import { SnackbarService, SnackbarAction } from '../../../../../services/shared/snackbar.service';
@@ -6,10 +7,11 @@ import { SnackbarService, SnackbarAction } from '../../../../../services/shared/
 @Component({
   selector: 'app-article-card',
   templateUrl: './article-card.component.html',
-  styleUrls: ['./article-card.component.scss']
+  styleUrls: ['./article-card.component.scss'],
+  animations: [fadeInAnimations]
 })
 
-export class ArticleCardComponent implements OnInit{
+export class ArticleCardComponent implements OnInit {
   private readonly articleDisplayLimit = 3; // Article number to show
   private readonly contentDisplayLength = 50; // Content string length to show
   private isLoaded = false;

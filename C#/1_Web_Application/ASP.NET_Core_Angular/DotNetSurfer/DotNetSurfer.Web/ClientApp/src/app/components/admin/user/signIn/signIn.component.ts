@@ -38,7 +38,6 @@ export class SignInComponent implements OnInit {
       .subscribe(res => {
         const user = res['user'] as User;
         this.snackbarService.openSnackBar(`Hello ${user.name}!`, SnackbarAction.Success);
-        this.userService.navigateHome();
       },
       error => {
           // Refresh form status

@@ -19,7 +19,7 @@ import { ArticleRoutingModule } from './article.routing';
     CommentComponent
   ],
   imports: [
-    DisqusModule.forRoot('jkblog-com-1'),
+    DisqusModule.forRoot('Your disqus id'),
     SharedModule,
     ArticleRoutingModule
   ],

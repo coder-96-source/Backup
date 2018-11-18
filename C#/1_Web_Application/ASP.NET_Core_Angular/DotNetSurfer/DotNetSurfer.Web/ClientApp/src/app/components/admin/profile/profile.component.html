@@ -33,7 +33,7 @@
       <div class="profile-forms" fxFlex="65">
         <mat-card>
           <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
-            <mat-step [stepControl]="profileFormGroup">
+            <mat-step [stepControl]="profileFormControl">
               <form [formGroup]="profileFormControl"
                     fxLayout="column" fxLayoutGap="15px">
                 <ng-template matStepLabel>Fill out your profile</ng-template>

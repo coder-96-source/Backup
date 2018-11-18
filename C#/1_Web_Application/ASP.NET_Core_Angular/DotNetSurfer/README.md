@@ -2,8 +2,13 @@
 
 ## Preview
 http://dotnetsurfer.blog (Https Removed because of high cost)
+https://dotnetsurfer.azurewebsites.net (Https by Azure)
 
+Main Page
 ![Alt text](https://github.com/kims07231992/JasonPrivateStudy/blob/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer/README_Picture1.PNG)
+
+
+Administrator Page
 ![Alt text](https://github.com/kims07231992/JasonPrivateStudy/blob/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer/README_Picture2.PNG)
 
 ----------------------------------------------------------------------------------------------------------------
@@ -18,6 +23,8 @@ http://dotnetsurfer.blog (Https Removed because of high cost)
 * Simple maintenance database by including database project
 * Responsive design
 * Role based authentication
+* Animation effects
+* Proxy design for data reuse
  
 ## Stacks
 
