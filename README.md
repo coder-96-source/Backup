@@ -52,4 +52,9 @@
 
 ### Hacker Rank
 
-* [TBD]() - Will be updated.
+* [Array](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Array)
+* [Dictionaries and Hashmaps](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Dictionaries%20and%20Hashmaps)
+* [Dynamic Programming](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Dynamic%20Programming)
+* [Sorting](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Sorting)
+* [Stacks and Queues](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Stacks%20and%20Queues)
+* [String Manipulation](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/String%20Manipulation)
