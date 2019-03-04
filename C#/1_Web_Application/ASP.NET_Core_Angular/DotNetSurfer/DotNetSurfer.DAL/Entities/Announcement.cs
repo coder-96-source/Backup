@@ -1,28 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DotNetSurfer.Web.Models
+namespace DotNetSurfer.DAL.Entities
 {
-    public class Topic
+    public class Announcement
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [HiddenInput(DisplayValue = false)]
-        public int TopicId { get; set; }
+        public int AnnouncementId { get; set; }
 
-        [Required]
-        [StringLength(20, ErrorMessage = "Title cannot be longer than 20 characters.")]
-        public string Title { get; set; }
-
-        [StringLength(200, ErrorMessage = "Description cannot be longer than 200 characters.")]
-        public string Description { get; set; }
-
-        public byte[] Picture { get; set; }
-
-        public string PictureMimeType { get; set; }
+        [StringLength(100, ErrorMessage = "Content cannot be longer than 100 characters.")]
+        public string Content { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
@@ -32,6 +23,7 @@ namespace DotNetSurfer.Web.Models
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ModifyDate { get; set; }
 
+        [Required]
         [Display(Name = "Show")]
         public bool ShowFlag { get; set; }
 
@@ -39,6 +31,8 @@ namespace DotNetSurfer.Web.Models
 
         public User User { get; set; }
 
-        public ICollection<Article> Articles { get; set; }
+        public int StatusId { get; set; }
+
+        public Status Status { get; set; }
     }
 }

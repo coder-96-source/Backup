@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DotNetSurfer.Web.Models;
 using DotNetSurfer.Web.Helpers.JWTs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using DotNetSurfer.DAL.Repositories.Interfaces;
+using DotNetSurfer.DAL.Entities;
 
 namespace DotNetSurfer.Web.Controllers
 {
@@ -16,8 +15,8 @@ namespace DotNetSurfer.Web.Controllers
     {
         private readonly IConfiguration _configuration;
 
-        public UsersController(DotNetSurferDbContext context, IConfiguration configuration, ILogger<UsersController> logger) 
-            : base(context, logger)
+        public UsersController(IUnitOfWork unitOfWork, IConfiguration configuration, ILogger<UsersController> logger) 
+            : base(unitOfWork, logger)
         {
             this._configuration = configuration;
         }
@@ -32,7 +31,8 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (IsUserEmailExists(model.Email))
+                bool isUserEmailExist = await this._unitOfWork.UserRepository.IsEmailExistAsync(model.Email);
+                if (isUserEmailExist)
                 {
                     return BadRequest("User email already exists");
                 }
@@ -49,8 +49,8 @@ namespace DotNetSurfer.Web.Controllers
                     PermissionId = (int)PermissionType.User // default
                 };
 
-                this._context.Users.Add(user);
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.UserRepository.Create(user);
+                await this._unitOfWork.UserRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace DotNetSurfer.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignIn([FromBody] User model)
+        public async Task<IActionResult> SignIn([FromBody] User model)
         {
             object response = null;
 
@@ -72,14 +72,12 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (!IsUserEmailExists(model.Email))
+                var user = await this._unitOfWork.UserRepository.GetUserByEmailAsync(model.Email);
+                if (user == null)
                 {
                     return NotFound("Please check that your email addresses");
                 }
 
-                var user = this._context.Users
-                    .Include(u => u.Permission)
-                    .First(u => u.Email == model.Email);
                 if (!IsPasswordCorrect(user.Password, model.Password))
                 {
                     return BadRequest("Wrong type of the password, please enter it again");

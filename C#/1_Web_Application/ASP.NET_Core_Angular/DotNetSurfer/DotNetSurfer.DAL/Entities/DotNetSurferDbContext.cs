@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace DotNetSurfer.Web.Models
+namespace DotNetSurfer.DAL.Entities
 {
     public class DotNetSurferDbContext : DbContext
     {

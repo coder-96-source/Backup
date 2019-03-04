@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace DotNetSurfer.Web.Models
+namespace DotNetSurfer.DAL.Entities
 {
     public class Feature
     {

@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using DotNetSurfer.Web.Models;
+using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DotNetSurfer.Web.Controllers
 {
     public class TopicsController : BaseController
     {
-        public TopicsController(DotNetSurferDbContext context, ILogger<TopicsController> logger)
-            : base(context, logger)
+        public TopicsController(IUnitOfWork unitOfWork, ILogger<TopicsController> logger)
+            : base(unitOfWork, logger)
         {
 
         }
@@ -30,10 +29,7 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                topic = await this._context.Topics
-                    .Include(t => t.User)
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(t => t.TopicId == id);
+                topic = await this._unitOfWork.TopicRepository.GetTopicAsync(id);
 
                 if (topic == null)
                 {
@@ -49,15 +45,13 @@ namespace DotNetSurfer.Web.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Topic> GetTopics()
+        public async Task<IEnumerable<Topic>> GetTopics()
         {
             IEnumerable<Topic> topics = null;
 
             try
             {
-                topics = this._context.Topics
-                    .AsNoTracking();
-
+                topics = await this._unitOfWork.TopicRepository.GetTopicsAsync();
             }
             catch (Exception ex)
             {
@@ -69,27 +63,21 @@ namespace DotNetSurfer.Web.Controllers
 
         [HttpGet("users/{userId}")]
         [Authorize(Roles = nameof(PermissionType.Admin) + "," + nameof(PermissionType.User))]
-        public IEnumerable<Topic> GetTopicsByUserId([FromRoute] int userId)
+        public async Task<IEnumerable<Topic>> GetTopicsByUserId([FromRoute] int userId)
         {
             IEnumerable<Topic> topics = null;
 
             try
             {
-                bool isUserExist = this._context.Users
-                    .Any(u => u.UserId == userId);
+                bool isUserExist = await this._unitOfWork.UserRepository.IsUserExistAsync(userId);
                 if (!isUserExist)
                 {
                     return null;
                 }
 
-                topics = IsAdministrator() 
-                    ? this._context.Topics
-                        .Include(t => t.User)
-                        .AsNoTracking()
-                    : this._context.Topics
-                        .Include(t => t.User)
-                        .Where(a => a.UserId == userId)
-                        .AsNoTracking();
+                topics = IsAdministrator()
+                    ? await this._unitOfWork.TopicRepository.GetTopicsByUserIdAsync()
+                    : await this._unitOfWork.TopicRepository.GetTopicsByUserIdAsync(userId);
             }
             catch (Exception ex)
             {

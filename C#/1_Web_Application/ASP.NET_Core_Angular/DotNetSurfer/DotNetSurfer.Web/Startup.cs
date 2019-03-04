@@ -1,6 +1,8 @@
 using System;
 using System.Text;
-using DotNetSurfer.Web.Models;
+using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.Repositories;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +35,8 @@ namespace DotNetSurfer.Web
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             // To avoid loop between primary and foreign keys
             services.AddMvc().AddJsonOptions(options =>
             {

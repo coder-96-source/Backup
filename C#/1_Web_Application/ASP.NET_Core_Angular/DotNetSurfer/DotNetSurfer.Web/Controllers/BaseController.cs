@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using DotNetSurfer.Web.Helpers.Encryptors;
-using DotNetSurfer.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -13,45 +13,14 @@ namespace DotNetSurfer.Web.Controllers
     public abstract class BaseController : ControllerBase
     {
         protected static readonly Lazy<HashEncryptor> _encryptor = new Lazy<HashEncryptor>(() => new HashEncryptor());
-        protected static readonly Lazy<Type> _binaryTopicType = new Lazy<Type>(() => typeof(Topic));
-        protected static readonly Lazy<Type> _binaryArticleType = new Lazy<Type>(() => typeof(Article));
-        protected static readonly Lazy<Type> _binaryUserType = new Lazy<Type>(() => typeof(User));
-        protected static readonly Lazy<List<string>> _targetPropertyNames = new Lazy<List<string>>(() => {
-            return new List<string>() { "Picture" };
-        }); // binary, base64 property names
 
-        protected readonly DotNetSurferDbContext _context;
+        protected readonly IUnitOfWork _unitOfWork;
         protected readonly ILogger<BaseController> _logger;
 
-        public BaseController(DotNetSurferDbContext context, ILogger<BaseController> logger)
+        public BaseController(IUnitOfWork unitOfWork, ILogger<BaseController> logger)
         {
-            this._context = context;
+            this._unitOfWork = unitOfWork;
             this._logger = logger;
-        }
-
-        protected bool IsTopicExists(int id)
-        {
-            return this._context.Topics.Any(t => t.TopicId == id);
-        }
-
-        protected bool IsArticleExists(int id)
-        {
-            return this._context.Articles.Any(t => t.ArticleId == id);
-        }
-
-        protected bool IsAnnouncementExists(int id)
-        {
-            return this._context.Announcements.Any(a => a.AnnouncementId == id);
-        }
-
-        protected bool IsUserExists(int id)
-        {
-            return this._context.Users.Any(u => u.UserId == id);
-        }
-
-        protected bool IsUserEmailExists(string email)
-        {
-            return this._context.Users.Any(u => u.Email == email);
         }
 
         protected bool IsPasswordCorrect(string storedPassword, string inputPassword)

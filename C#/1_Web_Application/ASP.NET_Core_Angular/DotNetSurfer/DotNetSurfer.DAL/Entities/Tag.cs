@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DotNetSurfer.Web.Models
+namespace DotNetSurfer.DAL.Entities
 {
     public class Tag
     {

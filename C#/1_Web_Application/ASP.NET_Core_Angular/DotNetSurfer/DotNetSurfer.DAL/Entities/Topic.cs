@@ -4,23 +4,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DotNetSurfer.Web.Models
+namespace DotNetSurfer.DAL.Entities
 {
-    public class Article
+    public class Topic
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [HiddenInput(DisplayValue = false)]
-        public int ArticleId { get; set; }
+        public int TopicId { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Title cannot be longer than 100 characters.")]
+        [StringLength(20, ErrorMessage = "Title cannot be longer than 20 characters.")]
         public string Title { get; set; }
 
-        public string Content { get; set; }
-
-        [StringLength(10, ErrorMessage = "Category cannot be longer than 10 characters.")]
-        public string Category { get; set; } = "Free";
+        [StringLength(200, ErrorMessage = "Description cannot be longer than 200 characters.")]
+        public string Description { get; set; }
 
         public byte[] Picture { get; set; }
 
@@ -34,20 +32,13 @@ namespace DotNetSurfer.Web.Models
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ModifyDate { get; set; }
 
-        public int ReadCount { get; set; }
-
-        [Required]
         [Display(Name = "Show")]
         public bool ShowFlag { get; set; }
-
-        public int TopicId { get; set; }
-
-        public Topic Topic { get; set; }
 
         public int UserId { get; set; }
 
         public User User { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public ICollection<Article> Articles { get; set; }
     }
 }

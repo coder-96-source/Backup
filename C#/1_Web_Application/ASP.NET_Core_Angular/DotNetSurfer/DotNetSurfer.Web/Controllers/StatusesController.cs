@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using DotNetSurfer.Web.Models;
+using System.Threading.Tasks;
+using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -9,20 +10,20 @@ namespace DotNetSurfer.Web.Controllers
 {
     public class StatusesController : BaseController
     {
-        public StatusesController(DotNetSurferDbContext context, ILogger<StatusesController> logger)
-            : base(context, logger)
+        public StatusesController(IUnitOfWork unitOfWork, ILogger<StatusesController> logger)
+            : base(unitOfWork, logger)
         {
 
         }
 
         [HttpGet]
-        public IEnumerable<Status> Statuses()
+        public async Task<IEnumerable<Status>> Statuses()
         {
             IEnumerable<Status> statuses = null;
 
             try
             {
-                statuses = this._context.Statuses;
+                statuses = await this._unitOfWork.StatusRepository.GetStatusesAsync(); ;
             }
             catch (Exception ex)
             {

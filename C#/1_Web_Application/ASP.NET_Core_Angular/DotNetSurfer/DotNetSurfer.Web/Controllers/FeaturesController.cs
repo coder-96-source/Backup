@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using DotNetSurfer.Web.Models;
+using System.Threading.Tasks;
+using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -9,21 +10,26 @@ namespace DotNetSurfer.Web.Controllers
 {
     public class FeaturesController : BaseController
     {
-        public FeaturesController(DotNetSurferDbContext context, ILogger<FeaturesController> logger)
-            : base(context, logger)
+        public FeaturesController(IUnitOfWork unitOfWork, ILogger<FeaturesController> logger)
+            : base(unitOfWork, logger)
         {
 
         }
 
         [HttpGet("{featureType}")]
-        public IEnumerable<Feature> GetFeaturesByFeatureType([FromRoute] string featureType)
+        public async Task<IEnumerable<Feature>> GetFeaturesByFeatureType([FromRoute] string featureType)
         {
             IEnumerable<Feature> features = null;
 
             try
             {
-                features = this._context.Features
-                    .Where(f => f.FeatureType == featureType);
+                FeatureType featureTypeEnum;
+                if (string.IsNullOrEmpty(featureType) || !Enum.TryParse(featureType, out featureTypeEnum))
+                {
+                    throw new ArgumentException($"Invalid FeatureType: {featureType}");
+                }
+
+                features = await this._unitOfWork.FeatureRepository.GetFeaturesByFeatureTypeAsync(featureTypeEnum);
             }
             catch (Exception ex)
             {

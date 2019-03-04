@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DotNetSurfer.Web.Models;
+using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DotNetSurfer.Web.Controllers
 {
     public class ProfilesController : BaseController
     {
-        public ProfilesController(DotNetSurferDbContext context, ILogger<ProfilesController> logger)
-            : base(context, logger)
+        public ProfilesController(IUnitOfWork unitOfWork, ILogger<ProfilesController> logger)
+            : base(unitOfWork, logger)
         {
 
         }
@@ -24,8 +24,7 @@ namespace DotNetSurfer.Web.Controllers
 
             try
             {
-                user = await this._context.Users
-                    .SingleOrDefaultAsync(u => u.UserId == id);
+                user = await this._unitOfWork.UserRepository.GetUserAsync(id);
                 if (user == null)
                 {
                     return NotFound();

@@ -1,4 +1,4 @@
-﻿using DotNetSurfer.Web.Models;
+﻿using DotNetSurfer.DAL.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;

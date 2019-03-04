@@ -1,6 +1,6 @@
 ﻿using System;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using DotNetSurfer.Web.Controllers;
-using DotNetSurfer.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -8,8 +8,8 @@ namespace DotNetSurfer.Web.Web.Controllers
 {
     public class LogsController : BaseController
     {
-        public LogsController(DotNetSurferDbContext context, ILogger<LogsController> logger)
-            : base(context, logger)
+        public LogsController(IUnitOfWork unitOfWork, ILogger<LogsController> logger)
+            : base(unitOfWork, logger)
         {
 
         }

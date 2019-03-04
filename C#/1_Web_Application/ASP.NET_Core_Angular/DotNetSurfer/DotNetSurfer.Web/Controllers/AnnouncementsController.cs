@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using DotNetSurfer.Web.Models;
+using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DotNetSurfer.Web.Controllers
 {
     public class AnnouncementsController : BaseController
     {
-        public AnnouncementsController(DotNetSurferDbContext context, ILogger<AnnouncementsController> logger)
-            : base(context, logger)
+        public AnnouncementsController(IUnitOfWork unitOfWork, ILogger<AnnouncementsController> logger)
+            : base(unitOfWork, logger)
         {
 
         }
@@ -30,11 +29,7 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                announcement = await this._context.Announcements
-                    .Include(a => a.User)
-                    .Include(a => a.Status)
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(a => a.AnnouncementId == id);
+                announcement = await this._unitOfWork.AnnouncementRepository.GetAnnouncementAsync(id);
 
                 if (announcement == null)
                 {
@@ -50,17 +45,13 @@ namespace DotNetSurfer.Web.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Announcement> GetAnnouncements()
+        public async Task<IEnumerable<Announcement>> GetAnnouncements()
         {
             IEnumerable<Announcement> announcements = null;
 
             try
             {
-                announcements = this._context.Announcements
-                    .Include(a => a.User)
-                    .Include(a => a.Status)
-                    .Where(a => a.ShowFlag)
-                    .AsNoTracking();
+                announcements = await this._unitOfWork.AnnouncementRepository.GetAnnouncementsAsync();
             }
             catch (Exception ex)
             {
@@ -72,29 +63,21 @@ namespace DotNetSurfer.Web.Controllers
 
         [HttpGet("users/{userId}")]
         [Authorize(Roles = nameof(PermissionType.Admin) + "," + nameof(PermissionType.User))]
-        public IEnumerable<Announcement> GetAnnouncementsByUserId([FromRoute] int userId)
+        public async Task<IEnumerable<Announcement>> GetAnnouncementsByUserId([FromRoute] int userId)
         {
             IEnumerable<Announcement> announcements = null;
 
             try
             {
-                bool isUserExist = this._context.Users
-                    .Any(u => u.UserId == userId);
+                bool isUserExist = await this._unitOfWork.UserRepository.IsUserExistAsync(userId);
                 if (!isUserExist)
                 {
                     return null;
                 }
 
                 announcements = IsAdministrator()
-                    ? this._context.Announcements
-                        .Include(a => a.User)
-                        .Include(a => a.Status)
-                        .AsNoTracking()
-                    : this._context.Announcements
-                        .Include(a => a.User)
-                        .Include(a => a.Status)
-                        .Where(a => a.UserId == userId)
-                        .AsNoTracking();
+                    ? await this._unitOfWork.AnnouncementRepository.GetAnnouncementsByUserIdAsync()
+                    : await this._unitOfWork.AnnouncementRepository.GetAnnouncementsByUserIdAsync(userId);
             }
             catch (Exception ex)
             {

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
-using DotNetSurfer.Web.Models;
+using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DotNetSurfer.Web.Controllers
@@ -12,10 +11,10 @@ namespace DotNetSurfer.Web.Controllers
     [Authorize(Roles = nameof(PermissionType.Admin) + "," + nameof(PermissionType.User))]
     public class AdminController : BaseController
     {
-        public AdminController(DotNetSurferDbContext context, ILogger<AdminController> logger)
-            : base(context, logger)
+        public AdminController(IUnitOfWork unitOfWork, ILogger<AdminController> logger)
+            : base(unitOfWork, logger)
         {
-
+ 
         }
 
         #region Topics
@@ -43,9 +42,8 @@ namespace DotNetSurfer.Web.Controllers
 
                 topic.ModifyDate = DateTime.Now;
 
-                this._context.Entry(topic).State = EntityState.Modified;
-
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.TopicRepository.Update(topic);
+                await this._unitOfWork.TopicRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -66,14 +64,14 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool isTitleExist = this._context.Topics.Any(t => t.Title == topic.Title);
+                bool isTitleExist = await this._unitOfWork.TopicRepository.IsTitleExistAsync(topic.Title);
                 if (isTitleExist)
                 {
                     return BadRequest("Title already exists");
                 }
 
-                this._context.Topics.Add(topic);
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.TopicRepository.Create(topic);
+                await this._unitOfWork.TopicRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -96,8 +94,7 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                topic = await this._context.Topics
-                    .SingleOrDefaultAsync(t => t.TopicId == id);
+                topic = await this._unitOfWork.TopicRepository.GetTopicAsync(id);
                 if (topic == null)
                 {
                     return NotFound();
@@ -110,8 +107,8 @@ namespace DotNetSurfer.Web.Controllers
                     return Unauthorized();
                 }
 
-                this._context.Topics.Remove(topic);
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.TopicRepository.Delete(topic);
+                await this._unitOfWork.TopicRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -125,7 +122,7 @@ namespace DotNetSurfer.Web.Controllers
 
         #region Articles
         [HttpPut("articles/{id}")]
-        public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromBody] Article article)
+        public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromBody] DotNetSurfer.DAL.Entities.Article article)
         {
             try
             {
@@ -147,9 +144,9 @@ namespace DotNetSurfer.Web.Controllers
                 }
 
                 article.ModifyDate = DateTime.Now;
-                this._context.Entry(article).State = EntityState.Modified;
 
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.ArticleRepository.Update(article);
+                await this._unitOfWork.ArticleRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -161,7 +158,7 @@ namespace DotNetSurfer.Web.Controllers
         }
 
         [HttpPost("articles")]
-        public async Task<IActionResult> CreateArticle([FromBody] Article article)
+        public async Task<IActionResult> CreateArticle([FromBody] DotNetSurfer.DAL.Entities.Article article)
         {
             try
             {
@@ -170,8 +167,8 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                this._context.Articles.Add(article);
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.ArticleRepository.Create(article);
+                await this._unitOfWork.ArticleRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -194,14 +191,14 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                article = await this._context.Articles.SingleOrDefaultAsync(t => t.ArticleId == id);
+                article = await this._unitOfWork.ArticleRepository.GetArticleAsync(id);
                 if (article == null)
                 {
                     return NotFound();
                 }
 
-                this._context.Articles.Remove(article);
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.ArticleRepository.Delete(article);
+                await this._unitOfWork.ArticleRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -237,9 +234,9 @@ namespace DotNetSurfer.Web.Controllers
                 }
 
                 announcement.ModifyDate = DateTime.Now;
-                this._context.Entry(announcement).State = EntityState.Modified;
 
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.AnnouncementRepository.Update(announcement);
+                await this._unitOfWork.AnnouncementRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -260,8 +257,8 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                this._context.Announcements.Add(announcement);
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.AnnouncementRepository.Create(announcement);
+                await this._unitOfWork.AnnouncementRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -284,7 +281,7 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                announcement = await this._context.Announcements.SingleOrDefaultAsync(m => m.AnnouncementId == id);
+                announcement = await this._unitOfWork.AnnouncementRepository.GetAnnouncementAsync(id);
                 if (announcement == null)
                 {
                     return NotFound();
@@ -297,8 +294,8 @@ namespace DotNetSurfer.Web.Controllers
                     return Unauthorized();
                 }
 
-                this._context.Announcements.Remove(announcement);
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.AnnouncementRepository.Delete(announcement);
+                await this._unitOfWork.AnnouncementRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -333,25 +330,24 @@ namespace DotNetSurfer.Web.Controllers
                     return Unauthorized();
                 }
 
-                var currentUser = this._context.Users.AsNoTracking(). // To avoid context tracking exception
-                    FirstOrDefault(u => u.UserId == user.UserId);
+                var currentUser = await this._unitOfWork.UserRepository.GetUserAsNoTrackingAsync(id); // To avoid context tracking exception
                 if (!IsPasswordCorrect(currentUser.Password, user.Password))
                 {
                     return Unauthorized();
                 }
 
                 // Email check, if there is already an email trying to change
+                bool isUserEmailExist = await this._unitOfWork.UserRepository.IsEmailExistAsync(user.Email);
                 bool isAlreadyEmailExists = currentUser.Email != user.Email
-                    && IsUserEmailExists(user.Email);
+                    && isUserEmailExist;
                 if (isAlreadyEmailExists)
                 {
                     return BadRequest("User email already exists");
                 }
 
                 user.Password = _encryptor.Value.Encrypt(user.Password);
-                this._context.Entry(user).State = EntityState.Modified;
-
-                await this._context.SaveChangesAsync();
+                this._unitOfWork.UserRepository.Update(user);
+                await this._unitOfWork.UserRepository.SaveAsync();
             }
             catch (Exception ex)
             {

@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using DotNetSurfer.Web.Models;
+using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DotNetSurfer.Web.Controllers
 {
     public class ArticlesController : BaseController
     {
-        public ArticlesController(DotNetSurferDbContext context, ILogger<ArticlesController> logger) 
-            : base(context, logger)
+        public ArticlesController(IUnitOfWork unitOfWork, ILogger<ArticlesController> logger) 
+            : base(unitOfWork, logger)
         {
 
         }
@@ -30,22 +29,17 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                article = await this._context.Articles
-                    .Include(a => a.User)
-                    .Include(a => a.Topic)
-                    .Include(a => a.Tags)
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(a => a.ArticleId == id);
+                article = await this._unitOfWork
+                    .ArticleRepository.GetArticleAsync(id);
 
                 if (article == null)
                 {
                     return NotFound();
                 }
 
-                // Increase read count and update
-                article.ReadCount++;
-                this._context.Entry(article).State = EntityState.Modified;
-                await this._context.SaveChangesAsync();
+                // Increase read count
+                await this._unitOfWork.ArticleRepository.IncreaseArticleReadCountAsync(id);
+                await this._unitOfWork.ArticleRepository.SaveAsync();
             }
             catch (Exception ex)
             {
@@ -57,51 +51,43 @@ namespace DotNetSurfer.Web.Controllers
 
         [HttpGet("users/{userId}")]
         [Authorize(Roles = nameof(PermissionType.Admin) + "," + nameof(PermissionType.User))]
-        public IEnumerable<Article> GetArticlesByUserId([FromRoute] int userId)
+        public async Task<IEnumerable<Article>> GetArticlesByUserIdAsync([FromRoute] int userId)
         {
             IEnumerable<Article> articles = null;
 
             try
             {
-                bool isUserExist = this._context.Users.Any(u => u.UserId == userId);
+                bool isUserExist = await this._unitOfWork.UserRepository.IsUserExistAsync(userId);
                 if (!isUserExist)
                 {
                     return null;
                 }
 
                 articles = IsAdministrator()
-                    ? this._context.Articles
-                    .Include(a => a.User)
-                    .AsNoTracking()
-                    : this._context.Articles
-                    .Include(a => a.User)
-                    .Where(a => a.UserId == userId)
-                    .AsNoTracking();
+                    ? await this._unitOfWork
+                        .ArticleRepository.GetArticlesByUserIdAsync()
+                    : await this._unitOfWork
+                        .ArticleRepository.GetArticlesByUserIdAsync(userId); // Restrict by userId
             }
             catch (Exception ex)
             {
-                this._logger.LogError(ex, nameof(GetArticlesByUserId));
+                this._logger.LogError(ex, nameof(GetArticlesByUserIdAsync));
             }
 
             return articles;
         }
 
         [HttpGet("page/{pageId?}")]
-        public IEnumerable<Article> GetArticlesByPage(int pageId = 1)
+        public async Task<IEnumerable<Article>> GetArticlesByPage(int pageId = 1)
         {
             const int itemPerPage = 3;
             IEnumerable<Article> articles = null;
 
             try
             {
-                articles = this._context.Articles
-                    .Include(article => article.User)
-                    .Include(article => article.Topic)
-                    .Where(a => a.ShowFlag)
-                    .OrderByDescending(article => article.PostDate)
-                    .Skip((pageId - 1) * itemPerPage)
-                    .Take(itemPerPage)
-                    .AsNoTracking();
+                articles = await this._unitOfWork
+                    .ArticleRepository
+                    .GetArticlesByPageAsync(pageId, itemPerPage);
             }
             catch (Exception ex)
             {
@@ -112,18 +98,15 @@ namespace DotNetSurfer.Web.Controllers
         }
 
         [HttpGet("top/{item?}")]
-        public IEnumerable<Article> GetTopArticles(int item = 3)
+        public async Task<IEnumerable<Article>> GetTopArticles(int item = 3)
         {
             IEnumerable<Article> articles = null;
 
             try
             {
-                articles = this._context.Articles
-                    .Include(article => article.User)
-                    .Where(article => article.ShowFlag)
-                    .OrderByDescending(a => a.ReadCount)
-                    .Take(item)
-                    .AsNoTracking();
+                articles = await this._unitOfWork
+                    .ArticleRepository
+                    .GetTopArticlesAsync(item);
             }
             catch (Exception ex)
             {
