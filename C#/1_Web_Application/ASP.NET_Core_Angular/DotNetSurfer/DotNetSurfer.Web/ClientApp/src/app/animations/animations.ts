@@ -31,7 +31,7 @@ export const fadeInAnimation =
   trigger('fadeInAnimation', [
     transition(':enter', [
       style({ opacity: 0 }),
-      animate(1000)
+      animate(800)
     ])
   ]);
 
