@@ -6,13 +6,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace DotNetSurfer.Web.Helpers.JWTs
+namespace DotNetSurfer.Core.TokenGenerators
 {
-    public class JWTGenerator
+    public class JwtGenerator : ITokenGenerator
     {
         private readonly IConfiguration _configuration;
 
-        public JWTGenerator(IConfiguration configurations)
+        public JwtGenerator(IConfiguration configurations)
         {
             this._configuration = configurations;
         }

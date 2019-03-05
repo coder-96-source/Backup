@@ -1,14 +1,15 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace DotNetSurfer.Web.Helpers.Encryptors
+namespace DotNetSurfer.Core.Encryptors
 {
-    public class HashEncryptor : IEncryptable
+    public class HashEncryptor : IEncryptor
     {
-        public bool IsEqual(string str, string pwd)
+        public bool IsEqual(string value, string encryptedValue)
         {
-            return Encrypt(str) == pwd;
+            return Encrypt(value) == encryptedValue;
         }
+
         public string Encrypt(string str)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(str);

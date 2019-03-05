@@ -2,22 +2,27 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using DotNetSurfer.Web.Helpers.JWTs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Core.TokenGenerators;
+using DotNetSurfer.Core.Encryptors;
 
 namespace DotNetSurfer.Web.Controllers
 {
     [Route("[controller]/[action]")]
     public class UsersController : BaseController
     {
+        private readonly IEncryptor _encryptor;
+        private readonly ITokenGenerator _tokenGenerator;
         private readonly IConfiguration _configuration;
 
-        public UsersController(IUnitOfWork unitOfWork, IConfiguration configuration, ILogger<UsersController> logger) 
-            : base(unitOfWork, logger)
+        public UsersController(IUnitOfWork unitOfWork, IEncryptor encryptor, ITokenGenerator tokenGenerator,
+            IConfiguration configuration, ILogger<UsersController> logger) : base(unitOfWork, logger)
         {
+            this._encryptor = encryptor;
+            this._tokenGenerator = tokenGenerator;
             this._configuration = configuration;
         }
 
@@ -37,7 +42,7 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest("User email already exists");
                 }
 
-                string encryptedPassword = _encryptor.Value.Encrypt(model.Password);
+                string encryptedPassword = _encryptor.Encrypt(model.Password);
                 var user = new User()
                 {
                     Email = model.Email,
@@ -78,13 +83,12 @@ namespace DotNetSurfer.Web.Controllers
                     return NotFound("Please check that your email addresses");
                 }
 
-                if (!IsPasswordCorrect(user.Password, model.Password))
+                if (!this._encryptor.IsEqual(model.Password, user.Password))
                 {
                     return BadRequest("Wrong type of the password, please enter it again");
                 }
 
-                var jwtGenerator = new JWTGenerator(this._configuration);
-                var jwt = jwtGenerator.GetToken(user);
+                var jwt = this._tokenGenerator.GetToken(user);
                 HttpContext.Session.SetString("_UserEmail", user.Email); // Set user info to session for logging
                 user.Password = null; // Clear password to be secure
                 response = new

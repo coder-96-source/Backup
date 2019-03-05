@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DotNetSurfer.Core.Encryptors;
 using DotNetSurfer.DAL.Entities;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -11,10 +12,12 @@ namespace DotNetSurfer.Web.Controllers
     [Authorize(Roles = nameof(PermissionType.Admin) + "," + nameof(PermissionType.User))]
     public class AdminController : BaseController
     {
-        public AdminController(IUnitOfWork unitOfWork, ILogger<AdminController> logger)
+        private readonly IEncryptor _encryptor;
+
+        public AdminController(IUnitOfWork unitOfWork, IEncryptor encryptor, ILogger<AdminController> logger)
             : base(unitOfWork, logger)
         {
- 
+            this._encryptor = encryptor;
         }
 
         #region Topics
@@ -331,7 +334,7 @@ namespace DotNetSurfer.Web.Controllers
                 }
 
                 var currentUser = await this._unitOfWork.UserRepository.GetUserAsNoTrackingAsync(id); // To avoid context tracking exception
-                if (!IsPasswordCorrect(currentUser.Password, user.Password))
+                if (!this._encryptor.IsEqual(user.Password, currentUser.Password))
                 {
                     return Unauthorized();
                 }
@@ -345,7 +348,7 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest("User email already exists");
                 }
 
-                user.Password = _encryptor.Value.Encrypt(user.Password);
+                user.Password = _encryptor.Encrypt(user.Password);
                 this._unitOfWork.UserRepository.Update(user);
                 await this._unitOfWork.UserRepository.SaveAsync();
             }

@@ -2,7 +2,6 @@
 using System.Linq;
 using DotNetSurfer.DAL.Entities;
 using DotNetSurfer.DAL.Repositories.Interfaces;
-using DotNetSurfer.Web.Helpers.Encryptors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,8 +11,6 @@ namespace DotNetSurfer.Web.Controllers
     [ApiController]
     public abstract class BaseController : ControllerBase
     {
-        protected static readonly Lazy<HashEncryptor> _encryptor = new Lazy<HashEncryptor>(() => new HashEncryptor());
-
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly ILogger<BaseController> _logger;
 
@@ -21,12 +18,6 @@ namespace DotNetSurfer.Web.Controllers
         {
             this._unitOfWork = unitOfWork;
             this._logger = logger;
-        }
-
-        protected bool IsPasswordCorrect(string storedPassword, string inputPassword)
-        {
-            string encryptedPassword = _encryptor.Value.Encrypt(inputPassword);
-            return storedPassword == encryptedPassword ? true : false;
         }
 
         protected bool IsAdministrator()
