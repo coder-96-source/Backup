@@ -15,10 +15,10 @@ namespace DotNetSurfer.DAL.Repositories
 
         }
 
-        public async Task<IEnumerable<Feature>> GetFeaturesByFeatureTypeAsync(FeatureType featureType)
+        public async Task<IEnumerable<Feature>> GetFeaturesByFeatureTypeAsync(string featureType)
         {
             return await this._context.Features
-                .Where(f => f.FeatureType == featureType.ToString())
+                .Where(f => f.FeatureType == featureType)
                 .ToListAsync();                  
         }
     }

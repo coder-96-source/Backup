@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using DotNetSurfer.Web.Helpers;
+using System.Linq;
 
 namespace DotNetSurfer.Web.Controllers
 {
@@ -29,12 +31,15 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                topic = await this._unitOfWork.TopicRepository.GetTopicAsync(id);
+                var entityModel = await this._unitOfWork.TopicRepository
+                    .GetTopicAsync(id);
 
                 if (topic == null)
                 {
                     return NotFound();
                 }
+
+                topic = entityModel.MapToDomain();
             }
             catch (Exception ex)
             {
@@ -51,7 +56,10 @@ namespace DotNetSurfer.Web.Controllers
 
             try
             {
-                topics = await this._unitOfWork.TopicRepository.GetTopicsAsync();
+                var entityModels = await this._unitOfWork.TopicRepository
+                    .GetTopicsAsync();
+
+                topics = entityModels?.Select(t => t.MapToDomain());
             }
             catch (Exception ex)
             {
@@ -75,9 +83,11 @@ namespace DotNetSurfer.Web.Controllers
                     return null;
                 }
 
-                topics = IsAdministrator()
+                var entityModels = IsAdministrator()
                     ? await this._unitOfWork.TopicRepository.GetTopicsByUserIdAsync()
                     : await this._unitOfWork.TopicRepository.GetTopicsByUserIdAsync(userId);
+
+                topics = entityModels?.Select(t => t.MapToDomain());
             }
             catch (Exception ex)
             {

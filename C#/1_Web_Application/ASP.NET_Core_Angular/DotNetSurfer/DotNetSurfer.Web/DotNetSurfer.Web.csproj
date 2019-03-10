@@ -72,10 +72,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DotNetSurfer.Core\DotNetSurfer.Core.csproj" />
     <ProjectReference Include="..\DotNetSurfer.DAL\DotNetSurfer.DAL.csproj" />
   </ItemGroup>

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using DotNetSurfer.Web.Helpers;
 
 namespace DotNetSurfer.Web.Controllers
 {
@@ -23,7 +25,10 @@ namespace DotNetSurfer.Web.Controllers
 
             try
             {
-                statuses = await this._unitOfWork.StatusRepository.GetStatusesAsync(); ;
+                var entityModels = await this._unitOfWork.StatusRepository
+                    .GetStatusesAsync();
+
+                statuses = entityModels?.Select(s => s.MapToDomain());
             }
             catch (Exception ex)
             {

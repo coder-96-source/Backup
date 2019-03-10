@@ -1,6 +1,6 @@
 ﻿using DotNetSurfer.Core.Encryptors;
 using DotNetSurfer.Core.TokenGenerators;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.DAL.Repositories;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,10 +16,8 @@ using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using DotNetSurfer.DAL.Entities;
 
 namespace DotNetSurfer.Web.Helpers
 {
@@ -67,7 +65,7 @@ namespace DotNetSurfer.Web.Helpers
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(nameof(Permission), policy => policy.RequireRole(PermissionType.Admin.ToString()));
+                options.AddPolicy(nameof(Models.Permission), policy => policy.RequireRole(PermissionType.Admin.ToString()));
             });
         }
 

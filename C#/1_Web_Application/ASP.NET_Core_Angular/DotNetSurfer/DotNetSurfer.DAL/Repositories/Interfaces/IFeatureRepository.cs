@@ -6,6 +6,6 @@ namespace DotNetSurfer.DAL.Repositories.Interfaces
 {
     public interface IFeatureRepository : IRepository<Feature>
     {
-        Task<IEnumerable<Feature>> GetFeaturesByFeatureTypeAsync(FeatureType featureType);
+        Task<IEnumerable<Feature>> GetFeaturesByFeatureTypeAsync(string featureType);
     }
 }

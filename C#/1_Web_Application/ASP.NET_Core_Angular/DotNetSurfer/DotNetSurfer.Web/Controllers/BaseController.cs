@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

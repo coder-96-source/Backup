@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using DotNetSurfer.DAL.Repositories.Interfaces;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.Core.TokenGenerators;
 using DotNetSurfer.Core.Encryptors;
 
@@ -43,7 +43,7 @@ namespace DotNetSurfer.Web.Controllers
                 }
 
                 string encryptedPassword = _encryptor.Encrypt(model.Password);
-                var user = new User()
+                var entityModel = new DAL.Entities.User()
                 {
                     Email = model.Email,
                     Name = model.Name,
@@ -53,8 +53,8 @@ namespace DotNetSurfer.Web.Controllers
                     PictureMimeType = model.PictureMimeType,
                     PermissionId = (int)PermissionType.User // default
                 };
-
-                this._unitOfWork.UserRepository.Create(user);
+                 
+                this._unitOfWork.UserRepository.Create(entityModel);
                 await this._unitOfWork.UserRepository.SaveAsync();
             }
             catch (Exception ex)

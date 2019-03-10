@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using DotNetSurfer.Web.Helpers;
+using System.Linq;
 
 namespace DotNetSurfer.Web.Controllers
 {
@@ -29,12 +31,13 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                announcement = await this._unitOfWork.AnnouncementRepository.GetAnnouncementAsync(id);
-
+                var entityModel = await this._unitOfWork.AnnouncementRepository.GetAnnouncementAsync(id);
                 if (announcement == null)
                 {
                     return NotFound();
                 }
+
+                announcement = entityModel.MapToDomain();
             }
             catch (Exception ex)
             {
@@ -51,7 +54,8 @@ namespace DotNetSurfer.Web.Controllers
 
             try
             {
-                announcements = await this._unitOfWork.AnnouncementRepository.GetAnnouncementsAsync();
+                var entityModels = await this._unitOfWork.AnnouncementRepository.GetAnnouncementsAsync();
+                announcements = entityModels?.Select(a => a.MapToDomain());
             }
             catch (Exception ex)
             {
@@ -75,9 +79,10 @@ namespace DotNetSurfer.Web.Controllers
                     return null;
                 }
 
-                announcements = IsAdministrator()
+                var entityModels = IsAdministrator()
                     ? await this._unitOfWork.AnnouncementRepository.GetAnnouncementsByUserIdAsync()
                     : await this._unitOfWork.AnnouncementRepository.GetAnnouncementsByUserIdAsync(userId);
+                announcements = entityModels?.Select(a => a.MapToDomain());
             }
             catch (Exception ex)
             {

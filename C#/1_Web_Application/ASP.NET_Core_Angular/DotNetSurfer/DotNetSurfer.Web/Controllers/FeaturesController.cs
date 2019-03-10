@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using DotNetSurfer.Web.Helpers;
 
 namespace DotNetSurfer.Web.Controllers
 {
@@ -29,7 +31,10 @@ namespace DotNetSurfer.Web.Controllers
                     throw new ArgumentException($"Invalid FeatureType: {featureType}");
                 }
 
-                features = await this._unitOfWork.FeatureRepository.GetFeaturesByFeatureTypeAsync(featureTypeEnum);
+                var entityModels = await this._unitOfWork.FeatureRepository
+                    .GetFeaturesByFeatureTypeAsync(featureType);
+
+                features = entityModels?.Select(f => f.MapToDomain());
             }
             catch (Exception ex)
             {

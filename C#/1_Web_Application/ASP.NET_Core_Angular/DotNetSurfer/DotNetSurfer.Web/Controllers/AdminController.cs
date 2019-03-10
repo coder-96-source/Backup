@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DotNetSurfer.Core.Encryptors;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using DotNetSurfer.Web.Helpers;
 
 namespace DotNetSurfer.Web.Controllers
 {
@@ -45,7 +46,7 @@ namespace DotNetSurfer.Web.Controllers
 
                 topic.ModifyDate = DateTime.Now;
 
-                this._unitOfWork.TopicRepository.Update(topic);
+                this._unitOfWork.TopicRepository.Update(topic.MapToEntity());
                 await this._unitOfWork.TopicRepository.SaveAsync();
             }
             catch (Exception ex)
@@ -73,7 +74,7 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest("Title already exists");
                 }
 
-                this._unitOfWork.TopicRepository.Create(topic);
+                this._unitOfWork.TopicRepository.Create(topic.MapToEntity());
                 await this._unitOfWork.TopicRepository.SaveAsync();
             }
             catch (Exception ex)
@@ -88,7 +89,7 @@ namespace DotNetSurfer.Web.Controllers
         [HttpDelete("topics/{id}")]
         public async Task<IActionResult> DeleteTopic([FromRoute] int id)
         {
-            Topic topic = null;
+            DAL.Entities.Topic entityModel = null;
 
             try
             {
@@ -97,20 +98,20 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                topic = await this._unitOfWork.TopicRepository.GetTopicAsync(id);
-                if (topic == null)
+                entityModel = await this._unitOfWork.TopicRepository.GetTopicAsync(id);
+                if (entityModel == null)
                 {
                     return NotFound();
                 }
 
                 // Author check
                 int? userId = GetUserIdFromClaims();
-                if (!IsAdministrator() && topic.UserId != userId.Value)
+                if (!IsAdministrator() && entityModel.UserId != userId.Value)
                 {
                     return Unauthorized();
                 }
 
-                this._unitOfWork.TopicRepository.Delete(topic);
+                this._unitOfWork.TopicRepository.Delete(entityModel);
                 await this._unitOfWork.TopicRepository.SaveAsync();
             }
             catch (Exception ex)
@@ -119,13 +120,13 @@ namespace DotNetSurfer.Web.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok(topic);
+            return Ok(entityModel);
         }
         #endregion
 
         #region Articles
         [HttpPut("articles/{id}")]
-        public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromBody] DotNetSurfer.DAL.Entities.Article article)
+        public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromBody] Article article)
         {
             try
             {
@@ -148,7 +149,7 @@ namespace DotNetSurfer.Web.Controllers
 
                 article.ModifyDate = DateTime.Now;
 
-                this._unitOfWork.ArticleRepository.Update(article);
+                this._unitOfWork.ArticleRepository.Update(article.MapToEntity());
                 await this._unitOfWork.ArticleRepository.SaveAsync();
             }
             catch (Exception ex)
@@ -161,7 +162,7 @@ namespace DotNetSurfer.Web.Controllers
         }
 
         [HttpPost("articles")]
-        public async Task<IActionResult> CreateArticle([FromBody] DotNetSurfer.DAL.Entities.Article article)
+        public async Task<IActionResult> CreateArticle([FromBody] Article article)
         {
             try
             {
@@ -170,7 +171,7 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                this._unitOfWork.ArticleRepository.Create(article);
+                this._unitOfWork.ArticleRepository.Create(article.MapToEntity());
                 await this._unitOfWork.ArticleRepository.SaveAsync();
             }
             catch (Exception ex)
@@ -185,7 +186,7 @@ namespace DotNetSurfer.Web.Controllers
         [HttpDelete("articles/{id}")]
         public async Task<IActionResult> DeleteArticle([FromRoute] int id)
         {
-            Article article = null;
+            DAL.Entities.Article entityModel = null;
 
             try
             {
@@ -194,13 +195,13 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                article = await this._unitOfWork.ArticleRepository.GetArticleAsync(id);
-                if (article == null)
+                entityModel = await this._unitOfWork.ArticleRepository.GetArticleAsync(id);
+                if (entityModel == null)
                 {
                     return NotFound();
                 }
 
-                this._unitOfWork.ArticleRepository.Delete(article);
+                this._unitOfWork.ArticleRepository.Delete(entityModel);
                 await this._unitOfWork.ArticleRepository.SaveAsync();
             }
             catch (Exception ex)
@@ -209,7 +210,7 @@ namespace DotNetSurfer.Web.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok(article);
+            return Ok(entityModel);
         }
         #endregion
 
@@ -238,7 +239,7 @@ namespace DotNetSurfer.Web.Controllers
 
                 announcement.ModifyDate = DateTime.Now;
 
-                this._unitOfWork.AnnouncementRepository.Update(announcement);
+                this._unitOfWork.AnnouncementRepository.Update(announcement.MapToEntity());
                 await this._unitOfWork.AnnouncementRepository.SaveAsync();
             }
             catch (Exception ex)
@@ -260,7 +261,7 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                this._unitOfWork.AnnouncementRepository.Create(announcement);
+                this._unitOfWork.AnnouncementRepository.Create(announcement.MapToEntity());
                 await this._unitOfWork.AnnouncementRepository.SaveAsync();
             }
             catch (Exception ex)
@@ -275,7 +276,7 @@ namespace DotNetSurfer.Web.Controllers
         [HttpDelete("announcements/{id}")]
         public async Task<IActionResult> DeleteAnnouncement([FromRoute] int id)
         {
-            Announcement announcement = null;
+            DAL.Entities.Announcement entityModel = null;
 
             try
             {
@@ -284,20 +285,20 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                announcement = await this._unitOfWork.AnnouncementRepository.GetAnnouncementAsync(id);
-                if (announcement == null)
+                entityModel = await this._unitOfWork.AnnouncementRepository.GetAnnouncementAsync(id);
+                if (entityModel == null)
                 {
                     return NotFound();
                 }
 
                 // Author check
                 int? userId = GetUserIdFromClaims();
-                if (!IsAdministrator() && announcement.UserId != userId.Value)
+                if (!IsAdministrator() && entityModel.UserId != userId.Value)
                 {
                     return Unauthorized();
                 }
 
-                this._unitOfWork.AnnouncementRepository.Delete(announcement);
+                this._unitOfWork.AnnouncementRepository.Delete(entityModel);
                 await this._unitOfWork.AnnouncementRepository.SaveAsync();
             }
             catch (Exception ex)
@@ -306,7 +307,7 @@ namespace DotNetSurfer.Web.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok(announcement);
+            return Ok(entityModel);
         }
         #endregion
 
@@ -349,7 +350,8 @@ namespace DotNetSurfer.Web.Controllers
                 }
 
                 user.Password = _encryptor.Encrypt(user.Password);
-                this._unitOfWork.UserRepository.Update(user);
+
+                this._unitOfWork.UserRepository.Update(user.MapToEntity());
                 await this._unitOfWork.UserRepository.SaveAsync();
             }
             catch (Exception ex)

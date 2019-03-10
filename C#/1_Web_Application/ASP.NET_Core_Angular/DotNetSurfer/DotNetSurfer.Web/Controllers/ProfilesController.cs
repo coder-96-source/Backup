@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,8 +24,8 @@ namespace DotNetSurfer.Web.Controllers
 
             try
             {
-                user = await this._unitOfWork.UserRepository.GetUserAsync(id);
-                if (user == null)
+                var entityModel = await this._unitOfWork.UserRepository.GetUserAsync(id);
+                if (entityModel == null)
                 {
                     return NotFound();
                 }

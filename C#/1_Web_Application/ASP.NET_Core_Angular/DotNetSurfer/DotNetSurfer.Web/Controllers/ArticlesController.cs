@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.Web.Models;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using DotNetSurfer.Web.Helpers;
+using System.Linq;
 
 namespace DotNetSurfer.Web.Controllers
 {
@@ -29,10 +31,10 @@ namespace DotNetSurfer.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                article = await this._unitOfWork
-                    .ArticleRepository.GetArticleAsync(id);
+                var entityModel = await this._unitOfWork.ArticleRepository
+                    .GetArticleAsync(id);
 
-                if (article == null)
+                if (entityModel == null)
                 {
                     return NotFound();
                 }
@@ -40,6 +42,8 @@ namespace DotNetSurfer.Web.Controllers
                 // Increase read count
                 await this._unitOfWork.ArticleRepository.IncreaseArticleReadCountAsync(id);
                 await this._unitOfWork.ArticleRepository.SaveAsync();
+
+                article = entityModel.MapToDomain();
             }
             catch (Exception ex)
             {
@@ -63,11 +67,13 @@ namespace DotNetSurfer.Web.Controllers
                     return null;
                 }
 
-                articles = IsAdministrator()
+                var entityModels = IsAdministrator()
                     ? await this._unitOfWork
                         .ArticleRepository.GetArticlesByUserIdAsync()
                     : await this._unitOfWork
                         .ArticleRepository.GetArticlesByUserIdAsync(userId); // Restrict by userId
+
+                articles = entityModels?.Select(a => a.MapToDomain());
             }
             catch (Exception ex)
             {
@@ -85,9 +91,11 @@ namespace DotNetSurfer.Web.Controllers
 
             try
             {
-                articles = await this._unitOfWork
+                var entityModels = await this._unitOfWork
                     .ArticleRepository
                     .GetArticlesByPageAsync(pageId, itemPerPage);
+
+                articles = entityModels?.Select(a => a.MapToDomain());
             }
             catch (Exception ex)
             {
@@ -104,9 +112,11 @@ namespace DotNetSurfer.Web.Controllers
 
             try
             {
-                articles = await this._unitOfWork
+                var entityModels = await this._unitOfWork
                     .ArticleRepository
                     .GetTopArticlesAsync(item);
+
+                articles = entityModels?.Select(a => a.MapToDomain());
             }
             catch (Exception ex)
             {
