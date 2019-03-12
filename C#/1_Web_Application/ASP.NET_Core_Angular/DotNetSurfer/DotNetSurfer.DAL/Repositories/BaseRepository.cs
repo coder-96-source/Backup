@@ -14,17 +14,17 @@ namespace DotNetSurfer.DAL.Repositories
             this._context = context;
         }
 
-        public void Create(T entity)
+        public virtual void Create(T entity)
         {
             this._context.Add<T>(entity);
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             this._context.Entry<T>(entity).State = EntityState.Modified;
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             this._context.Entry<T>(entity).State = EntityState.Deleted;
         }

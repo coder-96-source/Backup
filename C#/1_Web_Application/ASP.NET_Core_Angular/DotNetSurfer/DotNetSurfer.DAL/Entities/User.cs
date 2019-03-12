@@ -31,6 +31,8 @@ namespace DotNetSurfer.DAL.Entities
 
         public string PictureMimeType { get; set; }
 
+        public string PictureUrl { get; set; }
+
         public int PermissionId { get; set; }
 
         public Permission Permission { get; set; }

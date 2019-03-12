@@ -18,6 +18,7 @@ using NLog.Extensions.Logging;
 using System;
 using System.Text;
 using DotNetSurfer.DAL.Entities;
+using DotNetSurfer.DAL.CDNs.Interfaces;
 
 namespace DotNetSurfer.Web.Helpers
 {
@@ -27,6 +28,7 @@ namespace DotNetSurfer.Web.Helpers
         {
             services.AddSingleton<IEncryptor, HashEncryptor>();
             services.AddSingleton<ITokenGenerator, JwtGenerator>();
+            services.AddScoped<ICdnHandler, AzureBlobHandler>();
         }
 
         public static void AddAngularServices(this IServiceCollection services)

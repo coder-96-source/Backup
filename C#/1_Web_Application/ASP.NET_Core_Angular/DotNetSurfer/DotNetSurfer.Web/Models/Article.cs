@@ -23,6 +23,8 @@ namespace DotNetSurfer.Web.Models
 
         public string PictureMimeType { get; set; }
 
+        public string PictureUrl { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime PostDate { get; set; }

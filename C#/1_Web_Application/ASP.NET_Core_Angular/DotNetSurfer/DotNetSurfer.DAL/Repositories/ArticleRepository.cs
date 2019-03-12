@@ -1,6 +1,8 @@
-﻿using DotNetSurfer.DAL.Entities;
+﻿using DotNetSurfer.DAL.CDNs.Interfaces;
+using DotNetSurfer.DAL.Entities;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,10 +11,12 @@ namespace DotNetSurfer.DAL.Repositories
 {
     public class ArticleRepository : BaseRepository<Article>, IArticleRepository
     {
-        public ArticleRepository(DotNetSurferDbContext dbContext) 
+        private readonly ICdnHandler _cdnHandler;
+
+        public ArticleRepository(DotNetSurferDbContext dbContext, ICdnHandler cdnHandler) 
             : base(dbContext)
         {
-
+            this._cdnHandler = cdnHandler;
         }
 
         public async Task<bool> IsArticleExistAsync(int id)
@@ -75,6 +79,37 @@ namespace DotNetSurfer.DAL.Repositories
         {
             var article = await _context.Articles.FirstAsync(a => a.ArticleId == id);
             article.ReadCount++;
+        }
+
+        public override void Create(Article entity)
+        {        
+            if (entity.Picture != null)
+            {
+                base.Create(entity);
+                SaveAsync().Wait(); // Wait for generated Identity
+                var uri = this._cdnHandler.UploadImageToStorageAsync(entity.Picture, $"{nameof(Article)}_{entity.ArticleId}").Result;
+                entity.PictureUrl = uri?.AbsoluteUri;
+            }
+
+            base.Update(entity);
+        }
+
+        public override void Update(Article entity)
+        {
+            if (entity.Picture != null)
+            {
+                var uri = this._cdnHandler.UploadImageToStorageAsync(entity.Picture, $"{nameof(Article)}_{entity.ArticleId}").Result;
+                entity.PictureUrl = uri?.AbsoluteUri;
+            }
+
+            base.Update(entity);
+        }
+
+        public override void Delete(Article entity)
+        {
+            this._cdnHandler.DeleteImageFromStorageAsync($"{nameof(Article)}_{entity.ArticleId}").Wait();
+
+            base.Delete(entity);
         }
     }
 }

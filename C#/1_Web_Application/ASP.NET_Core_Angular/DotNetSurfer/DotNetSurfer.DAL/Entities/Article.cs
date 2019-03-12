@@ -21,6 +21,8 @@ namespace DotNetSurfer.DAL.Entities
 
         public string PictureMimeType { get; set; }
 
+        public string PictureUrl { get; set; }
+
         public DateTime PostDate { get; set; }
 
         public DateTime ModifyDate { get; set; }

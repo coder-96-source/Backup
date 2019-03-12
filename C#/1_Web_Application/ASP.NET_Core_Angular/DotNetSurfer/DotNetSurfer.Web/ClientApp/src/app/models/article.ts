@@ -1,4 +1,4 @@
-﻿import { Topic } from './topic';
+import { Topic } from './topic';
 import { Tag } from './tag';
 import { User } from './user';
 
@@ -9,6 +9,7 @@ export class Article {
     content?: string;
     picture?: string; // base64
     pictureMimeType?: string;
+    pictureUrl?: string;
     postDate?: Date;
     modifyDate?: Date;
     readCount?: number;

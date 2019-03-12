@@ -15,6 +15,7 @@ export class User {
   birthdate?: Date;
   picture?: string;
   pictureMimeType?: string;
+  pictureUrl?: string;
 
   permissionId?: number;
   permission?: Permission;

@@ -6,6 +6,7 @@
 	[Description] NVarChar(200) Null,
 	[Picture] VARBINARY(MAX) NULL,
 	[PictureMimeType] VARCHAR(50) NULL,
+	[PictureUrl] NVARCHAR(2083) NULL,
 	[PostDate] DATETIME2 NULL,
 	[ModifyDate] DATETIME2 NULL,
 	[ShowFlag] BIT NULL

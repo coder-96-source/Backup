@@ -5,6 +5,7 @@ using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using DotNetSurfer.Web.Helpers;
 
 namespace DotNetSurfer.Web.Controllers
 {
@@ -36,6 +37,8 @@ namespace DotNetSurfer.Web.Controllers
                 {
                     return Unauthorized();
                 }
+
+                user = entityModel.MapToDomain();
             }
             catch (Exception ex)
             {

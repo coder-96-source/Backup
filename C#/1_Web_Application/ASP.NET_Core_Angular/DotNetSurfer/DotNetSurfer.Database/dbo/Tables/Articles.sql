@@ -8,6 +8,7 @@
 	[Category] NVARCHAR(10) DEFAULT('Free') NULL,	--Category, inside of topic
 	[Picture] VARBINARY(MAX) NULL,
 	[PictureMimeType] VARCHAR(50) NULL,
+	[PictureUrl] NVARCHAR(2083) NULL,
 	[PostDate] DATETIME2 DEFAULT GETDATE() NULL,
 	[ModifyDate] DATETIME2 DEFAULT GETDATE() NULL,
 	[ReadCount] INT DEFAULT 0 NULL,

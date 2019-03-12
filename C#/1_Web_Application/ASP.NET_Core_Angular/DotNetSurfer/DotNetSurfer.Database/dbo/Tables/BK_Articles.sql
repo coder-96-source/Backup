@@ -8,6 +8,7 @@
 	[Category] NVARCHAR(10) NULL,
 	[Picture] VARBINARY(MAX) NULL,
 	[PictureMimeType] VARCHAR(50) NULL,
+	[PictureUrl] NVARCHAR(2083) NULL,
 	[PostDate] DATETIME2 NULL,
 	[ModifyDate] DATETIME2 NULL,
 	[ReadCount] INT NULL,

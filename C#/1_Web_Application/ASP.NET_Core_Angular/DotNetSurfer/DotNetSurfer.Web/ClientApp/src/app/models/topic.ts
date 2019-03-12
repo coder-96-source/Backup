@@ -1,4 +1,4 @@
-﻿import { Article } from './article';
+import { Article } from './article';
 import { User } from './user';
 
 export class Topic {
@@ -7,6 +7,7 @@ export class Topic {
     description?: string;
     picture?: string;
     pictureMimeType?: string;
+    pictureUrl?: string;
     postDate?: Date;
     modifyDate?: Date;
     showFlag?: boolean;

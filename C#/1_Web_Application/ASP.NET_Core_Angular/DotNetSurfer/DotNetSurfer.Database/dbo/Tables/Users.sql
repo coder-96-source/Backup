@@ -11,6 +11,7 @@
 	[Introduction] NVARCHAR(100) NULL,
 	[Birthdate] DATETIME2 NULL,
 	[Picture] VARBINARY(MAX) NULL,
-	[PictureMimeType] VARCHAR(50) NULL 
+	[PictureMimeType] VARCHAR(50) NULL,
+	[PictureUrl] NVARCHAR(2083) NULL,
 )
 GO

@@ -16,11 +16,11 @@
                  fxLayoutAlign="space-around center">
                 <mat-card class="article-card mat-elevation-z8">
                     <mat-card-header>
-                        <img *ngIf="article.user.picture"
+                        <img *ngIf="article.user.pictureUrl"
                              mat-card-avatar
-                             src="data:{{article.user.pictureMimeType}};base64,{{article.user.picture}}"
+                             src="{{article.user.pictureUrl}}"
                              alt="{{article.user.name}}">
-                        <img *ngIf="!article.user.picture"
+                        <img *ngIf="!article.user.pictureUrl"
                              mat-card-avatar
                              src="/assets/Images/default/default-user.png"
                              alt="default-user">
@@ -28,10 +28,10 @@
                         <mat-card-subtitle>{{article.postDate | date}}</mat-card-subtitle>
                     </mat-card-header>
                     <mat-divider></mat-divider>
-                    <img *ngIf="article.picture"
-                         mat-card-image src="data:{{article.pictureMimeType}};base64,{{article.picture}}"
+                    <img *ngIf="article.pictureUrl"
+                         mat-card-image src="{{article.pictureUrl}}"
                          alt="{{article.title}}">
-                    <img *ngIf="!article.picture"
+                    <img *ngIf="!article.pictureUrl"
                          mat-card-image
                          src="/assets/Images/default/default-article.jpg"
                          alt="default-article">
