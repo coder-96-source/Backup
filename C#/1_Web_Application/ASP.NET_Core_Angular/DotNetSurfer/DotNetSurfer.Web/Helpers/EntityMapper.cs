@@ -179,6 +179,25 @@ namespace DotNetSurfer.Web.Helpers
                 ShowFlag = entity.ShowFlag
             };
         }
+
+        public static Models.Header MapToDomainHeader(this DAL.Entities.Topic entity)
+        {
+            if (entity == null)
+            {
+                return null;
+            }
+
+            return new Models.Header
+            {
+                Id = entity.TopicId,
+                Title = entity.Title,
+                SideNodes = entity.Articles?.Select(a => new Models.Header.SideNode
+                {
+                    Id = a.ArticleId,
+                    Title = a.Title
+                })
+            };
+        }
         #endregion
 
         #endregion

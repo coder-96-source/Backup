@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DotNetSurfer.DAL.Repositories.Interfaces;
+using DotNetSurfer.Web.Helpers;
+using DotNetSurfer.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -15,14 +20,14 @@ namespace DotNetSurfer.Web.Controllers
         }
 
         [HttpGet("menu/side")]
-        public async Task<object> GetSideHeaderMenus()
+        public async Task<IEnumerable<Header>> GetSideHeaderMenus()
         {
-            object sideMenus = null;
+            IEnumerable<Header> sideMenus = null;
 
             try
             {
-                sideMenus = await this._unitOfWork.TopicRepository.GetSideHeaderMenusAsync();
-
+                var entity = await this._unitOfWork.TopicRepository.GetSideHeaderMenusAsync();
+                sideMenus = entity?.Select(h => h.MapToDomainHeader());
             }
             catch (Exception ex)
             {
