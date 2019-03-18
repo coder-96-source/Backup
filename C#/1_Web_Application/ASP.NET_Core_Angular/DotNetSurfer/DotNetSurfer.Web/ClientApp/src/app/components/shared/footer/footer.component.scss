@@ -16,9 +16,13 @@
   padding: 8px;
 }
 
-.footer-list a, a:link, a:visited, a:hover, a:active {
+.footer-list a, a:link, a:visited {
   text-decoration: none;
-  color: black;
+  color: #7986cb;
+}
+
+.footer-list a:hover, a:active {
+  color: #1a237e;
 }
 
 @media (max-width: $breakpoint-width-mobile) {
