@@ -19,6 +19,7 @@ using System;
 using System.Text;
 using DotNetSurfer.DAL.Entities;
 using DotNetSurfer.DAL.CDNs.Interfaces;
+using DotNetSurfer.DAL.CDNs;
 
 namespace DotNetSurfer.Web.Helpers
 {

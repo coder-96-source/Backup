@@ -14,7 +14,7 @@ import { SnackbarService, SnackbarAction } from '../../../../services/shared/sna
 
 export class TopicTableComponent implements OnInit {
     private title = 'Topic';
-    private displayedColumns = ['topicId', 'postDate', 'showFlag', 'picture',
+    private displayedColumns = ['topicId', 'postDate', 'showFlag', 'pictureUrl',
         'title', 'description', 'action'];
     private isLoaded = false;
     private dataSource?: MatTableDataSource<Topic>;

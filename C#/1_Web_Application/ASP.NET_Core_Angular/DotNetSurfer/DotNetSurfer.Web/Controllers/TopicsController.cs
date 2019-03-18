@@ -34,7 +34,7 @@ namespace DotNetSurfer.Web.Controllers
                 var entityModel = await this._unitOfWork.TopicRepository
                     .GetTopicAsync(id);
 
-                if (topic == null)
+                if (entityModel == null)
                 {
                     return NotFound();
                 }

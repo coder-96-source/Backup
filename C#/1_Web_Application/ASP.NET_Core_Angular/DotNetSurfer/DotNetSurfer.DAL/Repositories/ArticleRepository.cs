@@ -34,45 +34,125 @@ namespace DotNetSurfer.DAL.Repositories
                  .SingleOrDefaultAsync(a => a.ArticleId == id);
         }
 
-        public async Task<IEnumerable<Article>> GetArticlesByUserIdAsync()
+        public async Task<Article> GetArticleDetailAsync(int id)
         {
             return await this._context.Articles
-                .Include(a => a.User)
+                .Include(a => a.Topic)
                 .AsNoTracking()
-                .ToListAsync();
+                .Select(a => new Article
+                {
+                    ArticleId = a.ArticleId,
+                    Title = a.Title,
+                    Content = a.Content,
+                    Topic = new Topic
+                    {
+                        Title = a.Topic.Title
+                    }
+                })
+                .SingleOrDefaultAsync(a => a.ArticleId == id);
         }
 
-        public async Task<IEnumerable<Article>> GetArticlesByUserIdAsync(int userId)
+        public async Task<IEnumerable<Article>> GetArticlesByUserIdAsync(int contentLength)
         {
-            return await this._context.Articles
-                .Include(a => a.User)
-                .Where(a => a.UserId == userId)
+            var articles = await this._context.Articles
+                .Select(a => new Article
+                {
+                    ArticleId = a.ArticleId,
+                    Title = a.Title,
+                    Content = a.Content,
+                    Category = a.Category,
+                    PictureUrl = a.PictureUrl,
+                    PostDate = a.PostDate,
+                    ShowFlag = a.ShowFlag
+                })
                 .AsNoTracking()
                 .ToListAsync();
+
+            articles?.ForEach(a =>
+            {
+                a.Content = HtmlHandlers.HtmlHandler.GetTrimmedPlainTextFromHtml(a.Content, contentLength);
+            });
+
+            return articles;
+        }
+
+        public async Task<IEnumerable<Article>> GetArticlesByUserIdAsync(int userId, int contentLength)
+        {
+            var articles = await this._context.Articles
+                .Where(a => a.UserId == userId)
+                .Select(a => new Article
+                {
+                    ArticleId = a.ArticleId,
+                    Title = a.Title,
+                    Content = a.Content,
+                    Category = a.Category,
+                    PictureUrl = a.PictureUrl,
+                    PostDate = a.PostDate,
+                    ShowFlag = a.ShowFlag
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            articles?.ForEach(a =>
+            {
+                a.Content = HtmlHandlers.HtmlHandler.GetTrimmedPlainTextFromHtml(a.Content, contentLength);
+            });
+
+            return articles;
         }
 
         public async Task<IEnumerable<Article>> GetArticlesByPageAsync(int pageId, int itemPerPage)
         {
             return await this._context.Articles
-                .Include(article => article.User)
-                .Include(article => article.Topic)
-                .Where(a => a.ShowFlag)
-                .OrderByDescending(article => article.PostDate)
-                .Skip((pageId - 1) * itemPerPage)
-                .Take(itemPerPage)
-                .AsNoTracking()
-                .ToListAsync();
+                    .Include(a => a.Topic)
+                    .Where(a => a.ShowFlag)
+                    .OrderByDescending(a => a.PostDate)
+                    .Skip((pageId - 1) * itemPerPage)
+                    .Take(itemPerPage)
+                    .AsNoTracking()
+                    .Select(a => new Article
+                    {
+                        ArticleId = a.ArticleId,
+                        Title = a.Title,
+                        PictureUrl = a.PictureUrl,
+                        PostDate = a.PostDate,
+                        Topic = new Topic
+                        {
+                            Title = a.Topic.Title
+                        }
+                    })
+                    .ToListAsync();
         }
 
-        public async Task<IEnumerable<Article>> GetTopArticlesAsync(int item)
+        public async Task<IEnumerable<Article>> GetTopArticlesAsync(int item, int contentLength)
         {
-            return await this._context.Articles
-                .Include(article => article.User)
-                .Where(article => article.ShowFlag)
-                .OrderByDescending(a => a.ReadCount)
-                .Take(item)
-                .AsNoTracking()
-                .ToListAsync();
+            var articles = await this._context.Articles
+                    .Include(a => a.User)
+                    .Where(a => a.ShowFlag)
+                    .OrderByDescending(a => a.ReadCount)
+                    .Take(item)
+                    .AsNoTracking()
+                    .Select(a => new Article
+                    {
+                        ArticleId = a.ArticleId,
+                        Title = a.Title,
+                        Content = a.Content,
+                        PictureUrl = a.PictureUrl,
+                        PostDate = a.PostDate,
+                        User = new User
+                        {
+                            Name = a.User.Name,
+                            PictureUrl = a.User.PictureUrl
+                        }
+                    })
+                    .ToListAsync();
+
+            articles?.ForEach(a =>
+            {
+                a.Content = HtmlHandlers.HtmlHandler.GetTrimmedPlainTextFromHtml(a.Content, contentLength);
+            });
+
+            return articles;
         }
 
         public async Task IncreaseArticleReadCountAsync(int id)
@@ -85,31 +165,74 @@ namespace DotNetSurfer.DAL.Repositories
         {        
             if (entity.Picture != null)
             {
-                base.Create(entity);
-                SaveAsync().Wait(); // Wait for generated Identity
-                var uri = this._cdnHandler.UploadImageToStorageAsync(entity.Picture, $"{nameof(Article)}_{entity.ArticleId}").Result;
-                entity.PictureUrl = uri?.AbsoluteUri;
-            }
+                string fileName = Guid.NewGuid().ToString();
+                Task upload = this._cdnHandler.UpsertImageToStorageAsync(entity.Picture, fileName);
 
-            base.Update(entity);
+                string imageUrl = this._cdnHandler.GetImageStorageBaseUrl().Result + fileName;
+                entity.Picture = null;
+                entity.PictureMimeType = null;
+                entity.PictureUrl = imageUrl;
+                base.Create(entity);
+
+                upload.GetAwaiter().GetResult();
+            }
+            else
+            {
+                base.Create(entity);
+            }
         }
 
         public override void Update(Article entity)
         {
+            entity.ModifyDate = DateTime.Now;
+
             if (entity.Picture != null)
             {
-                var uri = this._cdnHandler.UploadImageToStorageAsync(entity.Picture, $"{nameof(Article)}_{entity.ArticleId}").Result;
-                entity.PictureUrl = uri?.AbsoluteUri;
-            }
+                string url = this._context.Articles
+                    .AsNoTracking()
+                    .First(a => a.ArticleId == entity.ArticleId)
+                    .PictureUrl;
+                string imageStorageBaseUrl = this._cdnHandler.GetImageStorageBaseUrl().Result;
+                string fileName = string.IsNullOrEmpty(url) 
+                    ? Guid.NewGuid().ToString() // Create case
+                    : url.Replace(imageStorageBaseUrl, string.Empty); // Update upload case
 
-            base.Update(entity);
+
+                Task upload = this._cdnHandler.UpsertImageToStorageAsync(entity.Picture, fileName);
+                string imageUrl = imageStorageBaseUrl + fileName;
+                entity.Picture = null;
+                entity.PictureMimeType = null;
+                entity.PictureUrl = imageUrl;
+                base.Update(entity);
+
+                upload.GetAwaiter().GetResult();
+            }
+            else
+            {
+                base.Update(entity);
+            }
         }
 
         public override void Delete(Article entity)
         {
-            this._cdnHandler.DeleteImageFromStorageAsync($"{nameof(Article)}_{entity.ArticleId}").Wait();
+            string url = this._context.Articles
+                .AsNoTracking()
+                .First(a => a.ArticleId == entity.ArticleId)
+                .PictureUrl;
+            if (!string.IsNullOrEmpty(url))
+            {
+                string imageStorageBaseUrl = this._cdnHandler.GetImageStorageBaseUrl().Result;
+                string fileName = url.Replace(imageStorageBaseUrl, string.Empty);
 
-            base.Delete(entity);
+                Task delete = this._cdnHandler.DeleteImageFromStorageAsync(fileName);
+                base.Delete(entity);
+
+                delete.GetAwaiter().GetResult();
+            }
+            else
+            {
+                base.Delete(entity);
+            }      
         }
     }
 }

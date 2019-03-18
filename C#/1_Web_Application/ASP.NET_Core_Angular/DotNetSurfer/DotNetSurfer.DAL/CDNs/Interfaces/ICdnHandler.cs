@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace DotNetSurfer.DAL.CDNs.Interfaces
 {
     public interface ICdnHandler
     {
-        Task<Uri> UploadImageToStorageAsync(byte[] binaryFile, string fileName);
+        Task<string> GetImageStorageBaseUrl();
+        Task<bool> UpsertImageToStorageAsync(byte[] binaryFile, string storedUrl);
         Task<bool> DeleteImageFromStorageAsync(string fileName);
     }
 }

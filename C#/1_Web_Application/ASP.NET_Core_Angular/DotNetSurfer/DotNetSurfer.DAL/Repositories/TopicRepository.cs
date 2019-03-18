@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetSurfer.DAL.CDNs.Interfaces;
@@ -46,31 +47,50 @@ namespace DotNetSurfer.DAL.Repositories
         public async Task<IEnumerable<Topic>> GetTopicsByUserIdAsync()
         {
             return await this._context.Topics
-                        .Include(t => t.User)
                         .AsNoTracking()
+                        .Select(t => new Topic
+                        {
+                            TopicId = t.TopicId,
+                            Title = t.Title,
+                            Description = t.Description,
+                            PictureUrl = t.PictureUrl,
+                            PostDate = t.PostDate,
+                            ShowFlag = t.ShowFlag
+                        })
                         .ToListAsync();
         }
 
         public async Task<IEnumerable<Topic>> GetTopicsByUserIdAsync(int userId)
         {
             return await this._context.Topics
-                    .Include(t => t.User)
                     .Where(a => a.UserId == userId)
                     .AsNoTracking()
+                    .Select(t => new Topic
+                    {
+                        TopicId = t.TopicId,
+                        Title = t.Title,
+                        Description = t.Description,
+                        PictureUrl = t.PictureUrl,
+                        PostDate = t.PostDate,
+                        ShowFlag = t.ShowFlag
+                    })
                     .ToListAsync();
         }
 
-        public async Task<object> GetSideHeaderMenusAsync()
+        public async Task<IEnumerable<Topic>> GetSideHeaderMenusAsync()
         {
             return await this._context.Topics
                     .Where(t => t.ShowFlag)
-                    .Select(t => new {
-                        Id = t.TopicId,
+                    .AsNoTracking()
+                    .Select(t => new Topic
+                    {
+                        TopicId = t.TopicId,
                         Title = t.Title,
-                        SideNodes = t.Articles
-                            .Where(a => a.ShowFlag)
-                            .Select(a => new {
-                                Id = a.ArticleId,
+                        Articles = t.Articles == null 
+                            ? null 
+                            : t.Articles.Select(a => new Article
+                            {
+                                ArticleId = a.ArticleId,
                                 Title = a.Title
                             })
                     }).ToListAsync();
@@ -80,31 +100,74 @@ namespace DotNetSurfer.DAL.Repositories
         {
             if (entity.Picture != null)
             {
-                base.Create(entity);
-                SaveAsync().Wait(); // Wait for generated Identity
-                var uri = this._cdnHandler.UploadImageToStorageAsync(entity.Picture, $"{nameof(Topic)}_{entity.TopicId}").Result;
-                entity.PictureUrl = uri?.AbsoluteUri;
-            }
+                string fileName = Guid.NewGuid().ToString();
+                Task upload = this._cdnHandler.UpsertImageToStorageAsync(entity.Picture, fileName);
 
-            base.Update(entity);
+                string imageUrl = this._cdnHandler.GetImageStorageBaseUrl().Result + fileName;
+                entity.Picture = null;
+                entity.PictureMimeType = null;
+                entity.PictureUrl = imageUrl;
+                base.Create(entity);
+
+                upload.GetAwaiter().GetResult();
+            }
+            else
+            {
+                base.Create(entity);
+            }
         }
 
         public override void Update(Topic entity)
         {
+            entity.ModifyDate = DateTime.Now;
+
             if (entity.Picture != null)
             {
-                var uri = this._cdnHandler.UploadImageToStorageAsync(entity.Picture, $"{nameof(Topic)}_{entity.TopicId}").Result;
-                entity.PictureUrl = uri?.AbsoluteUri;
-            }
+                string url = this._context.Topics
+                    .AsNoTracking()
+                    .First(t => t.TopicId == entity.TopicId)
+                    .PictureUrl;
+                string imageStorageBaseUrl = this._cdnHandler.GetImageStorageBaseUrl().Result;
+                string fileName = string.IsNullOrEmpty(url)
+                    ? Guid.NewGuid().ToString() // Create case
+                    : url.Replace(imageStorageBaseUrl, string.Empty); // Update upload case
 
-            base.Update(entity);
+
+                Task upload = this._cdnHandler.UpsertImageToStorageAsync(entity.Picture, fileName);
+                string imageUrl = imageStorageBaseUrl + fileName;
+                entity.Picture = null;
+                entity.PictureMimeType = null;
+                entity.PictureUrl = imageUrl;
+                base.Update(entity);
+
+                upload.GetAwaiter().GetResult();
+            }
+            else
+            {
+                base.Update(entity);
+            }
         }
 
         public override void Delete(Topic entity)
         {
-            this._cdnHandler.DeleteImageFromStorageAsync($"{nameof(Topic)}_{entity.TopicId}").Wait();
+            string url = this._context.Topics
+                .AsNoTracking()
+                .First(t => t.TopicId == entity.TopicId)
+                .PictureUrl;
+            if (!string.IsNullOrEmpty(url))
+            {
+                string imageStorageBaseUrl = this._cdnHandler.GetImageStorageBaseUrl().Result;
+                string fileName = url.Replace(imageStorageBaseUrl, string.Empty);
 
-            base.Delete(entity);
+                Task delete = this._cdnHandler.DeleteImageFromStorageAsync(fileName);
+                base.Delete(entity);
+
+                delete.GetAwaiter().GetResult();
+            }
+            else
+            {
+                base.Delete(entity);
+            }
         }
     }
 }

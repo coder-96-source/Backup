@@ -44,8 +44,6 @@ namespace DotNetSurfer.Web.Controllers
                     return Unauthorized();
                 }
 
-                topic.ModifyDate = DateTime.Now;
-
                 this._unitOfWork.TopicRepository.Update(topic.MapToEntity());
                 await this._unitOfWork.TopicRepository.SaveAsync();
             }
@@ -147,8 +145,6 @@ namespace DotNetSurfer.Web.Controllers
                     return Unauthorized();
                 }
 
-                article.ModifyDate = DateTime.Now;
-
                 this._unitOfWork.ArticleRepository.Update(article.MapToEntity());
                 await this._unitOfWork.ArticleRepository.SaveAsync();
             }
@@ -236,8 +232,6 @@ namespace DotNetSurfer.Web.Controllers
                 {
                     return Unauthorized();
                 }
-
-                announcement.ModifyDate = DateTime.Now;
 
                 this._unitOfWork.AnnouncementRepository.Update(announcement.MapToEntity());
                 await this._unitOfWork.AnnouncementRepository.SaveAsync();

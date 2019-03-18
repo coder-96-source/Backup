@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DotNetSurfer.DAL.CDNs.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Threading.Tasks;
 
-namespace DotNetSurfer.DAL.CDNs.Interfaces
+namespace DotNetSurfer.DAL.CDNs
 {
     public class AzureBlobHandler : ICdnHandler
     {
@@ -14,6 +15,7 @@ namespace DotNetSurfer.DAL.CDNs.Interfaces
 
         private readonly string _accountName;
         private readonly string _accountKey;
+        private readonly string _imageStorageBaseUrl;
 
         #region Constructors
         public AzureBlobHandler(string accountName, string accountKey)
@@ -26,11 +28,17 @@ namespace DotNetSurfer.DAL.CDNs.Interfaces
         {
             this._accountName = configuration["Blob:AccountName"];
             this._accountKey = configuration["Blob:AccountKey"];
+            this._imageStorageBaseUrl = $"{configuration["Blob:BaseUrl"]}{ContainerType.images.ToString()}/";
         }
         #endregion
 
         #region Public
-        public async Task<Uri> UploadImageToStorageAsync(byte[] binaryFile, string fileName)
+        public async Task<string> GetImageStorageBaseUrl()
+        {
+            return await Task.FromResult(this._imageStorageBaseUrl);
+        }
+
+        public async Task<bool> UpsertImageToStorageAsync(byte[] binaryFile, string fileName)
         {
             var blobContainer = GetBlobContainer(ContainerType.images);
             var blockBlob = blobContainer.GetBlockBlobReference(fileName);
@@ -41,7 +49,7 @@ namespace DotNetSurfer.DAL.CDNs.Interfaces
                 throw new AzureBlobFileUploadException();
             }
 
-            return blockBlob.Uri;
+            return await Task.FromResult(isSucess);
         }
 
         public async Task<bool> DeleteImageFromStorageAsync(string fileName)
@@ -52,7 +60,7 @@ namespace DotNetSurfer.DAL.CDNs.Interfaces
             bool isSucess = await DeleteFileFromStorageAsync(fileName, blockBlob);
             if (!isSucess)
             {
-                throw new AzureBlobFileUploadException();
+                throw new AzureBlobFileDeleteException();
             }
 
             return await Task.FromResult(isSucess);
@@ -78,9 +86,9 @@ namespace DotNetSurfer.DAL.CDNs.Interfaces
 
         private async Task<bool> DeleteFileFromStorageAsync(string fileName, CloudBlockBlob blockBlob)
         {
-            await blockBlob.DeleteIfExistsAsync();
+            bool isSuccess = await blockBlob.DeleteIfExistsAsync();
 
-            return await Task.FromResult(true);
+            return await Task.FromResult(isSuccess);
         }
         #endregion
 
@@ -99,6 +107,26 @@ namespace DotNetSurfer.DAL.CDNs.Interfaces
             }
 
             public AzureBlobFileUploadException(string message, Exception inner)
+                : base(message, inner)
+            {
+
+            }
+        }
+
+        private class AzureBlobFileDeleteException : Exception
+        {
+            public AzureBlobFileDeleteException()
+            {
+
+            }
+
+            public AzureBlobFileDeleteException(string message)
+                : base(message)
+            {
+
+            }
+
+            public AzureBlobFileDeleteException(string message, Exception inner)
                 : base(message, inner)
             {
 

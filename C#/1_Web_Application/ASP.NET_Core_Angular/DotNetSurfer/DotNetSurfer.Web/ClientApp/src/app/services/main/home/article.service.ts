@@ -48,7 +48,7 @@ export class ArticleService {
     }
   }
 
-  getArticle(articleId: any) {
-    return this.gatewayService.get(`api/articles/${articleId}`);
+  getArticleDetail(articleId: any) {
+    return this.gatewayService.get(`api/articles/detail/${articleId}`);
   }
 } 

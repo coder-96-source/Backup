@@ -12,6 +12,6 @@ namespace DotNetSurfer.DAL.Repositories.Interfaces
         Task<IEnumerable<Topic>> GetTopicsAsync();
         Task<IEnumerable<Topic>> GetTopicsByUserIdAsync();
         Task<IEnumerable<Topic>> GetTopicsByUserIdAsync(int userId);
-        Task<object> GetSideHeaderMenusAsync();
+        Task<IEnumerable<Topic>> GetSideHeaderMenusAsync();
     }
 }

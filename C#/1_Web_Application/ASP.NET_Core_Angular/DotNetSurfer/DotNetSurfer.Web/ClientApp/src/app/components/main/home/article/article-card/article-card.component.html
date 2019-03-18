@@ -37,7 +37,7 @@
                          alt="default-article">
                     <mat-card-content>
                         <h3 class="mat-subheading-1">{{article.title}}</h3>
-                        <span class="mat-body">{{article.content | plainText | slice:0:contentDisplayLength}}...</span>
+                        <span class="mat-body">{{article.content | slice:0:contentDisplayLength}}...</span>
                     </mat-card-content>
                     <mat-card-actions fxLayout="row" fxLayoutAlign="end">
                         <button mat-raised-button routerLink="/article/{{article.articleId}}">Learn More</button>

@@ -13,10 +13,14 @@ namespace DotNetSurfer.Web.Controllers
 {
     public class ArticlesController : BaseController
     {
+        private readonly int _tableContentLength; // plainText length to show
+        private readonly int _cardContentLength; // plainText length to show
+
         public ArticlesController(IUnitOfWork unitOfWork, ILogger<ArticlesController> logger) 
             : base(unitOfWork, logger)
         {
-
+            this._tableContentLength = 100;
+            this._cardContentLength = 50;
         }
 
         [HttpGet("{id}")]
@@ -33,6 +37,36 @@ namespace DotNetSurfer.Web.Controllers
 
                 var entityModel = await this._unitOfWork.ArticleRepository
                     .GetArticleAsync(id);
+
+                if (entityModel == null)
+                {
+                    return NotFound();
+                }
+
+                article = entityModel.MapToDomain();
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError(ex, nameof(GetArticle));
+            }
+
+            return Ok(article);
+        }
+
+        [HttpGet("detail/{id}")]
+        public async Task<ActionResult<Article>> GetArticleDetail([FromRoute]int id)
+        {
+            Article article = null;
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var entityModel = await this._unitOfWork.ArticleRepository
+                    .GetArticleDetailAsync(id);
 
                 if (entityModel == null)
                 {
@@ -69,9 +103,9 @@ namespace DotNetSurfer.Web.Controllers
 
                 var entityModels = IsAdministrator()
                     ? await this._unitOfWork
-                        .ArticleRepository.GetArticlesByUserIdAsync()
+                        .ArticleRepository.GetArticlesByUserIdAsync(this._tableContentLength)
                     : await this._unitOfWork
-                        .ArticleRepository.GetArticlesByUserIdAsync(userId); // Restrict by userId
+                        .ArticleRepository.GetArticlesByUserIdAsync(userId, this._tableContentLength); // Restrict by userId
 
                 articles = entityModels?.Select(a => a.MapToDomain());
             }
@@ -114,13 +148,13 @@ namespace DotNetSurfer.Web.Controllers
             {
                 var entityModels = await this._unitOfWork
                     .ArticleRepository
-                    .GetTopArticlesAsync(item);
+                    .GetTopArticlesAsync(item, this._cardContentLength);
 
                 articles = entityModels?.Select(a => a.MapToDomain());
             }
             catch (Exception ex)
             {
-                this._logger.LogError(ex, nameof(GetArticlesByPage));
+                this._logger.LogError(ex, nameof(GetTopArticles));
             }
 
             return articles;

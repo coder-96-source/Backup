@@ -36,7 +36,7 @@ export class ArticleDetailComponent implements OnInit {
   fetchArticle() {
     const id = this.route.snapshot.paramMap.get('id');
     this.commentPageId = '/article/' + id;
-    return this.articleService.getArticle(id);
+    return this.articleService.getArticleDetail(id);
   }
 
   initializeArticle() {

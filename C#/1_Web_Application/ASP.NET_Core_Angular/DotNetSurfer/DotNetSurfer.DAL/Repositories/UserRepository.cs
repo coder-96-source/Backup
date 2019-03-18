@@ -2,6 +2,8 @@
 using DotNetSurfer.DAL.Entities;
 using DotNetSurfer.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DotNetSurfer.DAL.Repositories
@@ -50,33 +52,58 @@ namespace DotNetSurfer.DAL.Repositories
 
         public override void Create(User entity)
         {
-            if (entity.Picture != null)
-            {
-                base.Create(entity);
-                SaveAsync().Wait(); // Wait for generated Identity
-                var uri = this._cdnHandler.UploadImageToStorageAsync(entity.Picture, $"{nameof(User)}_{entity.UserId}").Result;
-                entity.PictureUrl = uri?.AbsoluteUri;
-            }
-
-            base.Update(entity);
+            base.Create(entity);
         }
 
         public override void Update(User entity)
         {
             if (entity.Picture != null)
             {
-                var uri = this._cdnHandler.UploadImageToStorageAsync(entity.Picture, $"{nameof(User)}_{entity.UserId}").Result;
-                entity.PictureUrl = uri?.AbsoluteUri;
-            }
+                string url = this._context.Users
+                    .AsNoTracking()
+                    .First(u => u.UserId == entity.UserId)
+                    .PictureUrl;
+                string imageStorageBaseUrl = this._cdnHandler.GetImageStorageBaseUrl().Result;
+                string fileName = string.IsNullOrEmpty(url)
+                    ? Guid.NewGuid().ToString() // Create case
+                    : url.Replace(imageStorageBaseUrl, string.Empty); // Update upload case
 
-            base.Update(entity);
+
+                Task upload = this._cdnHandler.UpsertImageToStorageAsync(entity.Picture, fileName);
+                string imageUrl = imageStorageBaseUrl + fileName;
+                entity.Picture = null;
+                entity.PictureMimeType = null;
+                entity.PictureUrl = imageUrl;
+                base.Update(entity);
+
+                upload.GetAwaiter().GetResult();
+            }
+            else
+            {
+                base.Update(entity);
+            }
         }
 
         public override void Delete(User entity)
         {
-            this._cdnHandler.DeleteImageFromStorageAsync($"{nameof(User)}_{entity.UserId}").Wait();
+            string url = this._context.Users
+                .AsNoTracking()
+                .First(u => u.UserId == entity.UserId)
+                .PictureUrl;
+            if (!string.IsNullOrEmpty(url))
+            {
+                string imageStorageBaseUrl = this._cdnHandler.GetImageStorageBaseUrl().Result;
+                string fileName = url.Replace(imageStorageBaseUrl, string.Empty);
 
-            base.Delete(entity);
+                Task delete = this._cdnHandler.DeleteImageFromStorageAsync(fileName);
+                base.Delete(entity);
+
+                delete.GetAwaiter().GetResult();
+            }
+            else
+            {
+                base.Delete(entity);
+            }
         }
     }
 }

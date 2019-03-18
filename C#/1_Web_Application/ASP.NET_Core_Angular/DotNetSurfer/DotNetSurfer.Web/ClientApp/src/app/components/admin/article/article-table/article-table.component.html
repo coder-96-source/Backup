@@ -31,7 +31,7 @@
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="picture">
+            <ng-container matColumnDef="pictureUrl">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Picture </mat-header-cell>
                 <mat-cell *matCellDef="let article">
                     <mat-icon>{{article.pictureUrl == null ? 'check_box_outline_blank' : 'check_box'}}</mat-icon>
@@ -45,7 +45,7 @@
 
             <ng-container matColumnDef="content">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Content </mat-header-cell>
-                <mat-cell *matCellDef="let article"> {{article.content | plainText | slice:0:contentDisplayLength}}... </mat-cell>
+                <mat-cell *matCellDef="let article"> {{article.content | slice:0:contentDisplayLength}}... </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="action">

@@ -16,7 +16,7 @@ export class ArticleTableComponent implements OnInit {
   private readonly title = 'Article';
   private readonly contentDisplayLength = 100; // Content string length to show
   private readonly displayedColumns = ['articleId', 'postDate',
-    'showFlag', 'picture', 'title', 'content', 'action'];
+    'showFlag', 'pictureUrl', 'title', 'content', 'action'];
   private isLoaded = false;
   private dataSource?: MatTableDataSource<Article>;
 

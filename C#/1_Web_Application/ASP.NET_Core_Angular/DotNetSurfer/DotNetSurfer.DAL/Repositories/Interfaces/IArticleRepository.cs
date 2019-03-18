@@ -8,10 +8,11 @@ namespace DotNetSurfer.DAL.Repositories.Interfaces
     {
         Task<bool> IsArticleExistAsync(int id);
         Task<Article> GetArticleAsync(int id);
-        Task<IEnumerable<Article>> GetArticlesByUserIdAsync();
-        Task<IEnumerable<Article>> GetArticlesByUserIdAsync(int userId);
+        Task<Article> GetArticleDetailAsync(int id);
+        Task<IEnumerable<Article>> GetArticlesByUserIdAsync(int contentLength);
+        Task<IEnumerable<Article>> GetArticlesByUserIdAsync(int userId, int contentLength);
         Task<IEnumerable<Article>> GetArticlesByPageAsync(int pageId, int itemPerPage);
-        Task<IEnumerable<Article>> GetTopArticlesAsync(int item);
+        Task<IEnumerable<Article>> GetTopArticlesAsync(int item, int contentLength);
         Task IncreaseArticleReadCountAsync(int id);
     }
 }
