@@ -7,34 +7,83 @@
       </div>
     </div>
   </header>
+  <div class="contact-content-container">
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+      <div class="contact-profile-content" fxFlex="35">
+        <mat-card>
+          <div class="contact-profile-image">
+            <img src="/assets/Images/contact/jason_kim.jpg" alt="Jason Kim">
+          </div>
+          <div class="contact-profile-content">
+            <div class="contact-name mat-h2">
+              Jason Kim
+            </div>
+            <div class="contact-profile-title mat-h3">
+              Software Developer
+            </div>
+            <div class="contact-profile-location mat-h5">
+              Irvine, CA
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div fxFlex="5"><span class="flex-spacer"></span></div>
+      <div class="contact-career-content" fxFlex="65">
+        <mat-accordion>
+          <mat-expansion-panel expanded="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="contact-career-title mat-h1">
+                Experience
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let experience of experiences">
+                <div class="contact-career-image">
+                  <img *ngIf="experience.imageUrl"
+                       src="{{experience.imageUrl}}">
+                  <img *ngIf="!experience.imageUrl"
+                       src="/assets/Images/default/default-experience.png"
+                       alt="default-experience">
+                </div>
+                <h4 mat-line>{{experience.title}}</h4>
+                <h3 mat-line>{{experience.name}}</h3>
+                <p class="contact-career-date" mat-line>
+                  <span>{{experience.fromDate | date:'MMM yyyy'}} - </span>
+                  <span *ngIf="experience.toDate">{{experience.toDate | date:'MMM yyyy'}}</span>
+                  <span *ngIf="!experience.toDate">Present</span>
+                </p>
+                <p class="contact-career-location" mat-line> {{experience.location}}</p>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
 
-  <div class="contact-contents" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
-    <div class="contact-information" fxFlex="50">
-      <div class="contact-image">
-        <img src="/assets/Images/contact/jason_kim.jpg"
-             alt="Jason Kim">
-      </div>
-      <div class="contact-profile">
-        <div class="profile-name mat-h1">
-          Jason Kim
-        </div>
-        <div class="profile-title mat-h3">
-          Software Developer
-        </div>
-        <div class="profile-address mat-h5">
-          Irvine, CA
-        </div>
-      </div>
-    </div>
-    <div class="contact-introduction" fxFlex="50">
-      <h2 class="mat-h2">Hi all! My name is Jason Kim and I am a .NET developer in Orange County, California Area.</h2>
-      <h2 class="mat-h2">For more information about my career, please check my LinkedIn via the link below!</h2>
-      <h2 class="mat-h2">Mainly studying computer science using .NET Framework and currently working on Angular 2+ as well.</h2>
-      <h2 class="mat-h2">With this blog, I am continously exploring the depths of computer science, sharing my most exiting findings here with you!</h2>
-      <div class="contact-introduction-hobbies">
-        <h4 class="mat-subheading-1"><b>Objective: </b>To be a fullstack developer and respected senior developer, not to be lazy.</h4>
-        <h4 class="mat-subheading-1"><b>Favorite Book: </b>Effective C#</h4>
-        <h4 class="mat-subheading-1"><b>Favorite Activity: </b>Boardsports such as skateboarding, snowboarding and surfing.</h4>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title class="contact-career-title mat-h1">
+                Education
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let education of educations">
+                <div class="contact-career-image">
+                  <img *ngIf="education.imageUrl"
+                       src="{{education.imageUrl}}">
+                  <img *ngIf="!education.imageUrl"
+                       src="/assets/Images/default/default-education.png"
+                       alt="default-education">
+                </div>
+                <h4 mat-line>{{education.name}}</h4>
+                <h3 mat-line>{{education.title}}</h3>
+                <p class="contact-career-date" mat-line>
+                  <span>{{education.fromDate | date:'MMM yyyy'}} - </span>
+                  <span *ngIf="education.toDate">{{education.toDate | date:'MMM yyyy'}}</span>
+                  <span *ngIf="!education.toDate">Present</span>
+                </p>
+                <span mat-line></span>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
     </div>
   </div>

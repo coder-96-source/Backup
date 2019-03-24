@@ -68,4 +68,8 @@ $about-row-margin-mobile: 15px 0px;
     .about-row {
         margin: $about-row-margin-mobile;
     }
+
+    .about-promo-img > img {
+      margin-top: 50px;
+    }
 }
