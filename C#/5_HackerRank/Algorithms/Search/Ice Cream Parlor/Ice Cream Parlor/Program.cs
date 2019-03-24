@@ -1,42 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ice_Cream_Parlor
 {
-    class Program
+    internal class Program
     {
-        static int[] icecreamParlor(int m, int[] arr)
+        private static void whatFlavors(int[] cost, int money)
         {
-            int[] result = new int[2];
-            for (int i = 0; i < arr.Length - 1; i++)
+            var iceCreamMenu = new Dictionary<int, int>(); // Key: cost, Value: index
+
+            for (int i = 0; i < cost.Length; i++)
             {
-                for (int j = i + 1; j < arr.Length; j++)
+                if (cost[i] >= money)
+                    continue;
+
+                if (iceCreamMenu.ContainsKey(cost[i]))
                 {
-                    int total = arr[i] + arr[j];
-                    if (total == m)
+                    if (cost[i] * 2 == money)
                     {
-                        result[0] = i + 1; // to match with starting number n
-                        result[1] = j + 1; // to match with starting number n
+                        // Print previous and current index
+                        Console.WriteLine($"{iceCreamMenu[cost[i]] + 1} {i + 1}");
+                        return;
                     }
                 }
+                else
+                {
+                    int change = money - cost[i];
+                    if (iceCreamMenu.ContainsKey(change))
+                    {
+                        // Print pair of index
+                        Console.WriteLine($"{iceCreamMenu[change] + 1} {i + 1}");
+                        return;
+                    }
+
+                    iceCreamMenu.Add(cost[i], i);
+                }
             }
-            return result;
         }
 
-        static void Main(String[] args)
+        private static void Main(string[] args)
         {
             int t = Convert.ToInt32(Console.ReadLine());
-            for (int a0 = 0; a0 < t; a0++)
+
+            for (int tItr = 0; tItr < t; tItr++)
             {
-                int m = Convert.ToInt32(Console.ReadLine());
+                int money = Convert.ToInt32(Console.ReadLine());
                 int n = Convert.ToInt32(Console.ReadLine());
-                string[] arr_temp = Console.ReadLine().Split(' ');
-                int[] arr = Array.ConvertAll(arr_temp, Int32.Parse);
-                int[] result = icecreamParlor(m, arr);
-                Console.WriteLine(String.Join(" ", result));
+                int[] cost = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), costTemp => Convert.ToInt32(costTemp));
+
+                whatFlavors(cost, money);
             }
         }
     }
