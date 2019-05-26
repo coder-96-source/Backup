@@ -49,6 +49,9 @@
 * [Strategy](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/4_Design_Pattern/PG5_DP_Strategy)
 * [Template Method](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/4_Design_Pattern/PG5_DP_TemplMethod/Lab56)
 * [Visitor](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/4_Design_Pattern/PG5_DP_Visitor/Lab52)
+* [Null Object](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/4_Design_Pattern/PG5_DP_NullObject/Lab73)
+* [Object Pool](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/4_Design_Pattern/PG5_DP_ObjectPool/Lab74)
+* [State](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/4_Design_Pattern/PG5_DP_State/Lab75)
 
 ### Hacker Rank
 
