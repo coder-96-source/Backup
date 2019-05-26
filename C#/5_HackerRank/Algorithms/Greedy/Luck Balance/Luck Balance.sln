@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ice Cream Parlor", "Ice Cream Parlor\Ice Cream Parlor.csproj", "{CE656670-AE77-428B-99DA-83F1F1AE20FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luck Balance", "Luck Balance\Luck Balance.csproj", "{E0E83A07-8603-4425-A7FC-F91C49F8F028}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CE656670-AE77-428B-99DA-83F1F1AE20FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE656670-AE77-428B-99DA-83F1F1AE20FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE656670-AE77-428B-99DA-83F1F1AE20FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE656670-AE77-428B-99DA-83F1F1AE20FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0E83A07-8603-4425-A7FC-F91C49F8F028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E83A07-8603-4425-A7FC-F91C49F8F028}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0E83A07-8603-4425-A7FC-F91C49F8F028}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0E83A07-8603-4425-A7FC-F91C49F8F028}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C1320917-71DC-48D1-B81E-805AD2B7B494}
+		SolutionGuid = {9BB82470-4E8E-4C38-ABA2-53BEFF6D8AB3}
 	EndGlobalSection
 EndGlobal
