@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { fadeInAnimation } from '../../../../../animations/animations';
 import { Article } from '../../../../../models/article';
 import { ArticleService } from '../../../../../services/main/home/article.service';
@@ -26,10 +27,11 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.events.subscribe(res => { // When another article selected
-      this.isLoaded = false;
-      this.initializeArticle();
-    });
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(res => { // When another article selected
+        this.isLoaded = false;
+        this.initializeArticle();
+      });
     this.initializeArticle();
   }
 
@@ -45,7 +47,7 @@ export class ArticleDetailComponent implements OnInit {
       this.isLoaded = true;
     },
       error => {
-
+        this.snackbarService.openSnackBar('Failed to load your article. Please try it again', SnackbarAction.Error);
       });
   }
 }
