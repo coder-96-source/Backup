@@ -2,10 +2,7 @@
 
 ## C#
 
-### Web Application
 
-* [.NETSurfer](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/1_Web_Application/ASP.NET_Core_Angular/DotNetSurfer) - An ASP.NET Core 2.1 & Angular 6 based blog type web application.
-* [MyArticles](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/1_Web_Application/ASP.NET_MVC/PG4_Web_MyArticles/Lab43) - A basic ASP.NET MVC 5 based blog type web application.
 ### Data Structure
 
 * [Singly Linked List](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/2_Data_Structure/PG4_SinglyLinkedList)
@@ -49,12 +46,3 @@
 * [Strategy](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/4_Design_Pattern/PG5_DP_Strategy)
 * [Template Method](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/4_Design_Pattern/PG5_DP_TemplMethod/Lab56)
 * [Visitor](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/4_Design_Pattern/PG5_DP_Visitor/Lab52)
-
-### Hacker Rank
-
-* [Array](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Array)
-* [Dictionaries and Hashmaps](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Dictionaries%20and%20Hashmaps)
-* [Dynamic Programming](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Dynamic%20Programming)
-* [Sorting](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Sorting)
-* [Stacks and Queues](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/Stacks%20and%20Queues)
-* [String Manipulation](https://github.com/kims07231992/JasonPrivateStudy/tree/master/C%23/5_HackerRank/Algorithms/String%20Manipulation)
