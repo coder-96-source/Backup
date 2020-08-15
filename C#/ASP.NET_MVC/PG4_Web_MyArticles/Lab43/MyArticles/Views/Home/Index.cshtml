@@ -1,0 +1,63 @@
+﻿@model MyArticles.Models.TopicVM
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="text-center">
+    <div class="jumbotron hidden-xs text-left">
+        <h1>My Articles</h1>
+        <p class="lead">My Articles is a blog type website using ASP.NET MVC 5.</p>
+    </div>
+
+    <div class="container">
+        <h3>Topic</h3>
+        <p><em>We love studying!</em></p>
+        <br>
+        @foreach (var item in Model.Topics)
+        {
+            string imageSize = "255";
+
+            <figure class="hidden-xs col-md-4 well">
+                <p><b>@item.Name</b></p>
+                <a href="@Url.Action("Index", "Article", new { id = item.TopicId })">
+                    @if (item.Picture == null)
+                {
+                        <img class="img-circle" width=@imageSize height=@imageSize>
+                    }
+                    else
+                    {
+                        <img class="img-circle" width=@imageSize height=@imageSize
+                             src="@Url.Action("GetImage", new { id = item.TopicId })" />
+                    }
+                </a>
+            </figure>
+
+            <div class="panel-group visible-xs col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#@item.TopicId">@item.Name</a>
+                        </h4>
+                    </div>
+
+                    <div id="@item.TopicId" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <a href="@Url.Action("Index", "Article", new { id = item.TopicId })">
+                                <p>
+                                    Learn more...
+                                    <span class="badge">@item.Articles.Count()</span>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="btn-group">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+    </div>
+</div>
